@@ -12,7 +12,7 @@
             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.vasvari.gradebook.controllers.contentarea.PaneB">
     <top>
-        <Label prefHeight="106.0" prefWidth="1131.0" text="Menu B" BorderPane.alignment="TOP_LEFT">
+        <Label prefHeight="106.0" prefWidth="1131.0" text="Tantárgyak" BorderPane.alignment="TOP_LEFT">
             <padding>
                 <Insets left="30.0"/>
             </padding>

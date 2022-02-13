@@ -86,7 +86,7 @@
                                         </ImageView>
                                         <Button id="menuAButton" fx:id="menuAButton" mnemonicParsing="false"
                                                 onAction="#menuButtonClicked" prefHeight="40.0" prefWidth="157.0"
-                                                text="Menu A" GridPane.rowIndex="1">
+                                                text="Tanulók" GridPane.rowIndex="1">
                                             <font>
                                                 <Font size="16.0"/>
                                             </font>
@@ -99,7 +99,7 @@
                                         </Label>
                                         <Button id="menuBButton" fx:id="menuBButton" mnemonicParsing="false"
                                                 onAction="#menuButtonClicked" prefHeight="40.0" prefWidth="157.0"
-                                                text="Menu B" GridPane.rowIndex="2">
+                                                text="Tantárgyak" GridPane.rowIndex="2">
                                             <font>
                                                 <Font size="16.0"/>
                                             </font>
