@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="menuDContentArea" prefHeight="768.0" prefWidth="1107.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vasvari.gradebook.controllers.contentarea.PaneD">
+    <top>
+        <Label prefHeight="106.0" prefWidth="1131.0" text="Menu D" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets left="30.0" />
+            </padding>
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+    </top>
+    <center>
+        <TableView prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn prefWidth="93.0" text="C1" />
+                <TableColumn prefWidth="141.0" text="C2" />
+                <TableColumn maxWidth="371.0" prefWidth="371.0" text="C2" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="47.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="153.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <ComboBox prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <ComboBox prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                <ComboBox prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                <ComboBox prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                <Label prefHeight="17.0" prefWidth="100.0" text="Label" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Label" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Label" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Label" GridPane.rowIndex="4">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="30.0" />
+                    </GridPane.margin>
+                </Button>
+                <Label alignment="CENTER" prefHeight="37.0" prefWidth="440.0" text="Filters" GridPane.columnSpan="2147483647">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets left="20.0" right="20.0" />
+            </BorderPane.margin>
+        </GridPane>
+    </right>
+</BorderPane>
