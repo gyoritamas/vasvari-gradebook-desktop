@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.vasvari.gradebook.JavaFxApplication;
 import org.vasvari.gradebook.controllers.LoginController;
-import org.vasvari.gradebook.helpers.RegistrationRequest;
-import org.vasvari.gradebook.service.RegistrationService;
 
 import java.io.IOException;
 
@@ -18,40 +16,40 @@ import java.io.IOException;
 @FxmlView("../view/fxml/registration.fxml")
 public class RegistrationController {
 
-    private final RegistrationService registrationService;
-
-    @FXML
-    private TextField username;
-
-    @FXML
-    private TextField password;
-
-    @FXML
-    private TextField email;
-
-    @FXML
-    private Label resultLabel;
-
-    @Autowired
-    public RegistrationController(RegistrationService registrationService) {
-        this.registrationService = registrationService;
-    }
-
-    public void register(ActionEvent actionEvent) {
-        String usernameInput = username.getText();
-        String passwordInput = password.getText();
-        String emailInput = email.getText();
-
-        RegistrationRequest request = new RegistrationRequest(usernameInput, passwordInput, emailInput);
-
-        resultLabel.setText(registerResult(request));
-    }
-
-    private String registerResult(RegistrationRequest request) {
-        return registrationService.register(request);
-    }
-
-    public void loadLogin(ActionEvent actionEvent) throws IOException {
-        JavaFxApplication.setRoot(LoginController.class);
-    }
+//    private final RegistrationService registrationService;
+//
+//    @FXML
+//    private TextField username;
+//
+//    @FXML
+//    private TextField password;
+//
+//    @FXML
+//    private TextField email;
+//
+//    @FXML
+//    private Label resultLabel;
+//
+//    @Autowired
+//    public RegistrationController(RegistrationService registrationService) {
+//        this.registrationService = registrationService;
+//    }
+//
+//    public void register(ActionEvent actionEvent) {
+//        String usernameInput = username.getText();
+//        String passwordInput = password.getText();
+//        String emailInput = email.getText();
+//
+//        RegistrationRequest request = new RegistrationRequest(usernameInput, passwordInput, emailInput);
+//
+//        resultLabel.setText(registerResult(request));
+//    }
+//
+//    private String registerResult(RegistrationRequest request) {
+//        return registrationService.register(request);
+//    }
+//
+//    public void loadLogin(ActionEvent actionEvent) throws IOException {
+//        JavaFxApplication.setRoot(LoginController.class);
+//    }
 }

@@ -15,6 +15,7 @@ import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.service.StudentService;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -84,15 +85,16 @@ public class PaneA implements Initializable {
 
     public void addStudent(ActionEvent actionEvent) {
         StudentDto student = new StudentDto(
+                1L,
                 "FIRSTNAME",
                 "LASTNAME",
                 10,
                 "test@example.org",
                 "EXAMPLE ADDRESS",
                 "+12345678",
-                "2000-01-01");
+                LocalDate.of(2000,1,1));
 
-        studentService.save(student);
+        studentService.saveStudent(student);
         refreshTableView();
     }
 }

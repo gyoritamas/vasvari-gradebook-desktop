@@ -23,7 +23,7 @@
     </top>
 
     <center>
-        <TableView fx:id="classesTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="subjectsTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
             <columns>
                 <TableColumn fx:id="nameColumn" text="név"/>
             </columns>

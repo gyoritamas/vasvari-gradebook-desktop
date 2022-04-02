@@ -1,69 +1,77 @@
 package org.vasvari.gradebook.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.vasvari.gradebook.model.User;
-import org.vasvari.gradebook.helpers.PasswordEncoder;
-import org.vasvari.gradebook.model.UserRole;
-import org.vasvari.gradebook.repository.UserRepository;
+import org.vasvari.gradebook.dto.UserDto;
+import org.vasvari.gradebook.dto.dataTypes.InitialCredentials;
+import org.vasvari.gradebook.dto.dataTypes.UsernameInput;
+import org.vasvari.gradebook.model.request.PasswordChangeRequest;
+import org.vasvari.gradebook.model.request.UserRequest;
+import org.vasvari.gradebook.service.gateway.UserGateway;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@AllArgsConstructor
-public class UserService implements UserDetailsService {
+@RequiredArgsConstructor
+public class UserService {
 
-    private final static String USER_NOT_FOUND_MESSAGE =
-            "User with name %s not found";
-    private final static String USER_ALREADY_EXISTS_MESSAGE =
-            "User with name %s already exists";
-    private final UserRepository userRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final UserGateway gateway;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username).orElse(null);
-                //.orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MESSAGE, username)));
+    public UserDto findUserById(Long id) {
+        return gateway.findUserById(id);
     }
 
-    public boolean isPasswordCorrect(UserDetails userDetails, String passwordToCheck) {
-        String correctPassword = userDetails.getPassword();
-
-        return passwordEncoder.matches(correctPassword, passwordToCheck);
+    public List<UserDto> findAllUsers() {
+        return new ArrayList<>(gateway.findAllUsers());
     }
 
-    private boolean hasAuthority(UserDetails userDetails, UserRole userRole) {
-        String userRoleName = userRole.name();
-
-        return userDetails.getAuthorities().contains(new SimpleGrantedAuthority(userRoleName));
+    public List<UserDto> searchUsers(UserRequest request) {
+        return new ArrayList<>(gateway.searchUsers(request));
     }
 
-    public UserRole getUserRole(UserDetails userDetails) {
-        for (UserRole ur : UserRole.values()) {
-            if (hasAuthority(userDetails, ur)) {
-                return ur;
-            }
-        }
-        throw new IllegalStateException("Unknown user role");
+    public Optional<UserDto> findStudentUser(Long studentId) {
+        return gateway.findStudentUser(studentId);
     }
 
-    public String registerUser(User user) {
-        String username = user.getUsername();
-        boolean userExists = userRepo.findByUsername(username).isPresent();
+    public Optional<UserDto> findTeacherUser(Long teacherId) {
+        return gateway.findTeacherUser(teacherId);
+    }
 
-        if (userExists)
-            throw new IllegalStateException(String.format(USER_ALREADY_EXISTS_MESSAGE, username));
+    public void saveUser(UserDto user) {
+        gateway.saveUser(user);
+    }
 
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
+    public void updateUser(Long id, UserDto update) {
+        gateway.updateUser(id, update);
+    }
 
-        user.setPassword(encodedPassword);
+    public boolean changePassword(PasswordChangeRequest passwordChangeRequest) {
+        return gateway.changePassword(passwordChangeRequest);
+    }
 
-        userRepo.save(user);
+    public void enableUser(Long userId) {
+        gateway.enableUser(userId);
+    }
 
-        return "it works";
+    public void disableUser(Long userId) {
+        gateway.disableUser(userId);
+    }
+
+    public InitialCredentials createStudentUser(Long studentId) {
+        return gateway.createStudentUser(studentId);
+    }
+
+    public InitialCredentials createTeacherUser(Long teacherId) {
+        return gateway.createTeacherUser(teacherId);
+    }
+
+    public InitialCredentials createAdminUser(UsernameInput username) {
+        return gateway.createAdminUser(username);
+    }
+
+    public void deleteUser(Long id) {
+        gateway.deleteUser(id);
     }
 }

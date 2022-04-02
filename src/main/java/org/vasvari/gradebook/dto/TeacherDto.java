@@ -1,12 +1,11 @@
 package org.vasvari.gradebook.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.hateoas.server.core.Relation;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -15,30 +14,28 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class StudentDto {
+@Builder
+@EqualsAndHashCode
+@Relation(collectionRelation = "teachers", itemRelation = "teacher")
+public class TeacherDto {
     private Long id;
 
-    @Size(min = 2, message = "A keresztnév legalább 2 karakter hosszú kell legyen")
+    @Size(min = 2, message = "Firstname must be at least 2 characters long")
     private String firstname;
 
-    @Size(min = 2, message = "A vezetéknév legalább 2 karakter hosszú kell legyen")
+    @Size(min = 2, message = "Lastname must be at least 2 characters long")
     private String lastname;
 
-    @NotNull(message = "Az évfolyam nem lehet üres")
-    @Min(value = 1, message = "Az évfolyam 1-12 érték kell legyen")
-    @Max(value = 12, message = "Az évfolyam 1-12 érték kell legyen")
-    private Integer gradeLevel;
-
-    @NotBlank(message = "Az email mező nem lehet üres")
-    @Email(message = "Az email formátuma hibás")
+    @NotBlank(message = "Email field cannot be empty")
+    @Email(message = "Email must be a valid email address")
     private String email;
 
-    @NotBlank(message = "A cím mező nem lehet üres")
+    @NotBlank(message = "Address field cannot be empty")
     private String address;
 
-    @NotBlank(message = "A telefonszám nem lehet üres")
+    @NotBlank(message = "Phone field cannot be empty")
     @Pattern(regexp = "^\\+?[\\d \\-()]{7,}",
-            message = "A telefonszám formátuma hibás")
+            message = "Phone must be a valid phone number")
     private String phone;
 
     @NotNull(message = "A születési dátum nem lehet üres")
@@ -47,7 +44,9 @@ public class StudentDto {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthdate;
 
+    @JsonIgnore
     public String getName() {
         return lastname + " " + firstname;
     }
+
 }

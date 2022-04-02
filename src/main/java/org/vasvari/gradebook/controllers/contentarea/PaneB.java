@@ -11,9 +11,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.vasvari.gradebook.dto.ClassInput;
-import org.vasvari.gradebook.dto.ClassOutput;
-import org.vasvari.gradebook.service.ClassService;
+import org.vasvari.gradebook.dto.SubjectInput;
+import org.vasvari.gradebook.dto.SubjectOutput;
+import org.vasvari.gradebook.service.SubjectService;
 
 import java.net.URL;
 import java.util.List;
@@ -23,49 +23,53 @@ import java.util.stream.Collectors;
 @FxmlView("view/fxml/contentarea/paneB.fxml")
 @Component
 public class PaneB implements Initializable {
-    private final ClassService classService;
+    private final SubjectService subjectService;
 
     @Autowired
-    public PaneB(ClassService classService) {
-        this.classService = classService;
+    public PaneB(SubjectService subjectService) {
+        this.subjectService = subjectService;
     }
 
     @FXML
-    private TableView<ClassOutput> classesTableView;
+    private TableView<SubjectOutput> subjectsTableView;
     @FXML
-    public TableColumn<ClassOutput, String> nameColumn;
+    public TableColumn<SubjectOutput, String> nameColumn;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<ClassOutput> data = getClasses();
+        ObservableList<SubjectOutput> data = getClasses();
         setTableColumns();
-        classesTableView.setItems(data);
+        subjectsTableView.setItems(data);
     }
 
     private void setTableColumns() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("course"));
     }
 
-    private ObservableList<ClassOutput> getClasses() {
-        List<ClassOutput> classes = classService.findAllClasses().stream()
-                .map(clazz -> new ClassOutput(
-                        clazz.getId(),
-                        clazz.getCourse(),
-                        clazz.getStudents()))
+    private ObservableList<SubjectOutput> getClasses() {
+        List<SubjectOutput> classes = subjectService.findAllSubjects().stream()
+                .map(subject -> new SubjectOutput(
+                        subject.getId(),
+                        subject.getName(),
+                        subject.getTeacher(),
+                        subject.getStudents()))
                 .collect(Collectors.toList());
         return FXCollections.observableArrayList(classes);
     }
 
     public void refreshTableView() {
-        classesTableView.getItems().clear();
-        classesTableView.setItems(getClasses());
+        subjectsTableView.getItems().clear();
+        subjectsTableView.setItems(getClasses());
     }
 
     public void addClass(ActionEvent actionEvent) {
-        ClassInput classInput = new ClassInput("TEST CLASS");
+        SubjectInput subject = SubjectInput.builder()
+                .name("test subject")
+                .teacherId(1L)
+                .build();
 
-        classService.save(classInput);
+        subjectService.saveSubject(subject);
         refreshTableView();
     }
 }

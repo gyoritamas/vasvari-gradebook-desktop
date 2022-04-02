@@ -8,11 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.JavaFxApplication;
-import org.vasvari.gradebook.service.LoginService;
-import org.vasvari.gradebook.service.UserService;
+import org.vasvari.gradebook.service.gateway.LoginGateway;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,17 +23,20 @@ import static org.vasvari.gradebook.JavaFxApplication.getMainScene;
 @Component
 @FxmlView("../view/fxml/main.fxml")
 public class MainController implements Initializable {
-    private final LoginService loginService;
+    private final LoginGateway loginService;
+    private final UserUtil userUtil;
+
+    @Autowired
+    public MainController(LoginGateway loginService, UserUtil userUtil) {
+        this.loginService = loginService;
+        this.userUtil = userUtil;
+    }
 
     @FXML
     public Label userLabel;
 
-    @Autowired
-    public MainController(LoginService loginService) {
-        this.loginService = loginService;
-    }
-
     public void logout(ActionEvent actionEvent) throws IOException {
+        loginService.logout();
         JavaFxApplication.setRoot(LoginController.class);
     }
 
@@ -96,9 +98,10 @@ public class MainController implements Initializable {
     }
 
     private String getUserName() {
-        if (loginService.getActiveUser().isPresent())
-            return loginService.getActiveUser().get().getUsername();
-
-        return "Nincs bejelentkezve";
+        return userUtil.username();
+//        if (loginService.getActiveUser().isPresent())
+//            return loginService.getActiveUser().get().getUsername();
+//
+//        return "Nincs bejelentkezve";
     }
 }
