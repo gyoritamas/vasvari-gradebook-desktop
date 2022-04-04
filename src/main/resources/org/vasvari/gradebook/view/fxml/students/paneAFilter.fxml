@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vasvari.gradebook.controllers.contentarea.PaneA">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vasvari.gradebook.controllers.students.PaneA">
 
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="47.0"/>

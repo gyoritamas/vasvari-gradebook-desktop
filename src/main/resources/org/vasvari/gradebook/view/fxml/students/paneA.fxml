@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="menuAContentArea" prefHeight="768.0" prefWidth="1107.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.vasvari.gradebook.controllers.students.PaneA">
+    <top>
+        <Label prefHeight="106.0" prefWidth="1131.0" text="Tanulók" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets left="30.0"/>
+            </padding>
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+    </top>
+    <center>
+        <TableView fx:id="studentsTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="20.0" text="#"/>
+                <TableColumn fx:id="nameColumn" prefWidth="93.0" text="név"/>
+                <TableColumn fx:id="gradeLevelColumn" prefWidth="93.0" text="évfolyam"/>
+                <TableColumn fx:id="emailColumn" maxWidth="200.0" prefWidth="200.0" text="email"/>
+                <TableColumn fx:id="addressColumn" maxWidth="200.0" prefWidth="200.0" text="cím"/>
+                <TableColumn fx:id="phoneColumn" maxWidth="150.0" prefWidth="150.0" text="telefon"/>
+                <TableColumn fx:id="dateOfBirthColumn" prefWidth="141.0" text="szül.dátum"/>
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <TabPane>
+            <tabs>
+                <Tab closable="false" text="Keresés">
+                    <fx:include source="paneAFilter.fxml"/>
+                </Tab>
+                <Tab closable="false" text="Szerkesztés">
+                    <fx:include fx:id="studentForm" source="studentForm.fxml"/>
+                </Tab>
+            </tabs>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </TabPane>
+    </right>
+</BorderPane>
