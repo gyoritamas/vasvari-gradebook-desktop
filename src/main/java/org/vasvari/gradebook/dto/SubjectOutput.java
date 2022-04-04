@@ -1,9 +1,6 @@
 package org.vasvari.gradebook.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.vasvari.gradebook.dto.dataTypes.SimpleData;
 import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 
@@ -13,10 +10,15 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class SubjectOutput {
     private Long id;
     private String name;
     private SimpleTeacher teacher;
     private List<SimpleData> students;
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

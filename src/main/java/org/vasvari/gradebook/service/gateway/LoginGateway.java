@@ -3,10 +3,13 @@ package org.vasvari.gradebook.service.gateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.vasvari.gradebook.dto.LoginRequest;
 import org.vasvari.gradebook.dto.LoginResponse;
 import org.vasvari.gradebook.jwt.TokenRepository;
+
+import java.io.IOException;
 
 @Service
 public class LoginGateway {
@@ -23,7 +26,7 @@ public class LoginGateway {
         this.template = builder.build();
     }
 
-    public void login(LoginRequest loginRequest) {
+    public void login(LoginRequest loginRequest) throws ResourceAccessException {
         LoginResponse response = template.postForObject(baseUrl + "/authenticate", loginRequest, LoginResponse.class);
         if (response == null) throw new RuntimeException("Authentication failed");
         String token = response.getJwtToken();

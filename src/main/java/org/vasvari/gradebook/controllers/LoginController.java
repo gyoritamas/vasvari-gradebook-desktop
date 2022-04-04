@@ -31,7 +31,7 @@ public class LoginController {
     private Label errorLabel;
 
     @FXML
-    private void login(ActionEvent actionEvent) throws IOException {
+    private void login(ActionEvent actionEvent) {
         String usernameInput = username.getText();
         String passwordInput = password.getText();
 
@@ -39,11 +39,18 @@ public class LoginController {
 
         try {
             loginService.login(loginRequest);
+            JavaFxApplication.getTheStage().setTitle("E-napló alkalmazás");
+            JavaFxApplication.getTheStage().setHeight(800);
+            JavaFxApplication.getTheStage().setWidth(1200);
             JavaFxApplication.setRoot(MainController.class);
         } catch (HttpClientErrorException ex) {
-            if (ex.getResponseBodyAsString().contains("Bad credentials")) {
+            if (ex.getResponseBodyAsString().contains("Bad credentials"))
                 errorLabel.setText("Hibás felhasználónév vagy jelszó.");
-            }
+        } catch (RuntimeException ex) {
+            if (ex.getMessage().contains("Connection refused"))
+                errorLabel.setText("Sikertelen kapcsolódás.");
+        } catch (Exception ex) {
+            errorLabel.setText(ex.getMessage());
         }
     }
 }

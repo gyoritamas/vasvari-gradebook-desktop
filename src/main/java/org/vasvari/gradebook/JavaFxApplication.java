@@ -18,6 +18,7 @@ public class JavaFxApplication extends Application {
     private static FxWeaver fxWeaver;
     private static Parent root;
     private static Scene scene;
+    private static Stage theStage;
 
     @Override
     public void init() {
@@ -30,6 +31,7 @@ public class JavaFxApplication extends Application {
 
     @Override
     public void start(Stage stage) {
+        theStage = stage;
         //FxWeaver fxWeaver = appContext.getBean(FxWeaver.class);
         fxWeaver = appContext.getBean(FxWeaver.class);
         root = fxWeaver.loadView(LoginController.class);
@@ -56,5 +58,9 @@ public class JavaFxApplication extends Application {
 
     public static Scene getMainScene() {
         return scene;
+    }
+
+    public static Stage getTheStage(){
+        return theStage;
     }
 }

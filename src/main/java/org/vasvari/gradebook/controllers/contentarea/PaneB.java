@@ -18,7 +18,6 @@ import org.vasvari.gradebook.service.SubjectService;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 @FxmlView("view/fxml/contentarea/paneB.fxml")
 @Component
@@ -38,29 +37,23 @@ public class PaneB implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<SubjectOutput> data = getClasses();
+        ObservableList<SubjectOutput> data = findAllSubjects();
         setTableColumns();
         subjectsTableView.setItems(data);
     }
 
     private void setTableColumns() {
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("course"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
-    private ObservableList<SubjectOutput> getClasses() {
-        List<SubjectOutput> classes = subjectService.findAllSubjects().stream()
-                .map(subject -> new SubjectOutput(
-                        subject.getId(),
-                        subject.getName(),
-                        subject.getTeacher(),
-                        subject.getStudents()))
-                .collect(Collectors.toList());
+    private ObservableList<SubjectOutput> findAllSubjects() {
+        List<SubjectOutput> classes = subjectService.findAllSubjects();
         return FXCollections.observableArrayList(classes);
     }
 
     public void refreshTableView() {
         subjectsTableView.getItems().clear();
-        subjectsTableView.setItems(getClasses());
+        subjectsTableView.setItems(findAllSubjects());
     }
 
     public void addClass(ActionEvent actionEvent) {
