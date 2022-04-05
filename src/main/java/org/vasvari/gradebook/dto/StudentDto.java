@@ -5,7 +5,6 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -23,6 +22,7 @@ public class StudentDto {
     private String address;
     private String phone;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthdate;
 

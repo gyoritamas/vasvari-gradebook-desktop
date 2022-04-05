@@ -8,24 +8,23 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 @Component
 public class Validator {
     public void lastName(TextField lastname, Label lastnameErrorLabel) {
         lastnameErrorLabel.setText("");
-        if (lastname.getText().length() < 2)
-            lastnameErrorLabel.setText("a vezetéknév legalább 2 karakter hosszú kell legyen");
-        else if (!lastname.getText().matches("[a-zA-Z .-]{2,}"))
-            lastnameErrorLabel.setText("a vezetéknév érvénytelen karaktert tartalmaz");
+        if (lastname.getText().length() < 2 || lastname.getText().length() > 255)
+            lastnameErrorLabel.setText("adjon meg 2-255 karaktert");
+        else if (!lastname.getText().matches("[\\p{L}\\s.-]{2,255}"))
+            lastnameErrorLabel.setText("érvénytelen karakter");
     }
 
     public void firstName(TextField firstname, Label firstnameErrorLabel) {
         firstnameErrorLabel.setText("");
-        if (firstname.getText().length() < 2)
-            firstnameErrorLabel.setText("a keresztnév legalább 2 karakter hosszú kell legyen");
-        else if (!firstname.getText().matches("[a-zA-Z .-]{2,}"))
-            firstnameErrorLabel.setText("a keresztnév érvénytelen karaktert tartalmaz");
+        if (firstname.getText().length() < 2 || firstname.getText().length() > 255)
+            firstnameErrorLabel.setText("adjon meg 2-255 karaktert");
+        else if (!firstname.getText().matches("[\\p{L}\\s.-]{2,255}"))
+            firstnameErrorLabel.setText("érvénytelen karakter");
     }
 
     public void email(TextField email, Label emailErrorLabel) {

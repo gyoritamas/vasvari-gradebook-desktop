@@ -33,7 +33,7 @@
         </TableView>
     </center>
     <right>
-        <TabPane>
+        <TabPane prefHeight="662.0" prefWidth="300.0">
             <tabs>
                 <Tab closable="false" text="Keresés">
                     <fx:include fx:id="studentSearch" source="studentSearch.fxml"/>
