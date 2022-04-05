@@ -29,9 +29,11 @@ public class StudentFormController implements Initializable {
     @FXML
     public GridPane studentForm;
     @FXML
+    public Label studentFormTitle;
+    @FXML
     public Button saveButton;
 
-    public Long id;
+    public Long selectedId;
     @FXML
     public TextField lastName;
     @FXML
@@ -46,6 +48,7 @@ public class StudentFormController implements Initializable {
     public TextField phone;
     @FXML
     public DatePicker birthdate;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,7 +68,7 @@ public class StudentFormController implements Initializable {
 
     public void save(ActionEvent actionEvent) {
         // TODO: validation
-        StudentDto update = StudentDto.builder()
+        StudentDto student = StudentDto.builder()
                 .lastname(lastName.getText())
                 .firstname(firstName.getText())
                 .gradeLevel(Integer.parseInt(gradeLevel.getValue()))
@@ -74,6 +77,16 @@ public class StudentFormController implements Initializable {
                 .phone(phone.getText())
                 .birthdate(birthdate.getValue())
                 .build();
-        studentService.updateStudent(id, update);
+        if (selectedId == null) saveStudent(student);
+        else updateStudent(student);
+
+    }
+
+    private void saveStudent(StudentDto student) {
+        studentService.saveStudent(student);
+    }
+
+    private void updateStudent(StudentDto student) {
+        studentService.updateStudent(selectedId, student);
     }
 }

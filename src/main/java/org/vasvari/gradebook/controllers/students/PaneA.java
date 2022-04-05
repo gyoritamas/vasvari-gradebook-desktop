@@ -79,7 +79,8 @@ public class PaneA implements Initializable {
         studentsTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (studentsTableView.getSelectionModel().getSelectedItem() == null) {
-                        studentFormController.id = null;
+                        studentFormController.studentFormTitle.setText("Új tanuló");
+                        studentFormController.selectedId = null;
                         studentFormController.firstName.setText(null);
                         studentFormController.lastName.setText(null);
                         studentFormController.gradeLevel.setValue(null);
@@ -88,7 +89,8 @@ public class PaneA implements Initializable {
                         studentFormController.phone.setText(null);
                         studentFormController.birthdate.setValue(null);
                     } else {
-                        studentFormController.id = studentsTableView.getSelectionModel().getSelectedItem().getId();
+                        studentFormController.studentFormTitle.setText("Tanuló adatainak módosítása");
+                        studentFormController.selectedId = studentsTableView.getSelectionModel().getSelectedItem().getId();
                         studentFormController.firstName.setText(
                                 studentsTableView.getSelectionModel().getSelectedItem().getFirstname()
                         );
