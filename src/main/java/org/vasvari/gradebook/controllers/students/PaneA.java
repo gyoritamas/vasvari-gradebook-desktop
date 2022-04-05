@@ -56,7 +56,8 @@ public class PaneA implements Initializable {
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
-        addEventFilterToSaveButton();
+        addEventFilterToSaveStudentButton();
+        addEventFilterToDeleteStudentButton();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
     }
@@ -114,8 +115,12 @@ public class PaneA implements Initializable {
         studentFormController.birthdate.setValue(selectedStudent.getBirthdate());
     }
 
-    private void addEventFilterToSaveButton() {
+    private void addEventFilterToSaveStudentButton() {
         studentFormController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+    }
+
+    private void addEventFilterToDeleteStudentButton() {
+        studentFormController.deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
     }
 
     private void addEventListenerToSearchButton() {
@@ -123,7 +128,6 @@ public class PaneA implements Initializable {
     }
 
     private void addEventListenerToResetFiltersButton() {
-        //studentSearchController.resetFiltersButton.setOnAction(event -> resetFilters());
         studentSearchController.resetFiltersButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> resetFilters());
     }
 

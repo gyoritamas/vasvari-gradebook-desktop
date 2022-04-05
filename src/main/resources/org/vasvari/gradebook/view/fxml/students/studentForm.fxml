@@ -58,8 +58,9 @@
                 <Insets left="10.0"/>
             </GridPane.margin>
         </Label>
-        <ComboBox fx:id="gradeLevel" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                  GridPane.rowIndex="3" >
+        <ComboBox fx:id="gradeLevel" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1"
+                  GridPane.halignment="CENTER"
+                  GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets right="10.0"/>
             </GridPane.margin>
@@ -111,19 +112,20 @@
         </DatePicker>
 
 
-        <Button mnemonicParsing="false" onAction="#save" prefHeight="27.0" prefWidth="152.0"
-                text="Mentés" fx:id="saveButton"
+        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Mentés"
+                onAction="#saveStudent" fx:id="saveButton"
                 GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
             <GridPane.margin>
                 <Insets top="30.0"/>
             </GridPane.margin>
         </Button>
-<!--        <Button mnemonicParsing="false" onAction="#addStudent" prefHeight="27.0" prefWidth="152.0" text="Teszt"-->
-<!--                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">-->
-<!--            <GridPane.margin>-->
-<!--                <Insets top="70.0"/>-->
-<!--            </GridPane.margin>-->
-<!--        </Button>-->
+        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="TÖRLÉS"
+                onAction="#deleteStudent" fx:id="deleteButton"
+                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
+            <GridPane.margin>
+                <Insets top="70.0"/>
+            </GridPane.margin>
+        </Button>
     </children>
     <BorderPane.margin>
         <Insets left="20.0" right="20.0"/>

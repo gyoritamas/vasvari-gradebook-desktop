@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -27,11 +26,11 @@ public class StudentFormController implements Initializable {
     private final StudentService studentService;
 
     @FXML
-    public GridPane studentForm;
-    @FXML
     public Label studentFormTitle;
     @FXML
     public Button saveButton;
+    @FXML
+    public Button deleteButton;
 
     public Long selectedId;
     @FXML
@@ -49,7 +48,6 @@ public class StudentFormController implements Initializable {
     @FXML
     public DatePicker birthdate;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize StudentFormController");
@@ -66,7 +64,7 @@ public class StudentFormController implements Initializable {
         gradeLevel.getItems().addAll(gradeOptions);
     }
 
-    public void save(ActionEvent actionEvent) {
+    public void saveStudent(ActionEvent actionEvent) {
         // TODO: validation
         StudentDto student = StudentDto.builder()
                 .lastname(lastName.getText())
@@ -77,15 +75,15 @@ public class StudentFormController implements Initializable {
                 .phone(phone.getText())
                 .birthdate(birthdate.getValue())
                 .build();
-        if (selectedId == null) saveStudent(student);
-        else updateStudent(student);
+        if (selectedId == null) {
+            studentService.saveStudent(student);
+        } else {
+            studentService.updateStudent(selectedId, student);
+        }
     }
 
-    private void saveStudent(StudentDto student) {
-        studentService.saveStudent(student);
-    }
-
-    private void updateStudent(StudentDto student) {
-        studentService.updateStudent(selectedId, student);
+    public void deleteStudent(ActionEvent actionEvent) {
+        if (selectedId == null) return;
+        studentService.deleteStudent(selectedId);
     }
 }
