@@ -6,8 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vasvari.gradebook.controllers.students.PaneA">
-
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vasvari.gradebook.controllers.students.StudentSearchController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="47.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="153.0"/>
@@ -66,10 +65,10 @@
                 <Insets right="10.0"/>
             </GridPane.margin>
         </ComboBox>
-        <Button mnemonicParsing="false" onAction="#resetFilters" prefHeight="27.0" prefWidth="152.0"
+        <Button mnemonicParsing="false" onAction="#resetFilters" fx:id="resetFiltersButton" prefHeight="27.0" prefWidth="152.0"
                 text="Szűrők törlése" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4"
                 GridPane.valignment="CENTER"/>
-        <Button mnemonicParsing="false" onAction="#searchStudents" prefHeight="27.0" prefWidth="152.0" text="Keresés"
+        <Button mnemonicParsing="false" prefHeight="27.0" fx:id="searchButton" prefWidth="152.0" text="Keresés"
                 GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
             <GridPane.margin>
                 <Insets top="12.0"/>

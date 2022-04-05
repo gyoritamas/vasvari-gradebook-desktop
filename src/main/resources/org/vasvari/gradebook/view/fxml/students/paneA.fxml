@@ -35,10 +35,10 @@
     <right>
         <TabPane>
             <tabs>
-                <Tab closable="false" text="Keresés">
-                    <fx:include source="paneAFilter.fxml"/>
+                <Tab closable="false" text="Keresés" fx:id="searchTab">
+                    <fx:include fx:id="studentSearch" source="paneAFilter.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Szerkesztés">
+                <Tab closable="false" text="Szerkesztés" fx:id="editTab">
                     <fx:include fx:id="studentForm" source="studentForm.fxml"/>
                 </Tab>
             </tabs>

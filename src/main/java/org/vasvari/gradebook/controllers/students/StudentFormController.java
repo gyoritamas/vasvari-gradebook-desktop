@@ -79,7 +79,6 @@ public class StudentFormController implements Initializable {
                 .build();
         if (selectedId == null) saveStudent(student);
         else updateStudent(student);
-
     }
 
     private void saveStudent(StudentDto student) {

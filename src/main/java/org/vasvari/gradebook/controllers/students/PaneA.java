@@ -4,27 +4,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.StudentDto;
-import org.vasvari.gradebook.dto.SubjectOutput;
 import org.vasvari.gradebook.model.request.StudentRequest;
 import org.vasvari.gradebook.service.StudentService;
-import org.vasvari.gradebook.service.SubjectService;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @FxmlView("view/fxml/contentarea/paneA.fxml")
 @Component
@@ -32,11 +26,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class PaneA implements Initializable {
 
-    private static final String GRADE_LEVEL_FILTER_DEFAULT_VALUE = "minden évfolyam";
-    private static final SubjectOutput SUBJECT_FILTER_DEFAULT_VALUE = SubjectOutput.builder().name("minden tantárgy").build();
-
     private final StudentService studentService;
-    private final SubjectService subjectService;
 
     @FXML
     private TableView<StudentDto> studentsTableView;
@@ -54,70 +44,21 @@ public class PaneA implements Initializable {
     public TableColumn<StudentDto, String> phoneColumn;
     @FXML
     public TableColumn<StudentDto, String> dateOfBirthColumn;
-    @FXML
-    public TextField studentName;
-    @FXML
-    public ComboBox<String> gradeLevelFilter;
-    @FXML
-    public ComboBox<SubjectOutput> subjectFilter;
 
     @FXML
     public StudentFormController studentFormController;
+    @FXML
+    public StudentSearchController studentSearchController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize PaneA");
         initializeTableColumns();
         initializeTable();
-        initializeFilters();
         addEventListenerToTable();
-        addEventListenerToSaveButton();
-    }
-
-    private void addEventListenerToTable() {
-        log.info("add eventlistener to table");
-        studentsTableView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (studentsTableView.getSelectionModel().getSelectedItem() == null) {
-                        studentFormController.studentFormTitle.setText("Új tanuló");
-                        studentFormController.selectedId = null;
-                        studentFormController.firstName.setText(null);
-                        studentFormController.lastName.setText(null);
-                        studentFormController.gradeLevel.setValue(null);
-                        studentFormController.email.setText(null);
-                        studentFormController.address.setText(null);
-                        studentFormController.phone.setText(null);
-                        studentFormController.birthdate.setValue(null);
-                    } else {
-                        studentFormController.studentFormTitle.setText("Tanuló adatainak módosítása");
-                        studentFormController.selectedId = studentsTableView.getSelectionModel().getSelectedItem().getId();
-                        studentFormController.firstName.setText(
-                                studentsTableView.getSelectionModel().getSelectedItem().getFirstname()
-                        );
-                        studentFormController.lastName.setText(
-                                studentsTableView.getSelectionModel().getSelectedItem().getLastname()
-                        );
-                        studentFormController.gradeLevel.setValue(
-                                studentsTableView.getSelectionModel().getSelectedItem().getGradeLevel().toString()
-                        );
-                        studentFormController.email.setText(
-                                studentsTableView.getSelectionModel().getSelectedItem().getEmail()
-                        );
-                        studentFormController.address.setText(
-                                studentsTableView.getSelectionModel().getSelectedItem().getAddress()
-                        );
-                        studentFormController.phone.setText(
-                                studentsTableView.getSelectionModel().getSelectedItem().getPhone()
-                        );
-                        studentFormController.birthdate.setValue(
-                                studentsTableView.getSelectionModel().getSelectedItem().getBirthdate()
-                        );
-                    }
-                });
-    }
-
-    private void addEventListenerToSaveButton() {
-//        studentFormController.saveButton.setOnAction(event -> refreshTableView());
+        addEventFilterToSaveButton();
+        addEventListenerToSearchButton();
+        addEventListenerToResetFiltersButton();
     }
 
     private void initializeTableColumns() {
@@ -137,30 +78,53 @@ public class PaneA implements Initializable {
         studentsTableView.setItems(data);
     }
 
-    private void initializeFilters() {
-        log.info("initialize filters");
-        initializeSubjectFilter();
-        initializeGradeFilter();
+    private void addEventListenerToTable() {
+        log.info("add event listener to table");
+        studentsTableView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (studentsTableView.getSelectionModel().getSelectedItem() == null) {
+                        emptyForm();
+                    } else {
+                        populateForm(studentsTableView.getSelectionModel().getSelectedItem());
+                    }
+                });
     }
 
-    private void initializeSubjectFilter() {
-        log.info("initialize subject filter");
-        List<SubjectOutput> listOfOptions = new ArrayList<>();
-        listOfOptions.add(SUBJECT_FILTER_DEFAULT_VALUE);
-        listOfOptions.addAll(subjectService.findSubjectsForUser());
-        ObservableList<SubjectOutput> subjectOptions = FXCollections.observableArrayList(listOfOptions);
-        subjectFilter.getItems().addAll(subjectOptions);
-        subjectFilter.setValue(SUBJECT_FILTER_DEFAULT_VALUE);
+    private void emptyForm() {
+        studentFormController.studentFormTitle.setText("Új tanuló");
+        studentFormController.selectedId = null;
+        studentFormController.firstName.setText(null);
+        studentFormController.lastName.setText(null);
+        studentFormController.gradeLevel.setValue(null);
+        studentFormController.email.setText(null);
+        studentFormController.address.setText(null);
+        studentFormController.phone.setText(null);
+        studentFormController.birthdate.setValue(null);
     }
 
-    private void initializeGradeFilter() {
-        log.info("initialize grade filter");
-        List<String> gradeOptions = new ArrayList<>();
-        gradeOptions.add(GRADE_LEVEL_FILTER_DEFAULT_VALUE);
-        List<String> oneToTwelve = IntStream.iterate(1, i -> i + 1).limit(12).mapToObj(String::valueOf).collect(Collectors.toList());
-        gradeOptions.addAll(oneToTwelve);
-        gradeLevelFilter.getItems().addAll(gradeOptions);
-        gradeLevelFilter.setValue(GRADE_LEVEL_FILTER_DEFAULT_VALUE);
+    private void populateForm(StudentDto selectedStudent) {
+        studentFormController.studentFormTitle.setText("Tanuló adatainak módosítása");
+        studentFormController.selectedId = selectedStudent.getId();
+        studentFormController.firstName.setText(selectedStudent.getFirstname());
+        studentFormController.lastName.setText(selectedStudent.getLastname());
+        studentFormController.gradeLevel.setValue(selectedStudent.getGradeLevel().toString());
+        studentFormController.email.setText(selectedStudent.getEmail());
+        studentFormController.address.setText(selectedStudent.getAddress());
+        studentFormController.phone.setText(selectedStudent.getPhone());
+        studentFormController.birthdate.setValue(selectedStudent.getBirthdate());
+    }
+
+    private void addEventFilterToSaveButton() {
+        studentFormController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+    }
+
+    private void addEventListenerToSearchButton() {
+        studentSearchController.searchButton.setOnAction(event -> searchStudents());
+    }
+
+    private void addEventListenerToResetFiltersButton() {
+        //studentSearchController.resetFiltersButton.setOnAction(event -> resetFilters());
+        studentSearchController.resetFiltersButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> resetFilters());
     }
 
     private ObservableList<StudentDto> getStudents() {
@@ -168,18 +132,12 @@ public class PaneA implements Initializable {
         return FXCollections.observableArrayList(students);
     }
 
-    public void searchStudents() {
-        String name = studentName.getText();
-        Integer gradeLevel = gradeLevelFilter.getValue().equals(GRADE_LEVEL_FILTER_DEFAULT_VALUE) ? null : Integer.parseInt(gradeLevelFilter.getValue());
-        Long subjectId = subjectFilter == null ? null : subjectFilter.getValue().getId();
-        StudentRequest request = new StudentRequest(name, gradeLevel, subjectId);
+    private void searchStudents() {
+        StudentRequest request = studentSearchController.getFilters();
         studentsTableView.setItems(FXCollections.observableArrayList(studentService.findStudentsForUser(request)));
     }
 
-    public void resetFilters() {
-        studentName.setText(null);
-        gradeLevelFilter.setValue(GRADE_LEVEL_FILTER_DEFAULT_VALUE);
-        subjectFilter.setValue(SUBJECT_FILTER_DEFAULT_VALUE);
+    private void resetFilters() {
         studentsTableView.setItems(FXCollections.observableArrayList(studentService.findStudentsForUser()));
     }
 
