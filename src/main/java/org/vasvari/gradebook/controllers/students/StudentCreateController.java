@@ -4,15 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
 import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.service.StudentService;
+import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
 import java.util.List;
@@ -27,11 +26,7 @@ import java.util.stream.IntStream;
 public class StudentCreateController implements Initializable {
 
     private final StudentService studentService;
-
-    @FXML
-    public Button saveButton;
-    @FXML
-    public Button emptyFormButton;
+    private final Validator validator;
 
     @FXML
     public TextField lastName;
@@ -47,11 +42,30 @@ public class StudentCreateController implements Initializable {
     public TextField phone;
     @FXML
     public DatePicker birthdate;
+    @FXML
+    public Label lastnameErrorLabel;
+    @FXML
+    public Label firstnameErrorLabel;
+    @FXML
+    public Label gradeLevelErrorLabel;
+    @FXML
+    public Label emailErrorLabel;
+    @FXML
+    public Label addressErrorLabel;
+    @FXML
+    public Label phoneErrorLabel;
+    @FXML
+    public Label birthdateErrorLabel;
+    @FXML
+    public Button saveButton;
+    @FXML
+    public Button emptyFormButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize StudentCreateController");
         initializeGradeLevelComboBox();
+        addEventFilterToFields();
     }
 
     private void initializeGradeLevelComboBox() {
@@ -64,7 +78,43 @@ public class StudentCreateController implements Initializable {
         gradeLevel.getItems().addAll(gradeOptions);
     }
 
-    public void saveStudent(ActionEvent actionEvent) {
+    private void addEventFilterToFields() {
+        saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            validator.lastname(lastName, lastnameErrorLabel);
+            validator.firstname(firstName, firstnameErrorLabel);
+            validator.gradeLevel(gradeLevel, gradeLevelErrorLabel);
+            validator.email(email, emailErrorLabel);
+            validator.address(address, addressErrorLabel);
+            validator.phone(phone, phoneErrorLabel);
+            validator.birthdate(birthdate, birthdateErrorLabel);
+            saveStudent();
+        });
+        lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) lastnameErrorLabel.setText("");
+        });
+        firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) firstnameErrorLabel.setText("");
+        });
+        gradeLevel.selectionModelProperty().getValue().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.equals(oldValue)) gradeLevelErrorLabel.setText("");
+        });
+        email.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) emailErrorLabel.setText("");
+        });
+        address.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) addressErrorLabel.setText("");
+        });
+        phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) phoneErrorLabel.setText("");
+        });
+        birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) birthdateErrorLabel.setText("");
+        }));
+    }
+
+    private void saveStudent() {
+        if (!isEveryFieldValid()) return;
+
         StudentDto student = StudentDto.builder()
                 .lastname(lastName.getText())
                 .firstname(firstName.getText())
@@ -75,10 +125,8 @@ public class StudentCreateController implements Initializable {
                 .birthdate(birthdate.getValue())
                 .build();
 
-        if (validateFields(student)) {
-            studentService.saveStudent(student);
-            deleteFormFields();
-        }
+        studentService.saveStudent(student);
+        deleteFormFields();
     }
 
     public void emptyForm(ActionEvent actionEvent) {
@@ -95,7 +143,9 @@ public class StudentCreateController implements Initializable {
         birthdate.setValue(null);
     }
 
-    private boolean validateFields(StudentDto student) {
-        return true;
+    private boolean isEveryFieldValid() {
+        return lastnameErrorLabel.getText().isEmpty() && firstnameErrorLabel.getText().isEmpty()
+                && emailErrorLabel.getText().isEmpty() && addressErrorLabel.getText().isEmpty()
+                && phoneErrorLabel.getText().isEmpty() && birthdateErrorLabel.getText().isEmpty();
     }
 }

@@ -68,16 +68,12 @@ public class StudentEditController implements Initializable {
     }
 
     private void addEventFilterToFields() {
-//        lastName.focusedProperty().addListener((observableValue, oldValue, newValue) -> {
-//            if (!newValue) validator.lastName(lastName, lastnameErrorLabel);
-//            updateButton.setDisable(!isEveryFieldValid());
-//        });
         lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.lastName(lastName, lastnameErrorLabel);
+            if (!oldValue.equals(newValue)) validator.lastname(lastName, lastnameErrorLabel);
             updateButton.setDisable(!isEveryFieldValid());
         });
         firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.firstName(firstName, firstnameErrorLabel);
+            if (!oldValue.equals(newValue)) validator.firstname(firstName, firstnameErrorLabel);
             updateButton.setDisable(!isEveryFieldValid());
         });
         email.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -92,10 +88,6 @@ public class StudentEditController implements Initializable {
             if (!oldValue.equals(newValue)) validator.phone(phone, phoneErrorLabel);
             updateButton.setDisable(!isEveryFieldValid());
         });
-//        birthdate.focusedProperty().addListener((observableValue, oldValue, newValue) -> {
-//            if (!newValue) validator.birthdate(birthdate, birthdateErrorLabel);
-//            updateButton.setDisable(!isEveryFieldValid());
-//        });
         birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.birthdate(birthdate, birthdateErrorLabel);
             updateButton.setDisable(!isEveryFieldValid());

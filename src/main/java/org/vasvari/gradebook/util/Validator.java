@@ -1,9 +1,6 @@
 package org.vasvari.gradebook.util;
 
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -11,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class Validator {
-    public void lastName(TextField lastname, Label lastnameErrorLabel) {
+    public void lastname(TextField lastname, Label lastnameErrorLabel) {
         lastnameErrorLabel.setText("");
         if (lastname.getText().length() < 2 || lastname.getText().length() > 255)
             lastnameErrorLabel.setText("adjon meg 2-255 karaktert");
@@ -19,12 +16,17 @@ public class Validator {
             lastnameErrorLabel.setText("érvénytelen karakter");
     }
 
-    public void firstName(TextField firstname, Label firstnameErrorLabel) {
+    public void firstname(TextField firstname, Label firstnameErrorLabel) {
         firstnameErrorLabel.setText("");
         if (firstname.getText().length() < 2 || firstname.getText().length() > 255)
             firstnameErrorLabel.setText("adjon meg 2-255 karaktert");
         else if (!firstname.getText().matches("[\\p{L}\\s.-]{2,255}"))
             firstnameErrorLabel.setText("érvénytelen karakter");
+    }
+
+    public void gradeLevel(ComboBox<String> gradeLevel, Label gradeLevelErrorLabel) {
+        if (gradeLevel.selectionModelProperty().getValue().getSelectedItem() == null)
+            gradeLevelErrorLabel.setText("az évfolyam nem lehet üres");
     }
 
     public void email(TextField email, Label emailErrorLabel) {
