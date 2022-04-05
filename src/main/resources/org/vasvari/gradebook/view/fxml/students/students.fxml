@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="menuAContentArea" prefHeight="768.0" prefWidth="1107.0" AnchorPane.bottomAnchor="0.0"
+<BorderPane fx:id="students" prefHeight="768.0" prefWidth="1107.0" AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.vasvari.gradebook.controllers.students.PaneA">
+            fx:controller="org.vasvari.gradebook.controllers.students.StudentController">
     <top>
         <Label prefHeight="106.0" prefWidth="1131.0" text="Tanulók" BorderPane.alignment="TOP_LEFT">
             <padding>

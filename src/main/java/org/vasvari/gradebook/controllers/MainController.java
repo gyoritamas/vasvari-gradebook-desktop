@@ -51,6 +51,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        log.info("initialize MainController");
         JavaFxApplication.getTheStage().setTitle("E-napló");
         JavaFxApplication.getTheStage().setHeight(800);
         JavaFxApplication.getTheStage().setWidth(1200);
@@ -61,7 +62,7 @@ public class MainController implements Initializable {
 
     private void mapButtonsToContentId() {
         buttonMap = new HashMap<>();
-        buttonMap.put(studentsButton, "#menuAContentArea");
+        buttonMap.put(studentsButton, "#students");
         buttonMap.put(subjectsButton, "#menuBContentArea");
         buttonMap.put(teachersButton, "#menuCContentArea");
         buttonMap.put(assignmentsButton, "#menuDContentArea");

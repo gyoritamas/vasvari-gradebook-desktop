@@ -10,7 +10,7 @@
           xmlns:fx="http://javafx.com/fxml"
           prefHeight="662.0" prefWidth="232.0"
           BorderPane.alignment="CENTER"
-          fx:controller="org.vasvari.gradebook.controllers.students.PaneA">
+          fx:controller="org.vasvari.gradebook.controllers.students.StudentController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="47.0"/>
     </columnConstraints>

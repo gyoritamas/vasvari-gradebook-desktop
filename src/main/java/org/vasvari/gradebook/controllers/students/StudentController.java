@@ -20,11 +20,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@FxmlView("view/fxml/students/paneA.fxml")
+@FxmlView("view/fxml/students/students.fxml")
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class PaneA implements Initializable {
+public class StudentController implements Initializable {
 
     private final StudentService studentService;
 
@@ -54,7 +54,7 @@ public class PaneA implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        log.info("initialize PaneA");
+        log.info("initialize StudentController");
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();

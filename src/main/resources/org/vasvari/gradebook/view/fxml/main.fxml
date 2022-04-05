@@ -139,7 +139,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="576.0" prefWidth="712.0">
                             <children>
-                                <fx:include source="students/paneA.fxml"/>
+                                <fx:include source="students/students.fxml"/>
                                 <fx:include source="contentarea/paneB.fxml"/>
                                 <fx:include source="contentarea/paneC.fxml"/>
                                 <fx:include source="contentarea/paneD.fxml"/>
