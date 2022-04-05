@@ -3,8 +3,9 @@ package org.vasvari.gradebook.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,8 @@ import org.vasvari.gradebook.util.UserUtil;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import static org.vasvari.gradebook.JavaFxApplication.getMainScene;
@@ -29,60 +31,76 @@ public class MainController implements Initializable {
     private final LoginGateway loginService;
     private final UserUtil userUtil;
 
+    private ToggleButton selected;
+
+    private ToggleGroup toggleGroup;
+
+    private Map<ToggleButton, String> buttonMap;
+
+    @FXML
+    public ToggleButton studentsButton;
+    @FXML
+    public ToggleButton teachersButton;
+    @FXML
+    public ToggleButton subjectsButton;
+    @FXML
+    public ToggleButton assignmentsButton;
+
+    @FXML
+    public Label userLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         JavaFxApplication.getTheStage().setTitle("E-napló");
         JavaFxApplication.getTheStage().setHeight(800);
         JavaFxApplication.getTheStage().setWidth(1200);
-//        showSelectedPaneAndHideOthers("menuAContentArea");
+        initializeToggleButtons();
+        mapButtonsToContentId();
         setUserLabel();
     }
 
-    @FXML
-    public Label userLabel;
-
-    public void menuButtonClicked(ActionEvent actionEvent) {
-        String buttonID = getSourceId(actionEvent.getSource());
-        String paneName = buttonID.replaceAll("Button", "ContentArea");
-        showSelectedPaneAndHideOthers(paneName);
+    private void mapButtonsToContentId() {
+        buttonMap = new HashMap<>();
+        buttonMap.put(studentsButton, "#menuAContentArea");
+        buttonMap.put(subjectsButton, "#menuBContentArea");
+        buttonMap.put(teachersButton, "#menuCContentArea");
+        buttonMap.put(assignmentsButton, "#menuDContentArea");
     }
 
-    private void showSelectedPaneAndHideOthers(String paneName) {
-        // TODO: put this list in a field or something
-        for (String id : List.of("A", "B", "C", "D")) {
-            hidePaneWithName("menu" + id + "ContentArea");
-        }
-        showPaneWithName(paneName);
+    private void initializeToggleButtons() {
+        toggleGroup = new ToggleGroup();
+        toggleGroup.getToggles().addAll(studentsButton, teachersButton, subjectsButton, assignmentsButton);
+        toggleGroup.selectToggle(studentsButton);
+        selected = studentsButton;
     }
 
-    private void showPaneWithName(String paneName) {
-        System.out.println("showPane: " + paneName);
-        Scene mainScene = getMainScene();
-        Pane selectedPane = (Pane) mainScene.lookup("#" + paneName);
-        selectedPane.setVisible(true);
+    public void studentsButtonClicked(ActionEvent actionEvent) {
+        hidePreviousActivePaneAndShowSelectedPane(studentsButton);
     }
 
-    private void hidePaneWithName(String paneName) {
-        System.out.println("hidePane: " + paneName);
-        Scene mainScene = getMainScene();
-        Pane selectedPane = (Pane) mainScene.lookup("#" + paneName);
-        selectedPane.setVisible(false);
+    public void subjectsButtonClicked(ActionEvent actionEvent) {
+        hidePreviousActivePaneAndShowSelectedPane(subjectsButton);
     }
 
-    private String getSourceId(Object source) {
-        //Output of source is Button[id=logsButton, styleClass=button leftPaneButton]'Logs' so splitting by single quote gets the name of the object.
-        //return source.toString().split("'")[1];
-        String sourceString = source.toString();
-        String attributesString = sourceString.substring(sourceString.indexOf("[") + 1, sourceString.indexOf("]"));
-        String[] attributes = attributesString.split(",");
-        String id = "";
-        for (String attribute : attributes) {
-            if (attribute.contains("id=")) {
-                id = attribute.split("=")[1];
-            }
-        }
+    public void teachersButtonClicked(ActionEvent actionEvent) {
+        hidePreviousActivePaneAndShowSelectedPane(teachersButton);
+    }
 
-        return id;
+    public void assignmentsButtonClicked(ActionEvent actionEvent) {
+        hidePreviousActivePaneAndShowSelectedPane(assignmentsButton);
+    }
+
+    public void profileButtonClicked(ActionEvent actionEvent) {
+        //hidePreviousActiveBorderPaneAndShowSelectedBorderPane(profileButton);
+    }
+
+    private void hidePreviousActivePaneAndShowSelectedPane(ToggleButton button) {
+        Pane previousActiveBorderPane = (Pane) getMainScene().lookup(buttonMap.get(selected));
+        previousActiveBorderPane.setVisible(false);
+        selected = button;
+        Pane nextActiveBorderPane = (Pane) getMainScene().lookup(buttonMap.get(selected));
+        nextActiveBorderPane.setVisible(true);
+        toggleGroup.selectToggle(button);
     }
 
     private void setUserLabel() {

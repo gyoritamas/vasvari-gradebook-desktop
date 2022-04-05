@@ -84,36 +84,44 @@
                                                 <Image url="@../images/logo.png"/>
                                             </image>
                                         </ImageView>
-                                        <Button id="menuAButton" fx:id="menuAButton" mnemonicParsing="false"
-                                                onAction="#menuButtonClicked" prefHeight="40.0" prefWidth="157.0"
+                                        <ToggleButton fx:id="studentsButton" mnemonicParsing="false"
+                                                onAction="#studentsButtonClicked" prefHeight="40.0" prefWidth="157.0"
                                                 text="Tanulók" GridPane.rowIndex="1">
                                             <font>
                                                 <Font size="16.0"/>
                                             </font>
-                                        </Button>
+                                        </ToggleButton>
+                                        <ToggleButton fx:id="subjectsButton" mnemonicParsing="false"
+                                                onAction="#subjectsButtonClicked" prefHeight="40.0" prefWidth="157.0"
+                                                text="Tantárgyak" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </ToggleButton>
+                                        <ToggleButton fx:id="teachersButton" mnemonicParsing="false"
+                                                onAction="#teachersButtonClicked" prefHeight="40.0" prefWidth="157.0"
+                                                text="Tanárok" GridPane.rowIndex="3">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </ToggleButton>
+                                        <ToggleButton fx:id="assignmentsButton" mnemonicParsing="false"
+                                                onAction="#assignmentsButtonClicked" prefHeight="40.0" prefWidth="157.0"
+                                                text="Feladatok" GridPane.rowIndex="4">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </ToggleButton>
+
                                         <Label id="userLabel" fx:id="userLabel" alignment="CENTER" prefHeight="38.0"
                                                prefWidth="167.0" text="Felhasználónév" GridPane.rowIndex="6">
                                             <font>
                                                 <Font size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Button id="menuBButton" fx:id="menuBButton" mnemonicParsing="false"
-                                                onAction="#menuButtonClicked" prefHeight="40.0" prefWidth="157.0"
-                                                text="Tantárgyak" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Button>
-                                        <Button id="menuCButton" fx:id="menuCButton" mnemonicParsing="false"
-                                                onAction="#menuButtonClicked" prefHeight="40.0" prefWidth="157.0"
-                                                text="Menu C" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Button>
-                                        <Button id="menuDButton" fx:id="menuDButton" mnemonicParsing="false"
-                                                onAction="#menuButtonClicked" prefHeight="40.0" prefWidth="157.0"
-                                                text="Menu D" GridPane.rowIndex="4">
+                                        <Button id="profileButton" fx:id="profileButton" layoutX="17.0" layoutY="115.0"
+                                                mnemonicParsing="false"  prefHeight="40.0"
+                                                prefWidth="157.0" text="Profil" GridPane.rowIndex="7">
                                             <font>
                                                 <Font size="16.0"/>
                                             </font>
@@ -121,13 +129,6 @@
                                         <Button id="logoutButton" fx:id="logoutButton" mnemonicParsing="false"
                                                 onAction="#logout" prefHeight="40.0" prefWidth="157.0"
                                                 text="Kijelentkezés" GridPane.rowIndex="8">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Button>
-                                        <Button id="profileButton" fx:id="profileButton" layoutX="17.0" layoutY="115.0"
-                                                mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="40.0"
-                                                prefWidth="157.0" text="Profil" GridPane.rowIndex="7">
                                             <font>
                                                 <Font size="16.0"/>
                                             </font>
