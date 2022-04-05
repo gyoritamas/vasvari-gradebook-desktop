@@ -31,6 +31,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        JavaFxApplication.getTheStage().setTitle("E-napló");
         JavaFxApplication.getTheStage().setHeight(800);
         JavaFxApplication.getTheStage().setWidth(1200);
 //        showSelectedPaneAndHideOthers("menuAContentArea");

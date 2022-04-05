@@ -25,8 +25,8 @@
         <RowConstraints/>
     </rowConstraints>
     <children>
-        <Label alignment="CENTER" prefHeight="37.0" prefWidth="440.0" text="Tanuló adatai"
-               GridPane.columnSpan="2147483647">
+        <Label alignment="CENTER" prefHeight="37.0" prefWidth="440.0" text="Új tanuló"
+               GridPane.columnSpan="2147483647" fx:id="studentFormTitle">
             <font>
                 <Font size="14.0"/>
             </font>

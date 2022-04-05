@@ -2,6 +2,7 @@ package org.vasvari.gradebook.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,12 +16,14 @@ import org.vasvari.gradebook.dto.LoginRequest;
 import org.vasvari.gradebook.service.gateway.LoginGateway;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 @Component
 @FxmlView("../view/fxml/login.fxml")
 @Slf4j
 @RequiredArgsConstructor
-public class LoginController {
+public class LoginController implements Initializable {
     private final LoginGateway loginService;
 
     @FXML
@@ -29,6 +32,13 @@ public class LoginController {
     private PasswordField password;
     @FXML
     private Label errorLabel;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        JavaFxApplication.getTheStage().setTitle("E-napló bejelentkezés");
+        JavaFxApplication.getTheStage().setHeight(250);
+        JavaFxApplication.getTheStage().setWidth(325);
+    }
 
     @FXML
     private void login(ActionEvent actionEvent) {
@@ -43,16 +53,13 @@ public class LoginController {
         } catch (HttpClientErrorException ex) {
             if (ex.getResponseBodyAsString().contains("Bad credentials"))
                 errorLabel.setText("Hibás felhasználónév vagy jelszó.");
-            log.warn("HttpClientErrorException: " + ex.getMessage());
             ex.printStackTrace();
         } catch (RuntimeException ex) {
             if (ex.getMessage().contains("Connection refused"))
                 errorLabel.setText("Sikertelen kapcsolódás.");
-            log.warn("RunTimeException: " + ex.getMessage());
             ex.printStackTrace();
         } catch (Exception ex) {
             errorLabel.setText(ex.getMessage());
-            log.warn("Exception: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

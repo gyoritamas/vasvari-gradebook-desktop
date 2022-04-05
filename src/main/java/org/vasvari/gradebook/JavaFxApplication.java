@@ -40,7 +40,6 @@ public class JavaFxApplication extends Application {
         scene = new Scene(root);
         //stage.setMaximized(true);
         stage.setScene(scene);
-        stage.setTitle("E-napló");
         stage.show();
     }
 
