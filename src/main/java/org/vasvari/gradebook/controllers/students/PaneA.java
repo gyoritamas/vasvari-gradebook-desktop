@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@FxmlView("view/fxml/contentarea/paneA.fxml")
+@FxmlView("view/fxml/students/paneA.fxml")
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -46,9 +46,11 @@ public class PaneA implements Initializable {
     public TableColumn<StudentDto, String> dateOfBirthColumn;
 
     @FXML
-    public StudentFormController studentFormController;
+    public StudentEditController studentEditController;
     @FXML
     public StudentSearchController studentSearchController;
+    @FXML
+    public StudentCreateController studentCreateController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,6 +59,7 @@ public class PaneA implements Initializable {
         initializeTable();
         addEventListenerToTable();
         addEventFilterToSaveStudentButton();
+        addEventFilterToUpdateStudentButton();
         addEventFilterToDeleteStudentButton();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
@@ -92,35 +95,37 @@ public class PaneA implements Initializable {
     }
 
     private void emptyForm() {
-        studentFormController.studentFormTitle.setText("Új tanuló");
-        studentFormController.selectedId = null;
-        studentFormController.firstName.setText(null);
-        studentFormController.lastName.setText(null);
-        studentFormController.gradeLevel.setValue(null);
-        studentFormController.email.setText(null);
-        studentFormController.address.setText(null);
-        studentFormController.phone.setText(null);
-        studentFormController.birthdate.setValue(null);
+        studentEditController.selectedId = null;
+        studentEditController.firstName.setText(null);
+        studentEditController.lastName.setText(null);
+        studentEditController.gradeLevel.setValue(null);
+        studentEditController.email.setText(null);
+        studentEditController.address.setText(null);
+        studentEditController.phone.setText(null);
+        studentEditController.birthdate.setValue(null);
     }
 
     private void populateForm(StudentDto selectedStudent) {
-        studentFormController.studentFormTitle.setText("Tanuló adatainak módosítása");
-        studentFormController.selectedId = selectedStudent.getId();
-        studentFormController.firstName.setText(selectedStudent.getFirstname());
-        studentFormController.lastName.setText(selectedStudent.getLastname());
-        studentFormController.gradeLevel.setValue(selectedStudent.getGradeLevel().toString());
-        studentFormController.email.setText(selectedStudent.getEmail());
-        studentFormController.address.setText(selectedStudent.getAddress());
-        studentFormController.phone.setText(selectedStudent.getPhone());
-        studentFormController.birthdate.setValue(selectedStudent.getBirthdate());
+        studentEditController.selectedId = selectedStudent.getId();
+        studentEditController.firstName.setText(selectedStudent.getFirstname());
+        studentEditController.lastName.setText(selectedStudent.getLastname());
+        studentEditController.gradeLevel.setValue(selectedStudent.getGradeLevel().toString());
+        studentEditController.email.setText(selectedStudent.getEmail());
+        studentEditController.address.setText(selectedStudent.getAddress());
+        studentEditController.phone.setText(selectedStudent.getPhone());
+        studentEditController.birthdate.setValue(selectedStudent.getBirthdate());
+    }
+
+    private void addEventFilterToUpdateStudentButton() {
+        studentEditController.updateButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
     }
 
     private void addEventFilterToSaveStudentButton() {
-        studentFormController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+        studentCreateController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
     }
 
     private void addEventFilterToDeleteStudentButton() {
-        studentFormController.deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+        studentEditController.deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
     }
 
     private void addEventListenerToSearchButton() {

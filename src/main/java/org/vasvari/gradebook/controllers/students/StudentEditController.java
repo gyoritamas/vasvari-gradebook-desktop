@@ -17,18 +17,16 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@FxmlView("view/fxml/students/studentForm.fxml")
+@FxmlView("view/fxml/students/studentEdit.fxml")
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class StudentFormController implements Initializable {
+public class StudentEditController implements Initializable {
 
     private final StudentService studentService;
 
     @FXML
-    public Label studentFormTitle;
-    @FXML
-    public Button saveButton;
+    public Button updateButton;
     @FXML
     public Button deleteButton;
 
@@ -64,8 +62,9 @@ public class StudentFormController implements Initializable {
         gradeLevel.getItems().addAll(gradeOptions);
     }
 
-    public void saveStudent(ActionEvent actionEvent) {
-        // TODO: validation
+    public void updateStudent(ActionEvent actionEvent) {
+        if (selectedId == null) return;
+
         StudentDto student = StudentDto.builder()
                 .lastname(lastName.getText())
                 .firstname(firstName.getText())
@@ -75,15 +74,29 @@ public class StudentFormController implements Initializable {
                 .phone(phone.getText())
                 .birthdate(birthdate.getValue())
                 .build();
-        if (selectedId == null) {
-            studentService.saveStudent(student);
-        } else {
+
+        if (validateFields(student)) {
             studentService.updateStudent(selectedId, student);
+            deleteFormFields();
         }
     }
 
     public void deleteStudent(ActionEvent actionEvent) {
         if (selectedId == null) return;
         studentService.deleteStudent(selectedId);
+    }
+
+    private boolean validateFields(StudentDto studentDto) {
+        return true;
+    }
+
+    private void deleteFormFields() {
+        firstName.setText(null);
+        lastName.setText(null);
+        gradeLevel.setValue(null);
+        email.setText(null);
+        address.setText(null);
+        phone.setText(null);
+        birthdate.setValue(null);
     }
 }

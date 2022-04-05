@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER"
+          xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.vasvari.gradebook.controllers.students.StudentEditController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="150.0"/>
+        <ColumnConstraints maxWidth="212.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+        <RowConstraints/>
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER" prefHeight="37.0" prefWidth="440.0" text="Tanuló adatainak módosítása"
+               GridPane.columnSpan="2147483647">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <Label text="vez. név" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastName">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </TextField>
+
+        <Label text="ker. név" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="firstName">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </TextField>
+
+        <Label prefHeight="17.0" prefWidth="100.0" text="évfolyam" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <ComboBox fx:id="gradeLevel" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1"
+                  GridPane.halignment="CENTER"
+                  GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </ComboBox>
+
+        <Label text="e-mail" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="email">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </TextField>
+
+        <Label text="lakcím" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5"
+                  fx:id="address">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </TextArea>
+
+        <Label text="tel. szám" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="phone">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </TextField>
+
+        <Label text="szül. dátum" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="birthdate">
+            <GridPane.margin>
+                <Insets right="10.0"/>
+            </GridPane.margin>
+        </DatePicker>
+
+
+        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Mentés"
+                onAction="#updateStudent" fx:id="updateButton"
+                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
+            <GridPane.margin>
+                <Insets top="30.0"/>
+            </GridPane.margin>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="TÖRLÉS"
+                onAction="#deleteStudent" fx:id="deleteButton"
+                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
+            <GridPane.margin>
+                <Insets top="70.0"/>
+            </GridPane.margin>
+        </Button>
+    </children>
+    <BorderPane.margin>
+        <Insets left="20.0" right="20.0"/>
+    </BorderPane.margin>
+</GridPane>

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@FxmlView("view/fxml/students/paneAFilter.fxml")
+@FxmlView("view/fxml/students/studentSearch.fxml")
 @Component
 @Slf4j
 @RequiredArgsConstructor
