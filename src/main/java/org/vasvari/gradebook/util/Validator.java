@@ -10,18 +10,18 @@ import java.time.format.DateTimeFormatter;
 public class Validator {
     public void lastname(TextField lastname, Label lastnameErrorLabel) {
         lastnameErrorLabel.setText("");
-        if (lastname.getText().length() < 2 || lastname.getText().length() > 255)
-            lastnameErrorLabel.setText("adjon meg 2-255 karaktert");
-        else if (!lastname.getText().matches("[\\p{L}\\s.-]{2,255}"))
+        if (!lastname.getText().matches("[\\p{L}\\s.-]{2,255}"))
             lastnameErrorLabel.setText("érvénytelen karakter");
+        else if (lastname.getText().length() < 2 || lastname.getText().length() > 255)
+            lastnameErrorLabel.setText("adjon meg 2-255 karaktert");
     }
 
     public void firstname(TextField firstname, Label firstnameErrorLabel) {
         firstnameErrorLabel.setText("");
-        if (firstname.getText().length() < 2 || firstname.getText().length() > 255)
-            firstnameErrorLabel.setText("adjon meg 2-255 karaktert");
-        else if (!firstname.getText().matches("[\\p{L}\\s.-]{2,255}"))
+        if (!firstname.getText().matches("[\\p{L}\\s.-]{2,255}"))
             firstnameErrorLabel.setText("érvénytelen karakter");
+        else if (firstname.getText().length() < 2 || firstname.getText().length() > 255)
+            firstnameErrorLabel.setText("adjon meg 2-255 karaktert");
     }
 
     public void gradeLevel(ComboBox<String> gradeLevel, Label gradeLevelErrorLabel) {
