@@ -13,7 +13,12 @@ public class SimpleTeacher {
     private String firstname;
     private String lastname;
 
-    public String getName(){
+    public String getName() {
         return lastname + " " + firstname;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

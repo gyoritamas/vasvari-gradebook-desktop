@@ -77,7 +77,7 @@ public class StudentController implements Initializable {
     }
 
     private void initializeTable() {
-        log.info("initialize table");
+        log.info("initialize student table");
         ObservableList<StudentDto> data = getStudents();
         studentsTableView.setItems(data);
     }

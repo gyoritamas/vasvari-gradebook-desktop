@@ -3,6 +3,8 @@ package org.vasvari.gradebook.viewmodel.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.SubjectOutput;
+import org.vasvari.gradebook.dto.TeacherDto;
+import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 import org.vasvari.gradebook.service.AssignmentService;
 import org.vasvari.gradebook.viewmodel.SubjectViewModel;
 
@@ -19,7 +21,7 @@ public class SubjectViewModelMapper {
         return SubjectViewModel.builder()
                 .id(subjectOutput.getId())
                 .name(subjectOutput.getName())
-                .teacherName(getTeacherName(subjectOutput))
+                .teacher(subjectOutput.getTeacher())
                 .studentsCount(getNumberOfStudents(subjectOutput))
                 .assignmentsCount(getNumberOfAssignments(subjectOutput))
                 .build();
@@ -29,10 +31,6 @@ public class SubjectViewModelMapper {
         return subjectOutputList.stream()
                 .map(this::map)
                 .collect(Collectors.toList());
-    }
-
-    private String getTeacherName(SubjectOutput subjectOutput) {
-        return String.format("%s %s", subjectOutput.getTeacher().getLastname(), subjectOutput.getTeacher().getFirstname());
     }
 
     private String getNumberOfStudents(SubjectOutput subjectOutput) {

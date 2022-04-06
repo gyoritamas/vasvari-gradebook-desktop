@@ -2,6 +2,7 @@ package org.vasvari.gradebook.util;
 
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
+import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,4 +73,17 @@ public class Validator {
             birthdateErrorLabel.setText("nem adható meg jövőbeli dátum");
     }
 
+    public void subjectName(TextField subjectName, Label subjectNameErrorLabel) {
+        subjectNameErrorLabel.setText("");
+        if (subjectName.getText() == null || subjectName.getText().isEmpty() || subjectName.getText().isBlank())
+            subjectNameErrorLabel.setText("a tantárgy neve nem lehet üres");
+        else if (subjectName.getText().length() < 2 || subjectName.getText().length() > 255)
+            subjectNameErrorLabel.setText("adjon meg 2-255 karaktert");
+    }
+
+    public void subjectTeacher(ComboBox<SimpleTeacher> subjectTeacher, Label subjectTeacherErrorLabel) {
+        subjectTeacherErrorLabel.setText("");
+        if (subjectTeacher.selectionModelProperty().getValue() == null)
+            subjectTeacherErrorLabel.setText("nincs tanár kiválasztva");
+    }
 }

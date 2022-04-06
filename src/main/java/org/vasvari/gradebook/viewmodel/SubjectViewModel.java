@@ -1,6 +1,7 @@
 package org.vasvari.gradebook.viewmodel;
 
 import lombok.*;
+import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import lombok.*;
 public class SubjectViewModel {
     private Long id;
     private String name;
-    private String teacherName;
+    private SimpleTeacher teacher;
     private String studentsCount;
     private String assignmentsCount;
 }
