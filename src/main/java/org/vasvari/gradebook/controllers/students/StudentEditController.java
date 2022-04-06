@@ -70,27 +70,27 @@ public class StudentEditController implements Initializable {
     private void addEventFilterToFields() {
         lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.lastname(lastName, lastnameErrorLabel);
-            updateButton.setDisable(!isEveryFieldValid());
+            updateButton.setDisable(isAnyFieldInvalid());
         });
         firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.firstname(firstName, firstnameErrorLabel);
-            updateButton.setDisable(!isEveryFieldValid());
+            updateButton.setDisable(isAnyFieldInvalid());
         });
         email.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.email(email, emailErrorLabel);
-            updateButton.setDisable(!isEveryFieldValid());
+            updateButton.setDisable(isAnyFieldInvalid());
         });
         address.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.address(address, addressErrorLabel);
-            updateButton.setDisable(!isEveryFieldValid());
+            updateButton.setDisable(isAnyFieldInvalid());
         });
         phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.phone(phone, phoneErrorLabel);
-            updateButton.setDisable(!isEveryFieldValid());
+            updateButton.setDisable(isAnyFieldInvalid());
         });
         birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) validator.birthdate(birthdate, birthdateErrorLabel);
-            updateButton.setDisable(!isEveryFieldValid());
+            updateButton.setDisable(isAnyFieldInvalid());
         }));
     }
 
@@ -105,7 +105,7 @@ public class StudentEditController implements Initializable {
     }
 
     public void updateStudent(ActionEvent actionEvent) {
-        if (selectedId == null) return;     // no student selected
+        if (selectedId == null) return;
 
         StudentDto student = StudentDto.builder()
                 .lastname(lastName.getText())
@@ -126,10 +126,10 @@ public class StudentEditController implements Initializable {
         studentService.deleteStudent(selectedId);
     }
 
-    private boolean isEveryFieldValid() {
-        return lastnameErrorLabel.getText().isEmpty() && firstnameErrorLabel.getText().isEmpty()
-                && emailErrorLabel.getText().isEmpty() && addressErrorLabel.getText().isEmpty()
-                && phoneErrorLabel.getText().isEmpty() && birthdateErrorLabel.getText().isEmpty();
+    private boolean isAnyFieldInvalid() {
+        return !lastnameErrorLabel.getText().isEmpty() || !firstnameErrorLabel.getText().isEmpty()
+                || !emailErrorLabel.getText().isEmpty() || !addressErrorLabel.getText().isEmpty()
+                || !phoneErrorLabel.getText().isEmpty() || !birthdateErrorLabel.getText().isEmpty();
     }
 
     private void deleteFormFields() {

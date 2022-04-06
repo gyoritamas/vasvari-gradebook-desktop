@@ -65,7 +65,8 @@ public class StudentCreateController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize StudentCreateController");
         initializeGradeLevelComboBox();
-        addEventFilterToFields();
+        addEventFilterToSaveButton();
+        addEventListenersToFields();
     }
 
     private void initializeGradeLevelComboBox() {
@@ -78,7 +79,7 @@ public class StudentCreateController implements Initializable {
         gradeLevel.getItems().addAll(gradeOptions);
     }
 
-    private void addEventFilterToFields() {
+    private void addEventFilterToSaveButton(){
         saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             validator.lastname(lastName, lastnameErrorLabel);
             validator.firstname(firstName, firstnameErrorLabel);
@@ -89,6 +90,9 @@ public class StudentCreateController implements Initializable {
             validator.birthdate(birthdate, birthdateErrorLabel);
             saveStudent();
         });
+    }
+
+    private void addEventListenersToFields() {
         lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) lastnameErrorLabel.setText("");
         });
@@ -113,7 +117,7 @@ public class StudentCreateController implements Initializable {
     }
 
     private void saveStudent() {
-        if (!isEveryFieldValid()) return;
+        if (isAnyFieldInvalid()) return;
 
         StudentDto student = StudentDto.builder()
                 .lastname(lastName.getText())
@@ -143,9 +147,10 @@ public class StudentCreateController implements Initializable {
         birthdate.setValue(null);
     }
 
-    private boolean isEveryFieldValid() {
-        return lastnameErrorLabel.getText().isEmpty() && firstnameErrorLabel.getText().isEmpty()
-                && emailErrorLabel.getText().isEmpty() && addressErrorLabel.getText().isEmpty()
-                && phoneErrorLabel.getText().isEmpty() && birthdateErrorLabel.getText().isEmpty();
+    private boolean isAnyFieldInvalid() {
+        return !lastnameErrorLabel.getText().isEmpty() || !firstnameErrorLabel.getText().isEmpty()
+                || !emailErrorLabel.getText().isEmpty() || !addressErrorLabel.getText().isEmpty()
+                || !phoneErrorLabel.getText().isEmpty() || !birthdateErrorLabel.getText().isEmpty()
+                || !gradeLevelErrorLabel.getText().isEmpty();
     }
 }
