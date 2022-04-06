@@ -54,7 +54,7 @@ public class MainController implements Initializable {
         log.info("initialize MainController");
         JavaFxApplication.getTheStage().setTitle("E-napló");
         JavaFxApplication.getTheStage().setHeight(800);
-        JavaFxApplication.getTheStage().setWidth(1200);
+        JavaFxApplication.getTheStage().setWidth(1300);
         initializeToggleButtons();
         mapButtonsToContentId();
         setUserLabel();

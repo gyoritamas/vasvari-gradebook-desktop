@@ -23,12 +23,12 @@
     <center>
         <TableView fx:id="teachersTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="20.0" text="#"/>
-                <TableColumn fx:id="nameColumn" prefWidth="93.0" text="név"/>
-                <TableColumn fx:id="emailColumn" maxWidth="200.0" prefWidth="200.0" text="email"/>
-                <TableColumn fx:id="addressColumn" maxWidth="200.0" prefWidth="200.0" text="cím"/>
-                <TableColumn fx:id="phoneColumn" maxWidth="150.0" prefWidth="150.0" text="telefon"/>
-                <TableColumn fx:id="dateOfBirthColumn" prefWidth="141.0" text="szül.dátum"/>
+                <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#" />
+                <TableColumn fx:id="nameColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="név" />
+                <TableColumn fx:id="emailColumn" maxWidth="200.0" minWidth="150.0" prefWidth="-1.0" text="email" />
+                <TableColumn fx:id="addressColumn" maxWidth="500.0" minWidth="250.0" prefWidth="-1.0" text="cím" />
+                <TableColumn fx:id="phoneColumn" maxWidth="200.0" minWidth="100.0" prefWidth="-1.0" text="telefon" />
+                <TableColumn fx:id="dateOfBirthColumn" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0" resizable="false" text="szül.dátum" />
             </columns>
         </TableView>
     </center>
