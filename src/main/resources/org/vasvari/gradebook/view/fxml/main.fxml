@@ -39,6 +39,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.vasvari.gradebook.controllers.MainController">
@@ -141,7 +142,7 @@
                             <children>
                                 <fx:include source="students/students.fxml"/>
                                 <fx:include source="contentarea/paneB.fxml"/>
-                                <fx:include source="contentarea/paneC.fxml"/>
+                                <fx:include source="teachers/teachers.fxml"/>
                                 <fx:include source="contentarea/paneD.fxml"/>
                             </children>
                         </AnchorPane>

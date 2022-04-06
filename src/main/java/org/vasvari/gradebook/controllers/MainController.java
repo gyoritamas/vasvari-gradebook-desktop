@@ -64,7 +64,7 @@ public class MainController implements Initializable {
         buttonMap = new HashMap<>();
         buttonMap.put(studentsButton, "#students");
         buttonMap.put(subjectsButton, "#menuBContentArea");
-        buttonMap.put(teachersButton, "#menuCContentArea");
+        buttonMap.put(teachersButton, "#teachers");
         buttonMap.put(assignmentsButton, "#menuDContentArea");
     }
 
