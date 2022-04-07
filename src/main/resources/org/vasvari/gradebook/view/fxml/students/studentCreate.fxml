@@ -128,7 +128,7 @@
             </GridPane.margin>
         </Label>
         <DatePicker fx:id="birthdate" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                    GridPane.rowIndex="14">
+                    GridPane.rowIndex="14" promptText="YYYY. MM. DD.">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>

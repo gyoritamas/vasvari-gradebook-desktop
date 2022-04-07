@@ -58,7 +58,7 @@ public class AssignmentController implements Initializable {
         addEventListenerToTable();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
-//        addEventListenerToSaveButton();
+        addEventListenerToSaveButton();
         addEventListenerToUpdateButton();
         addEventListenerToDeleteButton();
     }

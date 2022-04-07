@@ -115,9 +115,9 @@ public class Validator {
         String deadlineText = deadline.getEditor().textProperty().getValue();
 
         if (deadline.getEditor().textProperty() == null || deadlineText.isEmpty() || deadlineText.isBlank())
-            deadlineErrorLabel.setText("a szül. dátum nem lehet üres");
+            deadlineErrorLabel.setText("a határidő nem lehet üres");
         else if (!deadlineText.matches("([12]\\d{3}\\. (0[1-9]|1[0-2])\\. (0[1-9]|[12]\\d|3[01]))\\."))
-            deadlineErrorLabel.setText("a szül. dátum formátuma hibás");
+            deadlineErrorLabel.setText("a dátum formátuma hibás");
         else if (!LocalDate.parse(deadlineText, dateTimeFormatter).isAfter(LocalDate.now()))
             deadlineErrorLabel.setText("csak jövőbeli dátum adható meg");
     }
