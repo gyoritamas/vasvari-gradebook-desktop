@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,24 +85,24 @@ public class TeacherController implements Initializable {
         teachersTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (teachersTableView.getSelectionModel().getSelectedItem() == null) {
-                        emptyForm();
+                        emptyEditForm();
                     } else {
-                        populateForm(teachersTableView.getSelectionModel().getSelectedItem());
+                        populateEditForm(teachersTableView.getSelectionModel().getSelectedItem());
                     }
                 });
     }
 
-    private void emptyForm() {
+    private void emptyEditForm() {
         teacherEditController.selectedId = null;
-        teacherEditController.firstName.setText(null);
-        teacherEditController.lastName.setText(null);
-        teacherEditController.email.setText(null);
-        teacherEditController.address.setText(null);
-        teacherEditController.phone.setText(null);
-        teacherEditController.birthdate.setValue(null);
+        teacherEditController.firstName.setText("");
+        teacherEditController.lastName.setText("");
+        teacherEditController.email.setText("");
+        teacherEditController.address.setText("");
+        teacherEditController.phone.setText("");
+        teacherEditController.birthdate.editorProperty().getValue().setText("");
     }
 
-    private void populateForm(TeacherDto selectedTeacher) {
+    private void populateEditForm(TeacherDto selectedTeacher) {
         teacherEditController.selectedId = selectedTeacher.getId();
         teacherEditController.firstName.setText(selectedTeacher.getFirstname());
         teacherEditController.lastName.setText(selectedTeacher.getLastname());
@@ -113,14 +114,17 @@ public class TeacherController implements Initializable {
 
     private void addEventFilterToUpdateTeacherButton() {
         teacherEditController.updateButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+        teacherEditController.updateButton.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> refreshTableView());
     }
 
     private void addEventFilterToSaveTeacherButton() {
         teacherCreateController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+        teacherCreateController.saveButton.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> refreshTableView());
     }
 
     private void addEventFilterToDeleteTeacherButton() {
         teacherEditController.deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
+        teacherEditController.deleteButton.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> refreshTableView());
     }
 
     private void addEventListenerToSearchButton() {

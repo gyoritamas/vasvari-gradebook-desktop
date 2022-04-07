@@ -7,7 +7,8 @@
 
 <GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.vasvari.gradebook.controllers.subjects.SubjectEditController">
+          fx:controller="org.vasvari.gradebook.controllers.subjects.SubjectEditController"
+          fx:id="subjectEditTab">
     <columnConstraints>
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="130.0"/>
         <ColumnConstraints halignment="LEFT" maxWidth="250.0" prefWidth="250.0"/>
@@ -58,22 +59,16 @@
         </ComboBox>
         <Label fx:id="subjectTeacherErrorLabel" textFill="#b20b0b" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateSubject" prefHeight="27.0"
-                prefWidth="152.0" text="Mentés" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
+        <Button fx:id="updateButton" mnemonicParsing="false" prefHeight="27.0"
+                prefWidth="152.0" text="Módosítás" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
                 GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
         </Button>
-        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSubject" prefHeight="27.0"
+        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="27.0"
                 prefWidth="152.0" text="Tantárgy törlése" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
                 GridPane.rowIndex="7" GridPane.valignment="CENTER">
-            <GridPane.margin>
-                <Insets right="20.0"/>
-            </GridPane.margin>
-        </Button>
-        <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Frissítés"
-                GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>

@@ -56,20 +56,7 @@ public class TeacherCreateController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize TeacherCreateController");
-        addEventFilterToSaveButton();
         addEventListenersToFields();
-    }
-
-    private void addEventFilterToSaveButton() {
-        saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            validator.lastname(lastName, lastnameErrorLabel);
-            validator.firstname(firstName, firstnameErrorLabel);
-            validator.email(email, emailErrorLabel);
-            validator.address(address, addressErrorLabel);
-            validator.phone(phone, phoneErrorLabel);
-            validator.birthdate(birthdate, birthdateErrorLabel);
-            saveTeacher();
-        });
     }
 
     private void addEventListenersToFields() {
@@ -93,7 +80,9 @@ public class TeacherCreateController implements Initializable {
         }));
     }
 
+    @FXML
     private void saveTeacher() {
+        validateFields();
         if (isAnyFieldInvalid()) return;
 
         TeacherDto teacher = TeacherDto.builder()
@@ -109,7 +98,17 @@ public class TeacherCreateController implements Initializable {
         deleteFormFields();
     }
 
-    public void emptyForm(ActionEvent actionEvent) {
+    private void validateFields() {
+        validator.lastname(lastName, lastnameErrorLabel);
+        validator.firstname(firstName, firstnameErrorLabel);
+        validator.email(email, emailErrorLabel);
+        validator.address(address, addressErrorLabel);
+        validator.phone(phone, phoneErrorLabel);
+        validator.birthdate(birthdate, birthdateErrorLabel);
+    }
+
+    @FXML
+    public void emptyForm() {
         deleteFormFields();
         deleteErrorMessages();
     }

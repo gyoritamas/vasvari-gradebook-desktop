@@ -115,11 +115,11 @@ public class TeacherEditController implements Initializable {
     }
 
     private void deleteFormFields() {
-        firstName.setText(null);
-        lastName.setText(null);
-        email.setText(null);
-        address.setText(null);
-        phone.setText(null);
-        birthdate.setValue(null);
+        firstName.setText("");
+        lastName.setText("");
+        email.setText("");
+        address.setText("");
+        phone.setText("");
+        birthdate.editorProperty().getValue().setText("");
     }
 }

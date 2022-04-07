@@ -1,12 +1,12 @@
 package org.vasvari.gradebook.controllers.subjects;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -16,6 +16,7 @@ import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 import org.vasvari.gradebook.service.SubjectService;
 import org.vasvari.gradebook.service.TeacherService;
 import org.vasvari.gradebook.util.Validator;
+import org.vasvari.gradebook.viewmodel.SubjectViewModel;
 
 import java.net.URL;
 import java.util.List;
@@ -32,7 +33,10 @@ public class SubjectEditController implements Initializable {
     private final SubjectService subjectService;
     private final Validator validator;
 
-    public Long selectedId;
+    @FXML
+    public GridPane subjectEditTab;
+
+    private Long selectedId;
 
     @FXML
     public TextField subjectName;
@@ -46,8 +50,6 @@ public class SubjectEditController implements Initializable {
     public Button updateButton;
     @FXML
     public Button deleteButton;
-    @FXML
-    public Button refreshButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,7 +59,6 @@ public class SubjectEditController implements Initializable {
     }
 
     private void initializeTeacherComboBox() {
-        log.info("initialize teacher combo box");
         List<SimpleTeacher> teachers = teacherService.findAllTeachers().stream()
                 .map(teacher -> new SimpleTeacher(teacher.getId(), teacher.getFirstname(), teacher.getLastname()))
                 .collect(Collectors.toList());
@@ -66,11 +67,13 @@ public class SubjectEditController implements Initializable {
 
     private void addEventFilterToFields() {
         subjectName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.subjectName(subjectName, subjectNameErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.subjectName(subjectName, subjectNameErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
         subjectTeacher.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if(!oldValue.equals(newValue)) validator.subjectTeacher(subjectTeacher, subjectTeacherErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.subjectTeacher(subjectTeacher, subjectTeacherErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
     }
@@ -79,7 +82,7 @@ public class SubjectEditController implements Initializable {
         return !subjectNameErrorLabel.getText().isEmpty() || !subjectTeacherErrorLabel.getText().isEmpty();
     }
 
-    public void updateSubject(ActionEvent actionEvent) {
+    public void updateSubject() {
         if (selectedId == null) return;
 
         SubjectInput subject = SubjectInput.builder()
@@ -88,16 +91,28 @@ public class SubjectEditController implements Initializable {
                 .build();
 
         subjectService.updateSubject(selectedId, subject);
-        deleteFormFields();
     }
 
-    private void deleteFormFields() {
+    public void emptyEditForm() {
+        setSelectedId(null);
         subjectName.setText(null);
         subjectTeacher.setValue(null);
+        subjectEditTab.setDisable(true);
     }
 
-    public void deleteSubject(ActionEvent actionEvent) {
+    public void populateEditForm(SubjectViewModel selectedSubject) {
+        subjectEditTab.setDisable(false);
+        setSelectedId(selectedSubject.getId());
+        subjectName.setText(selectedSubject.getName());
+        subjectTeacher.setValue(selectedSubject.getTeacher());
+    }
+
+    public void deleteSubject() {
         if (selectedId == null) return;
         subjectService.deleteSubject(selectedId);
+    }
+
+    public void setSelectedId(Long id) {
+        this.selectedId = id;
     }
 }

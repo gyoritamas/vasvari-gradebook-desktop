@@ -87,14 +87,14 @@ public class StudentController implements Initializable {
         studentsTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (studentsTableView.getSelectionModel().getSelectedItem() == null) {
-                        emptyForm();
+                        emptyEditForm();
                     } else {
-                        populateForm(studentsTableView.getSelectionModel().getSelectedItem());
+                        populateEditForm(studentsTableView.getSelectionModel().getSelectedItem());
                     }
                 });
     }
 
-    private void emptyForm() {
+    private void emptyEditForm() {
         studentEditController.selectedId = null;
         studentEditController.firstName.setText(null);
         studentEditController.lastName.setText(null);
@@ -105,7 +105,7 @@ public class StudentController implements Initializable {
         studentEditController.birthdate.setValue(null);
     }
 
-    private void populateForm(StudentDto selectedStudent) {
+    private void populateEditForm(StudentDto selectedStudent) {
         studentEditController.selectedId = selectedStudent.getId();
         studentEditController.firstName.setText(selectedStudent.getFirstname());
         studentEditController.lastName.setText(selectedStudent.getLastname());
