@@ -34,7 +34,7 @@
                 <Insets left="20.0"/>
             </GridPane.margin>
         </Label>
-        <TextField id="name" fx:id="subjectName" prefHeight="25.0" prefWidth="250.0" promptText="név"
+        <TextField fx:id="subjectName" prefHeight="25.0" prefWidth="250.0" promptText="név"
                    GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets right="20.0"/>

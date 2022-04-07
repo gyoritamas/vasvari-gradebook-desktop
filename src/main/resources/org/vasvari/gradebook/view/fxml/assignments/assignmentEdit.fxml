@@ -100,7 +100,7 @@
                 <Insets right="20.0" />
             </GridPane.margin>
         </Button>
-        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Tantárgy törlése" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13" GridPane.valignment="CENTER">
+        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Feladat törlése" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0" />
             </GridPane.margin>

@@ -51,7 +51,6 @@ public class StudentSearchController implements Initializable {
     }
 
     private void initializeSubjectFilter() {
-        log.info("initialize subject filter");
         List<SubjectOutput> listOfOptions = new ArrayList<>();
         listOfOptions.add(SUBJECT_FILTER_DEFAULT_VALUE);
         listOfOptions.addAll(subjectService.findSubjectsForUser());
@@ -61,7 +60,6 @@ public class StudentSearchController implements Initializable {
     }
 
     private void initializeGradeFilter() {
-        log.info("initialize grade filter");
         List<String> gradeOptions = new ArrayList<>();
         gradeOptions.add(GRADE_LEVEL_FILTER_DEFAULT_VALUE);
         List<String> oneToTwelve = IntStream.iterate(1, i -> i + 1).limit(12).mapToObj(String::valueOf).collect(Collectors.toList());

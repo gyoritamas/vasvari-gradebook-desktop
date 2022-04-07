@@ -36,7 +36,7 @@
                 <Insets left="20.0"/>
             </GridPane.margin>
         </Label>
-        <TextField id="name" fx:id="studentName" prefHeight="25.0" prefWidth="250.0" promptText="név"
+        <TextField fx:id="studentName" prefHeight="25.0" prefWidth="250.0" promptText="név"
                    GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets right="20.0"/>
@@ -69,8 +69,7 @@
         <Button fx:id="resetFiltersButton" text="Szűrők törlése"
                 mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
                 GridPane.columnIndex="1" GridPane.rowIndex="4"
-                GridPane.halignment="RIGHT" GridPane.valignment="CENTER"
-                onAction="#resetFilters">
+                GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>

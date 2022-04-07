@@ -34,14 +34,14 @@
                 <Insets left="20.0"/>
             </GridPane.margin>
         </Label>
-        <TextField id="name" fx:id="teacherName" prefHeight="25.0" prefWidth="250.0" promptText="név"
+        <TextField fx:id="teacherName" prefHeight="25.0" prefWidth="250.0" promptText="név"
                    GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
         </TextField>
 
-        <Button fx:id="resetFiltersButton" mnemonicParsing="false" onAction="#resetFilters" prefHeight="27.0"
+        <Button fx:id="resetFiltersButton" mnemonicParsing="false" prefHeight="27.0"
                 prefWidth="152.0" text="Szűrők törlése" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
                 GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <GridPane.margin>

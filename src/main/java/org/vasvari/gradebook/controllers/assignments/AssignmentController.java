@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.AssignmentOutput;
+import org.vasvari.gradebook.model.request.AssignmentRequest;
 import org.vasvari.gradebook.service.AssignmentService;
 
 import java.net.URL;
@@ -55,6 +56,9 @@ public class AssignmentController implements Initializable {
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
+        addEventListenerToSearchButton();
+        addEventListenerToResetFiltersButton();
+//        addEventListenerToSaveButton();
         addEventListenerToUpdateButton();
         addEventListenerToDeleteButton();
     }
@@ -87,6 +91,24 @@ public class AssignmentController implements Initializable {
                 });
     }
 
+    private void addEventListenerToSearchButton() {
+        assignmentSearchController.searchButton.setOnAction(event -> searchAssignments());
+    }
+
+    private void addEventListenerToResetFiltersButton() {
+        assignmentSearchController.resetFiltersButton.setOnAction(actionEvent -> {
+            assignmentSearchController.resetFilters();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToSaveButton() {
+        assignmentCreateController.saveButton.setOnAction(actionEvent -> {
+            assignmentCreateController.saveAssignment();
+            refreshTableView();
+        });
+    }
+
     private void addEventListenerToUpdateButton() {
         assignmentEditController.updateButton.setOnAction(actionEvent -> {
             assignmentEditController.updateAssignment();
@@ -104,6 +126,11 @@ public class AssignmentController implements Initializable {
     private ObservableList<AssignmentOutput> getAssignments() {
         List<AssignmentOutput> assignments = assignmentService.findAssignmentsForUser();
         return FXCollections.observableArrayList(assignments);
+    }
+
+    private void searchAssignments() {
+        AssignmentRequest request = assignmentSearchController.getFilters();
+        assignmentsTableView.setItems(FXCollections.observableArrayList(assignmentService.findAssignmentsForUser(request)));
     }
 
     private void refreshTableView() {
