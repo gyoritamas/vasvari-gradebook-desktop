@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<BorderPane fx:id="users" prefHeight="768.0" prefWidth="1107.0"  AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.vasvari.gradebook.controllers.users.UserController"
+            visible="false">
+    <top>
+        <Label prefHeight="106.0" prefWidth="1131.0" text="Felhasználók" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets left="30.0"/>
+            </padding>
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+    </top>
+
+    <center>
+        <TableView fx:id="usersTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#"/>
+                <TableColumn fx:id="nameColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="felhasználónév"/>
+                <TableColumn fx:id="roleColumn" maxWidth="500.0" minWidth="150.0" prefWidth="-1.0" text="szerepkör"/>
+                <TableColumn fx:id="activeColumn" maxWidth="120.0" minWidth="120.0" prefWidth="-1.0" text="aktív"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <right>
+        <TabPane prefHeight="662.0" prefWidth="300.0">
+            <tabs>
+                <Tab closable="false" text="Keresés">
+<!--                    <fx:include fx:id="userSearch" source="userSearch.fxml"/>-->
+                </Tab>
+                <Tab closable="false" text="Új">
+<!--                    <fx:include fx:id="userCreate" source="userCreate.fxml"/>-->
+                </Tab>
+                <Tab closable="false" text="Szerkesztés">
+<!--                    <fx:include fx:id="userEdit" source="userEdit.fxml"/>-->
+                </Tab>
+            </tabs>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </TabPane>
+    </right>
+</BorderPane>

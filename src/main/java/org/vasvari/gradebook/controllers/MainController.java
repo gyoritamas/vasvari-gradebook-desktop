@@ -45,6 +45,12 @@ public class MainController implements Initializable {
     public ToggleButton subjectsButton;
     @FXML
     public ToggleButton assignmentsButton;
+    @FXML
+    public ToggleButton entriesButton;
+    @FXML
+    public ToggleButton usersButton;
+    @FXML
+    public ToggleButton profileButton;
 
     @FXML
     public Label userLabel;
@@ -54,9 +60,11 @@ public class MainController implements Initializable {
         log.info("initialize MainController");
         JavaFxApplication.getTheStage().setTitle("E-napló");
         JavaFxApplication.getTheStage().setHeight(800);
+        JavaFxApplication.getTheStage().setMinHeight(800);
         JavaFxApplication.getTheStage().setWidth(1300);
-        initializeToggleButtons();
+        JavaFxApplication.getTheStage().setMinWidth(1300);
         mapButtonsToContentId();
+        initializeToggleButtons();
         setUserLabel();
     }
 
@@ -66,11 +74,14 @@ public class MainController implements Initializable {
         buttonMap.put(subjectsButton, "#subjects");
         buttonMap.put(teachersButton, "#teachers");
         buttonMap.put(assignmentsButton, "#assignments");
+        buttonMap.put(entriesButton, "#gradebookEntries");
+        buttonMap.put(usersButton, "#users");
+        buttonMap.put(profileButton, "#profile");
     }
 
     private void initializeToggleButtons() {
         toggleGroup = new ToggleGroup();
-        toggleGroup.getToggles().addAll(studentsButton, teachersButton, subjectsButton, assignmentsButton);
+        toggleGroup.getToggles().addAll(buttonMap.keySet());
         toggleGroup.selectToggle(studentsButton);
         selected = studentsButton;
     }
@@ -91,8 +102,16 @@ public class MainController implements Initializable {
         hidePreviousActivePaneAndShowSelectedPane(assignmentsButton);
     }
 
+    public void entriesButtonClicked(ActionEvent actionEvent) {
+        hidePreviousActivePaneAndShowSelectedPane(entriesButton);
+    }
+
+    public void usersButtonClicked(ActionEvent actionEvent) {
+        hidePreviousActivePaneAndShowSelectedPane(usersButton);
+    }
+
     public void profileButtonClicked(ActionEvent actionEvent) {
-        //hidePreviousActiveBorderPaneAndShowSelectedBorderPane(profileButton);
+        hidePreviousActivePaneAndShowSelectedPane(profileButton);
     }
 
     private void hidePreviousActivePaneAndShowSelectedPane(ToggleButton button) {
