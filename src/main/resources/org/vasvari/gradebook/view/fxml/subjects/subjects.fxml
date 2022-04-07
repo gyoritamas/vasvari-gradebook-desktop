@@ -44,7 +44,7 @@
                     <fx:include fx:id="subjectSearch" source="subjectSearch.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Új">
-<!--                    <fx:include fx:id="subjectCreate" source="subjectCreate.fxml"/>-->
+                    <fx:include fx:id="subjectCreate" source="subjectCreate.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Szerkesztés">
                     <fx:include fx:id="subjectEdit" source="subjectEdit.fxml"/>

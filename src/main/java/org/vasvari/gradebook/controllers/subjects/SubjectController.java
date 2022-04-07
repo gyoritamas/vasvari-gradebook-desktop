@@ -47,6 +47,8 @@ public class SubjectController implements Initializable {
     public SubjectEditController subjectEditController;
     @FXML
     public SubjectSearchController subjectSearchController;
+    @FXML
+    public SubjectCreateController subjectCreateController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,6 +60,7 @@ public class SubjectController implements Initializable {
         addEventListenerToResetFiltersButton();
         addEventListenerToUpdateButton();
         addEventListenerToDeleteButton();
+        addEventListenerToSaveButton();
     }
 
     private void initializeTableColumns() {
@@ -118,6 +121,13 @@ public class SubjectController implements Initializable {
     private void addEventListenerToDeleteButton() {
         subjectEditController.deleteButton.setOnAction(actionEvent -> {
             subjectEditController.deleteSubject();
+            refreshTable();
+        });
+    }
+
+    private void addEventListenerToSaveButton() {
+        subjectCreateController.saveButton.setOnAction(actionEvent -> {
+            subjectCreateController.saveSubject();
             refreshTable();
         });
     }

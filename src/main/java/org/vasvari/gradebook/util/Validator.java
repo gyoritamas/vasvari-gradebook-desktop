@@ -83,7 +83,7 @@ public class Validator {
 
     public void subjectTeacher(ComboBox<SimpleTeacher> subjectTeacher, Label subjectTeacherErrorLabel) {
         subjectTeacherErrorLabel.setText("");
-        if (subjectTeacher.selectionModelProperty().getValue() == null)
+        if (subjectTeacher.selectionModelProperty().getValue().getSelectedItem() == null)
             subjectTeacherErrorLabel.setText("nincs tanár kiválasztva");
     }
 }
