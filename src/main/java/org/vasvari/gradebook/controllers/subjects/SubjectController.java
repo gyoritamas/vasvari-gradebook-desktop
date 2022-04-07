@@ -70,20 +70,20 @@ public class SubjectController implements Initializable {
         subjectsTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (subjectsTableView.getSelectionModel().getSelectedItem() == null) {
-                        emptyForm();
+                        emptyEditForm();
                     } else {
-                        populateForm(subjectsTableView.getSelectionModel().getSelectedItem());
+                        populateEditForm(subjectsTableView.getSelectionModel().getSelectedItem());
                     }
                 });
     }
 
-    private void emptyForm() {
+    private void emptyEditForm() {
         subjectEditController.selectedId = null;
         subjectEditController.subjectName.setText(null);
         subjectEditController.subjectTeacher.setValue(null);
     }
 
-    private void populateForm(SubjectViewModel selectedSubject) {
+    private void populateEditForm(SubjectViewModel selectedSubject) {
         subjectEditController.selectedId = selectedSubject.getId();
         subjectEditController.subjectName.setText(selectedSubject.getName());
         subjectEditController.subjectTeacher.setValue(selectedSubject.getTeacher());
