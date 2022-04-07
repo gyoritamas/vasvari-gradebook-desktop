@@ -1,10 +1,8 @@
 package org.vasvari.gradebook.controllers.teachers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -61,27 +59,32 @@ public class TeacherCreateController implements Initializable {
 
     private void addEventListenersToFields() {
         lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) lastnameErrorLabel.setText("");
+            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                lastnameErrorLabel.setText("");
         });
         firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) firstnameErrorLabel.setText("");
+            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                firstnameErrorLabel.setText("");
         });
         email.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) emailErrorLabel.setText("");
+            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                emailErrorLabel.setText("");
         });
         address.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) addressErrorLabel.setText("");
+            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                addressErrorLabel.setText("");
         });
         phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) phoneErrorLabel.setText("");
+            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                phoneErrorLabel.setText("");
         });
         birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) birthdateErrorLabel.setText("");
+            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                birthdateErrorLabel.setText("");
         }));
     }
 
-    @FXML
-    private void saveTeacher() {
+    public void saveTeacher() {
         validateFields();
         if (isAnyFieldInvalid()) return;
 

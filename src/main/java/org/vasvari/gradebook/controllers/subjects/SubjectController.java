@@ -52,6 +52,7 @@ public class SubjectController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        log.info("initialize SubjectController");
         subjectEditController.subjectEditTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
@@ -64,6 +65,7 @@ public class SubjectController implements Initializable {
     }
 
     private void initializeTableColumns() {
+        log.info("initialize subjects table columns");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
@@ -72,12 +74,11 @@ public class SubjectController implements Initializable {
     }
 
     private void initializeTable() {
-        log.info("initialize subject table");
+        log.info("initialize subjects table");
         subjectsTableView.setItems(findAllSubjects());
     }
 
     private void addEventListenerToTable() {
-        log.info("add event listener to subject table");
         subjectsTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     SubjectViewModel selectedSubject = subjectsTableView.getSelectionModel().getSelectedItem();
@@ -89,31 +90,27 @@ public class SubjectController implements Initializable {
                 });
     }
 
-    private ObservableList<SubjectViewModel> findAllSubjects() {
-        List<SubjectViewModel> subjects = mapper.mapAll(subjectService.findSubjectsForUser());
-        return FXCollections.observableArrayList(subjects);
-    }
-
     private void addEventListenerToSearchButton() {
         subjectSearchController.searchButton.setOnAction(event -> searchSubjects());
-    }
-
-    private void searchSubjects() {
-        SubjectRequest request = subjectSearchController.getFilters();
-        List<SubjectViewModel> subjects = mapper.mapAll(subjectService.searchSubjects(request));
-        subjectsTableView.setItems(FXCollections.observableArrayList(subjects));
-    }
-
-    private void addEventListenerToUpdateButton() {
-        subjectEditController.updateButton.setOnAction(actionEvent -> {
-            subjectEditController.updateSubject();
-            refreshTable();
-        });
     }
 
     private void addEventListenerToResetFiltersButton() {
         subjectSearchController.resetFiltersButton.setOnAction(actionEvent -> {
             subjectSearchController.resetFilters();
+            refreshTable();
+        });
+    }
+
+    private void addEventListenerToSaveButton() {
+        subjectCreateController.saveButton.setOnAction(actionEvent -> {
+            subjectCreateController.saveSubject();
+            refreshTable();
+        });
+    }
+
+    private void addEventListenerToUpdateButton() {
+        subjectEditController.updateButton.setOnAction(actionEvent -> {
+            subjectEditController.updateSubject();
             refreshTable();
         });
     }
@@ -125,11 +122,15 @@ public class SubjectController implements Initializable {
         });
     }
 
-    private void addEventListenerToSaveButton() {
-        subjectCreateController.saveButton.setOnAction(actionEvent -> {
-            subjectCreateController.saveSubject();
-            refreshTable();
-        });
+    private ObservableList<SubjectViewModel> findAllSubjects() {
+        List<SubjectViewModel> subjects = mapper.mapAll(subjectService.findSubjectsForUser());
+        return FXCollections.observableArrayList(subjects);
+    }
+
+    private void searchSubjects() {
+        SubjectRequest request = subjectSearchController.getFilters();
+        List<SubjectViewModel> subjects = mapper.mapAll(subjectService.searchSubjects(request));
+        subjectsTableView.setItems(FXCollections.observableArrayList(subjects));
     }
 
     private void refreshTable() {

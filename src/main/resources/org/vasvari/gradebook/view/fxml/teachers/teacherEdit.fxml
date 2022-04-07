@@ -7,7 +7,8 @@
 
 <GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.vasvari.gradebook.controllers.teachers.TeacherEditController">
+          fx:controller="org.vasvari.gradebook.controllers.teachers.TeacherEditController"
+          fx:id="teacherEditTab">
     <columnConstraints>
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="130.0"/>
         <ColumnConstraints halignment="LEFT" maxWidth="250.0" prefWidth="250.0"/>
@@ -120,11 +121,10 @@
         </DatePicker>
         <Label fx:id="birthdateErrorLabel" textFill="#b20b0b" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
 
-        <Button fx:id="updateButton" text="Mentés"
+        <Button fx:id="updateButton" text="Módosítás"
                 mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
                 GridPane.columnIndex="1" GridPane.rowIndex="14"
-                GridPane.halignment="RIGHT" GridPane.valignment="CENTER"
-                onAction="#updateTeacher">
+                GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
@@ -132,8 +132,7 @@
         <Button fx:id="deleteButton" text="Tanár törlése"
                 mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
                 GridPane.columnIndex="1" GridPane.rowIndex="15"
-                GridPane.halignment="RIGHT" GridPane.valignment="CENTER"
-                onAction="#deleteTeacher">
+                GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>

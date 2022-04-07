@@ -59,11 +59,6 @@ public class SubjectCreateController implements Initializable {
         subjectTeacher.getItems().addAll(teachers);
     }
 
-    private void validateFields() {
-        validator.subjectName(subjectName, subjectNameErrorLabel);
-        validator.subjectTeacher(subjectTeacher, subjectTeacherErrorLabel);
-    }
-
     private void addEventListenerToFields() {
         subjectName.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
@@ -86,6 +81,11 @@ public class SubjectCreateController implements Initializable {
 
         subjectService.saveSubject(subject);
         deleteFormFields();
+    }
+
+    private void validateFields() {
+        validator.subjectName(subjectName, subjectNameErrorLabel);
+        validator.subjectTeacher(subjectTeacher, subjectTeacherErrorLabel);
     }
 
     @FXML

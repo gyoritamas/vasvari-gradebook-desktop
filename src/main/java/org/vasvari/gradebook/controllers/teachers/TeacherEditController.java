@@ -1,9 +1,9 @@
 package org.vasvari.gradebook.controllers.teachers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -23,8 +23,10 @@ public class TeacherEditController implements Initializable {
     private final TeacherService teacherService;
     private final Validator validator;
 
-    public Long selectedId;
+    private Long selectedId;
 
+    @FXML
+    public GridPane teacherEditTab;
     @FXML
     public TextField lastName;
     @FXML
@@ -56,38 +58,50 @@ public class TeacherEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        log.info("initialize TeacherFormController");
+        log.info("initialize TeacherEditController");
         addEventFilterToFields();
     }
 
     private void addEventFilterToFields() {
         lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.lastname(lastName, lastnameErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.lastname(lastName, lastnameErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
         firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.firstname(firstName, firstnameErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.firstname(firstName, firstnameErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
         email.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.email(email, emailErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.email(email, emailErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
         address.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.address(address, addressErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.address(address, addressErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
         phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.phone(phone, phoneErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.phone(phone, phoneErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         });
         birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.birthdate(birthdate, birthdateErrorLabel);
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.birthdate(birthdate, birthdateErrorLabel);
             updateButton.setDisable(isAnyFieldInvalid());
         }));
     }
 
-    public void updateTeacher(ActionEvent actionEvent) {
+    private boolean isAnyFieldInvalid() {
+        return !lastnameErrorLabel.getText().isEmpty() || !firstnameErrorLabel.getText().isEmpty()
+                || !emailErrorLabel.getText().isEmpty() || !addressErrorLabel.getText().isEmpty()
+                || !phoneErrorLabel.getText().isEmpty() || !birthdateErrorLabel.getText().isEmpty();
+    }
+
+    public void updateTeacher() {
         if (selectedId == null) return;
 
         TeacherDto teacher = TeacherDto.builder()
@@ -100,26 +114,36 @@ public class TeacherEditController implements Initializable {
                 .build();
 
         teacherService.updateTeacher(selectedId, teacher);
-        deleteFormFields();
     }
 
-    public void deleteTeacher(ActionEvent actionEvent) {
+    public void emptyEditForm() {
+        setSelectedId(null);
+        firstName.setText(null);
+        lastName.setText(null);
+        email.setText(null);
+        address.setText(null);
+        phone.setText(null);
+        birthdate.setValue(null);
+        teacherEditTab.setDisable(true);
+    }
+
+    public void populateEditForm(TeacherDto selectedTeacher) {
+        teacherEditTab.setDisable(false);
+        selectedId = selectedTeacher.getId();
+        firstName.setText(selectedTeacher.getFirstname());
+        lastName.setText(selectedTeacher.getLastname());
+        email.setText(selectedTeacher.getEmail());
+        address.setText(selectedTeacher.getAddress());
+        phone.setText(selectedTeacher.getPhone());
+        birthdate.setValue(selectedTeacher.getBirthdate());
+    }
+
+    public void deleteTeacher() {
         if (selectedId == null) return;
         teacherService.deleteTeacher(selectedId);
     }
 
-    private boolean isAnyFieldInvalid() {
-        return !lastnameErrorLabel.getText().isEmpty() || !firstnameErrorLabel.getText().isEmpty()
-                || !emailErrorLabel.getText().isEmpty() || !addressErrorLabel.getText().isEmpty()
-                || !phoneErrorLabel.getText().isEmpty() || !birthdateErrorLabel.getText().isEmpty();
-    }
-
-    private void deleteFormFields() {
-        firstName.setText("");
-        lastName.setText("");
-        email.setText("");
-        address.setText("");
-        phone.setText("");
-        birthdate.editorProperty().getValue().setText("");
+    public void setSelectedId(Long id) {
+        this.selectedId = id;
     }
 }

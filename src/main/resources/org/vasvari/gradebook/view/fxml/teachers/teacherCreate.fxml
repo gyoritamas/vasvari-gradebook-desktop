@@ -128,7 +128,7 @@
         </Button>
         <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Mentés"
                 GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15"
-                GridPane.valignment="CENTER" onAction="#saveTeacher">
+                GridPane.valignment="CENTER" >
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>

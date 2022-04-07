@@ -7,8 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -54,18 +52,19 @@ public class TeacherController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize TeacherController");
+        teacherEditController.teacherEditTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
-        addEventFilterToSaveTeacherButton();
-        addEventFilterToUpdateTeacherButton();
-        addEventFilterToDeleteTeacherButton();
+        addEventListenerToSaveTeacherButton();
+        addEventListenerToUpdateTeacherButton();
+        addEventListenerToDeleteTeacherButton();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
     }
 
     private void initializeTableColumns() {
-        log.info("initialize table columns");
+        log.info("initialize teachers table columns");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -75,56 +74,20 @@ public class TeacherController implements Initializable {
     }
 
     private void initializeTable() {
-        log.info("initialize table");
-        ObservableList<TeacherDto> data = getTeachers();
-        teachersTableView.setItems(data);
+        log.info("initialize teachers table");
+        teachersTableView.setItems(getTeachers());
     }
 
     private void addEventListenerToTable() {
-        log.info("add event listener to table");
         teachersTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-                    if (teachersTableView.getSelectionModel().getSelectedItem() == null) {
-                        emptyEditForm();
+                    TeacherDto selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
+                    if (selectedTeacher == null) {
+                        teacherEditController.emptyEditForm();
                     } else {
-                        populateEditForm(teachersTableView.getSelectionModel().getSelectedItem());
+                        teacherEditController.populateEditForm(selectedTeacher);
                     }
                 });
-    }
-
-    private void emptyEditForm() {
-        teacherEditController.selectedId = null;
-        teacherEditController.firstName.setText("");
-        teacherEditController.lastName.setText("");
-        teacherEditController.email.setText("");
-        teacherEditController.address.setText("");
-        teacherEditController.phone.setText("");
-        teacherEditController.birthdate.editorProperty().getValue().setText("");
-    }
-
-    private void populateEditForm(TeacherDto selectedTeacher) {
-        teacherEditController.selectedId = selectedTeacher.getId();
-        teacherEditController.firstName.setText(selectedTeacher.getFirstname());
-        teacherEditController.lastName.setText(selectedTeacher.getLastname());
-        teacherEditController.email.setText(selectedTeacher.getEmail());
-        teacherEditController.address.setText(selectedTeacher.getAddress());
-        teacherEditController.phone.setText(selectedTeacher.getPhone());
-        teacherEditController.birthdate.setValue(selectedTeacher.getBirthdate());
-    }
-
-    private void addEventFilterToUpdateTeacherButton() {
-        teacherEditController.updateButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
-        teacherEditController.updateButton.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> refreshTableView());
-    }
-
-    private void addEventFilterToSaveTeacherButton() {
-        teacherCreateController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
-        teacherCreateController.saveButton.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> refreshTableView());
-    }
-
-    private void addEventFilterToDeleteTeacherButton() {
-        teacherEditController.deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
-        teacherEditController.deleteButton.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> refreshTableView());
     }
 
     private void addEventListenerToSearchButton() {
@@ -132,7 +95,31 @@ public class TeacherController implements Initializable {
     }
 
     private void addEventListenerToResetFiltersButton() {
-        teacherSearchController.resetFiltersButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> resetFilters());
+        teacherSearchController.resetFiltersButton.setOnAction(actionEvent -> {
+            teacherSearchController.resetFilters();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToSaveTeacherButton() {
+        teacherCreateController.saveButton.setOnAction(actionEvent -> {
+            teacherCreateController.saveTeacher();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToUpdateTeacherButton() {
+        teacherEditController.updateButton.setOnAction(actionEvent -> {
+            teacherEditController.updateTeacher();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToDeleteTeacherButton() {
+        teacherEditController.deleteButton.setOnAction(actionEvent -> {
+            teacherEditController.deleteTeacher();
+            refreshTableView();
+        });
     }
 
     private ObservableList<TeacherDto> getTeachers() {
@@ -143,10 +130,6 @@ public class TeacherController implements Initializable {
     private void searchTeachers() {
         TeacherRequest request = teacherSearchController.getFilters();
         teachersTableView.setItems(FXCollections.observableArrayList(teacherService.searchTeachers(request)));
-    }
-
-    private void resetFilters() {
-        teachersTableView.setItems(FXCollections.observableArrayList(teacherService.findAllTeachers()));
     }
 
     public void refreshTableView() {

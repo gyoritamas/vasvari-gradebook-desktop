@@ -33,11 +33,10 @@ public class SubjectEditController implements Initializable {
     private final SubjectService subjectService;
     private final Validator validator;
 
-    @FXML
-    public GridPane subjectEditTab;
-
     private Long selectedId;
 
+    @FXML
+    public GridPane subjectEditTab;
     @FXML
     public TextField subjectName;
     @FXML
