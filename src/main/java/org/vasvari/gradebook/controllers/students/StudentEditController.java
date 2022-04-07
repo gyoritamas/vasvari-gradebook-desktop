@@ -1,9 +1,9 @@
 package org.vasvari.gradebook.controllers.students;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -27,8 +27,10 @@ public class StudentEditController implements Initializable {
     private final StudentService studentService;
     private final Validator validator;
 
-    public Long selectedId;
+    private Long selectedId;
 
+    @FXML
+    public GridPane studentEditTab;
     @FXML
     public TextField lastName;
     @FXML
@@ -62,40 +64,12 @@ public class StudentEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        log.info("initialize StudentFormController");
+        log.info("initialize StudentEditController");
         initializeGradeLevelComboBox();
         addEventFilterToFields();
     }
 
-    private void addEventFilterToFields() {
-        lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.lastname(lastName, lastnameErrorLabel);
-            updateButton.setDisable(isAnyFieldInvalid());
-        });
-        firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.firstname(firstName, firstnameErrorLabel);
-            updateButton.setDisable(isAnyFieldInvalid());
-        });
-        email.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.email(email, emailErrorLabel);
-            updateButton.setDisable(isAnyFieldInvalid());
-        });
-        address.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.address(address, addressErrorLabel);
-            updateButton.setDisable(isAnyFieldInvalid());
-        });
-        phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.phone(phone, phoneErrorLabel);
-            updateButton.setDisable(isAnyFieldInvalid());
-        });
-        birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) validator.birthdate(birthdate, birthdateErrorLabel);
-            updateButton.setDisable(isAnyFieldInvalid());
-        }));
-    }
-
     private void initializeGradeLevelComboBox() {
-        log.info("initialize grade filter");
         List<String> gradeOptions = IntStream
                 .iterate(1, i -> i + 1)
                 .limit(12)
@@ -104,7 +78,46 @@ public class StudentEditController implements Initializable {
         gradeLevel.getItems().addAll(gradeOptions);
     }
 
-    public void updateStudent(ActionEvent actionEvent) {
+    private void addEventFilterToFields() {
+        lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.lastname(lastName, lastnameErrorLabel);
+            updateButton.setDisable(isAnyFieldInvalid());
+        });
+        firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.firstname(firstName, firstnameErrorLabel);
+            updateButton.setDisable(isAnyFieldInvalid());
+        });
+        email.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.email(email, emailErrorLabel);
+            updateButton.setDisable(isAnyFieldInvalid());
+        });
+        address.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.address(address, addressErrorLabel);
+            updateButton.setDisable(isAnyFieldInvalid());
+        });
+        phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.phone(phone, phoneErrorLabel);
+            updateButton.setDisable(isAnyFieldInvalid());
+        });
+        birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
+                validator.birthdate(birthdate, birthdateErrorLabel);
+            updateButton.setDisable(isAnyFieldInvalid());
+        }));
+    }
+
+    private boolean isAnyFieldInvalid() {
+        return !lastnameErrorLabel.getText().isEmpty() || !firstnameErrorLabel.getText().isEmpty()
+                || !emailErrorLabel.getText().isEmpty() || !addressErrorLabel.getText().isEmpty()
+                || !phoneErrorLabel.getText().isEmpty() || !birthdateErrorLabel.getText().isEmpty();
+    }
+
+    public void updateStudent() {
         if (selectedId == null) return;
 
         StudentDto student = StudentDto.builder()
@@ -118,21 +131,10 @@ public class StudentEditController implements Initializable {
                 .build();
 
         studentService.updateStudent(selectedId, student);
-        deleteFormFields();
     }
 
-    public void deleteStudent(ActionEvent actionEvent) {
-        if (selectedId == null) return;
-        studentService.deleteStudent(selectedId);
-    }
-
-    private boolean isAnyFieldInvalid() {
-        return !lastnameErrorLabel.getText().isEmpty() || !firstnameErrorLabel.getText().isEmpty()
-                || !emailErrorLabel.getText().isEmpty() || !addressErrorLabel.getText().isEmpty()
-                || !phoneErrorLabel.getText().isEmpty() || !birthdateErrorLabel.getText().isEmpty();
-    }
-
-    private void deleteFormFields() {
+    public void emptyEditForm() {
+        setSelectedId(null);
         firstName.setText(null);
         lastName.setText(null);
         gradeLevel.setValue(null);
@@ -140,5 +142,27 @@ public class StudentEditController implements Initializable {
         address.setText(null);
         phone.setText(null);
         birthdate.setValue(null);
+        studentEditTab.setDisable(true);
+    }
+
+    public void populateEditForm(StudentDto selectedStudent) {
+        studentEditTab.setDisable(false);
+        setSelectedId(selectedStudent.getId());
+        firstName.setText(selectedStudent.getFirstname());
+        lastName.setText(selectedStudent.getLastname());
+        gradeLevel.setValue(selectedStudent.getGradeLevel().toString());
+        email.setText(selectedStudent.getEmail());
+        address.setText(selectedStudent.getAddress());
+        phone.setText(selectedStudent.getPhone());
+        birthdate.setValue(selectedStudent.getBirthdate());
+    }
+
+    public void deleteStudent() {
+        if (selectedId == null) return;
+        studentService.deleteStudent(selectedId);
+    }
+
+    public void setSelectedId(Long id) {
+        this.selectedId = id;
     }
 }

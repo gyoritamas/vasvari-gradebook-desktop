@@ -55,6 +55,7 @@ public class StudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize StudentController");
+        studentEditController.studentEditTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
@@ -66,7 +67,7 @@ public class StudentController implements Initializable {
     }
 
     private void initializeTableColumns() {
-        log.info("initialize table columns");
+        log.info("initialize student table columns");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         gradeLevelColumn.setCellValueFactory(new PropertyValueFactory<>("gradeLevel"));
@@ -83,49 +84,15 @@ public class StudentController implements Initializable {
     }
 
     private void addEventListenerToTable() {
-        log.info("add event listener to table");
         studentsTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-                    if (studentsTableView.getSelectionModel().getSelectedItem() == null) {
-                        emptyEditForm();
+                    StudentDto selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
+                    if (selectedStudent == null) {
+                        studentEditController.emptyEditForm();
                     } else {
-                        populateEditForm(studentsTableView.getSelectionModel().getSelectedItem());
+                        studentEditController.populateEditForm(selectedStudent);
                     }
                 });
-    }
-
-    private void emptyEditForm() {
-        studentEditController.selectedId = null;
-        studentEditController.firstName.setText(null);
-        studentEditController.lastName.setText(null);
-        studentEditController.gradeLevel.setValue(null);
-        studentEditController.email.setText(null);
-        studentEditController.address.setText(null);
-        studentEditController.phone.setText(null);
-        studentEditController.birthdate.setValue(null);
-    }
-
-    private void populateEditForm(StudentDto selectedStudent) {
-        studentEditController.selectedId = selectedStudent.getId();
-        studentEditController.firstName.setText(selectedStudent.getFirstname());
-        studentEditController.lastName.setText(selectedStudent.getLastname());
-        studentEditController.gradeLevel.setValue(selectedStudent.getGradeLevel().toString());
-        studentEditController.email.setText(selectedStudent.getEmail());
-        studentEditController.address.setText(selectedStudent.getAddress());
-        studentEditController.phone.setText(selectedStudent.getPhone());
-        studentEditController.birthdate.setValue(selectedStudent.getBirthdate());
-    }
-
-    private void addEventFilterToUpdateStudentButton() {
-        studentEditController.updateButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
-    }
-
-    private void addEventFilterToSaveStudentButton() {
-        studentCreateController.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
-    }
-
-    private void addEventFilterToDeleteStudentButton() {
-        studentEditController.deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> refreshTableView());
     }
 
     private void addEventListenerToSearchButton() {
@@ -133,7 +100,31 @@ public class StudentController implements Initializable {
     }
 
     private void addEventListenerToResetFiltersButton() {
-        studentSearchController.resetFiltersButton.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> resetFilters());
+        studentSearchController.resetFiltersButton.setOnAction(actionEvent -> {
+            studentSearchController.resetFilters();
+            refreshTableView();
+        });
+    }
+
+    private void addEventFilterToSaveStudentButton() {
+        studentCreateController.saveButton.setOnAction(actionEvent -> {
+            studentCreateController.saveStudent();
+            refreshTableView();
+        });
+    }
+
+    private void addEventFilterToUpdateStudentButton() {
+        studentEditController.updateButton.setOnAction(actionEvent -> {
+            studentEditController.updateStudent();
+            refreshTableView();
+        });
+    }
+
+    private void addEventFilterToDeleteStudentButton() {
+        studentEditController.deleteButton.setOnAction(actionEvent -> {
+            studentEditController.deleteStudent();
+            refreshTableView();
+        });
     }
 
     private ObservableList<StudentDto> getStudents() {
@@ -144,10 +135,6 @@ public class StudentController implements Initializable {
     private void searchStudents() {
         StudentRequest request = studentSearchController.getFilters();
         studentsTableView.setItems(FXCollections.observableArrayList(studentService.findStudentsForUser(request)));
-    }
-
-    private void resetFilters() {
-        studentsTableView.setItems(FXCollections.observableArrayList(studentService.findStudentsForUser()));
     }
 
     public void refreshTableView() {

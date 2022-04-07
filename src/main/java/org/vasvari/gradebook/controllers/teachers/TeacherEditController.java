@@ -129,7 +129,7 @@ public class TeacherEditController implements Initializable {
 
     public void populateEditForm(TeacherDto selectedTeacher) {
         teacherEditTab.setDisable(false);
-        selectedId = selectedTeacher.getId();
+        setSelectedId(selectedTeacher.getId());
         firstName.setText(selectedTeacher.getFirstname());
         lastName.setText(selectedTeacher.getLastname());
         email.setText(selectedTeacher.getEmail());
