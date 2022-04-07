@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.AssignmentType;
 import org.vasvari.gradebook.dto.SubjectOutput;
 import org.vasvari.gradebook.model.request.AssignmentRequest;
-import org.vasvari.gradebook.service.AssignmentService;
 import org.vasvari.gradebook.service.SubjectService;
 
 import java.net.URL;
@@ -42,6 +42,8 @@ public class AssignmentSearchController implements Initializable {
     public ComboBox<String> typeFilter;
     @FXML
     public ComboBox<SubjectOutput> subjectFilter;
+    @FXML
+    public CheckBox expiredCheckbox;
     @FXML
     public Button resetFiltersButton;
     @FXML
@@ -86,5 +88,6 @@ public class AssignmentSearchController implements Initializable {
         assignmentTitle.setText(null);
         typeFilter.setValue(ASSIGNMENT_TYPE_DEFAULT_VALUE);
         subjectFilter.setValue(SUBJECT_FILTER_DEFAULT_VALUE);
+        expiredCheckbox.setSelected(false);
     }
 }

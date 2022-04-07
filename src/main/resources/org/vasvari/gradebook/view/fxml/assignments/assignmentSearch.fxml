@@ -17,6 +17,7 @@
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
     </rowConstraints>
@@ -36,8 +37,8 @@
                 <Insets left="20.0"/>
             </GridPane.margin>
         </Label>
-        <TextField fx:id="assignmentTitle" prefHeight="25.0" prefWidth="250.0" promptText="cím"
-                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <TextField fx:id="assignmentTitle" prefHeight="25.0" prefWidth="250.0" promptText="cím" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
@@ -66,18 +67,24 @@
                 <Insets right="20.0"/>
             </GridPane.margin>
         </ComboBox>
-        <Button fx:id="resetFiltersButton" text="Szűrők törlése"
-                mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
-                GridPane.columnIndex="1" GridPane.rowIndex="4"
-                GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+
+        <CheckBox fx:id="expiredCheckbox" contentDisplay="RIGHT" mnemonicParsing="false"
+                  text="lejárt feladatok megjelenítése" wrapText="true"
+                  GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </CheckBox>
+
+        <Button fx:id="resetFiltersButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
+                text="Szűrők törlése" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5"
+                GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
         </Button>
-        <Button fx:id="searchButton" text="Keresés"
-                mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
-                GridPane.columnIndex="1" GridPane.rowIndex="5"
-                GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+        <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Keresés"
+                GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>

@@ -2,9 +2,11 @@ package org.vasvari.gradebook.controllers.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.RequiredArgsConstructor;
@@ -77,6 +79,15 @@ public class AssignmentController implements Initializable {
         log.info("initialize assignment table");
         ObservableList<AssignmentOutput> data = getAssignments();
         assignmentsTableView.setItems(data);
+        PseudoClass greyedOut = PseudoClass.getPseudoClass("greyedOut");
+        assignmentsTableView.setRowFactory(tableView -> new TableRow<>(){
+            @Override
+            protected void updateItem(AssignmentOutput assignment, boolean empty) {
+                super.updateItem(assignment, empty);
+                pseudoClassStateChanged(greyedOut, (!empty)&&assignment.isExpired());
+            }
+        });
+
     }
 
     private void addEventListenerToTable() {
@@ -130,7 +141,11 @@ public class AssignmentController implements Initializable {
 
     private void searchAssignments() {
         AssignmentRequest request = assignmentSearchController.getFilters();
-        assignmentsTableView.setItems(FXCollections.observableArrayList(assignmentService.findAssignmentsForUser(request)));
+        Boolean includeExpired = assignmentSearchController.expiredCheckbox.selectedProperty().getValue();
+        if (includeExpired)
+            assignmentsTableView.setItems(FXCollections.observableArrayList(assignmentService.findAssignmentsForUserIncludeExpired(request)));
+        else
+            assignmentsTableView.setItems(FXCollections.observableArrayList(assignmentService.findAssignmentsForUser(request)));
     }
 
     private void refreshTableView() {
