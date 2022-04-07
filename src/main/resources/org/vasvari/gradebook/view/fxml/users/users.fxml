@@ -40,7 +40,7 @@
         <TabPane prefHeight="662.0" prefWidth="300.0">
             <tabs>
                 <Tab closable="false" text="Keresés">
-<!--                    <fx:include fx:id="userSearch" source="userSearch.fxml"/>-->
+                    <fx:include fx:id="userSearch" source="userSearch.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Új">
 <!--                    <fx:include fx:id="userCreate" source="userCreate.fxml"/>-->
