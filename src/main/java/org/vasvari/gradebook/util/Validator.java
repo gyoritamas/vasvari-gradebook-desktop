@@ -2,6 +2,8 @@ package org.vasvari.gradebook.util;
 
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
+import org.vasvari.gradebook.dto.AssignmentType;
+import org.vasvari.gradebook.dto.dataTypes.SimpleData;
 import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 
 import java.time.LocalDate;
@@ -85,5 +87,38 @@ public class Validator {
         subjectTeacherErrorLabel.setText("");
         if (subjectTeacher.selectionModelProperty().getValue().getSelectedItem() == null)
             subjectTeacherErrorLabel.setText("nincs tanár kiválasztva");
+    }
+
+    public void assignmentSubject(ComboBox<SimpleData> assignmentSubject, Label assignmentSubjectErrorLabel) {
+        assignmentSubjectErrorLabel.setText("");
+        if (assignmentSubject.selectionModelProperty().getValue().getSelectedItem() == null)
+            assignmentSubjectErrorLabel.setText("nincs tantárgy kiválasztva");
+    }
+
+    public void assignmentTitle(TextField assignmentTitle, Label titleErrorLabel) {
+        titleErrorLabel.setText("");
+        if (assignmentTitle.getText() == null || assignmentTitle.getText().isEmpty() || assignmentTitle.getText().isBlank())
+            titleErrorLabel.setText("a feladat címe nem lehet üres");
+        else if (assignmentTitle.getText().length() < 2 || assignmentTitle.getText().length() > 255)
+            titleErrorLabel.setText("adjon meg 2-255 karaktert");
+    }
+
+    public void assignmentType(ComboBox<AssignmentType> assignmentType, Label assignmentTypeErrorLabel) {
+        assignmentTypeErrorLabel.setText("");
+        if (assignmentType.selectionModelProperty().getValue().getSelectedItem() == null)
+            assignmentTypeErrorLabel.setText("nincs típus kiválasztva");
+    }
+
+    public void deadline(DatePicker deadline, Label deadlineErrorLabel) {
+        deadlineErrorLabel.setText("");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy. MM. dd.");
+        String deadlineText = deadline.getEditor().textProperty().getValue();
+
+        if (deadline.getEditor().textProperty() == null || deadlineText.isEmpty() || deadlineText.isBlank())
+            deadlineErrorLabel.setText("a szül. dátum nem lehet üres");
+        else if (!deadlineText.matches("([12]\\d{3}\\. (0[1-9]|1[0-2])\\. (0[1-9]|[12]\\d|3[01]))\\."))
+            deadlineErrorLabel.setText("a szül. dátum formátuma hibás");
+        else if (!LocalDate.parse(deadlineText, dateTimeFormatter).isAfter(LocalDate.now()))
+            deadlineErrorLabel.setText("csak jövőbeli dátum adható meg");
     }
 }

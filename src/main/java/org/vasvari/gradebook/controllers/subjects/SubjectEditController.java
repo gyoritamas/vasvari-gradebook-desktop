@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SubjectEditController implements Initializable {
 
-    private final TeacherService teacherService;
     private final SubjectService subjectService;
+    private final TeacherService teacherService;
     private final Validator validator;
 
     private Long selectedId;

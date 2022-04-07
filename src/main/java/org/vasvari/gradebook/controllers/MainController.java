@@ -65,7 +65,7 @@ public class MainController implements Initializable {
         buttonMap.put(studentsButton, "#students");
         buttonMap.put(subjectsButton, "#subjects");
         buttonMap.put(teachersButton, "#teachers");
-        buttonMap.put(assignmentsButton, "#menuDContentArea");
+        buttonMap.put(assignmentsButton, "#assignments");
     }
 
     private void initializeToggleButtons() {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="assignments" prefHeight="768.0" prefWidth="1107.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vasvari.gradebook.controllers.assignments.AssignmentController">
+    <top>
+        <Label prefHeight="106.0" prefWidth="1131.0" text="Feladatok" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets left="30.0" />
+            </padding>
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+    </top>
+    <center>
+        <TableView fx:id="assignmentsTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#" />
+                <TableColumn fx:id="titleColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="cím" />
+                <TableColumn fx:id="subjectColumn" maxWidth="250.0" minWidth="150.0" prefWidth="-1.0" text="tantárgy" />
+                <TableColumn fx:id="typeColumn" maxWidth="85.0" minWidth="85.0" prefWidth="-1.0" text="típus" />
+                <TableColumn fx:id="descriptionColumn" maxWidth="500.0" minWidth="250.0" prefWidth="-1.0" text="leírás" />
+                <TableColumn fx:id="deadlineColumn" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="határidő" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <TabPane prefHeight="662.0" prefWidth="300.0">
+            <tabs>
+                <Tab closable="false" text="Keresés">
+                    <fx:include fx:id="assignmentSearch" source="assignmentSearch.fxml" />
+                </Tab>
+                <Tab closable="false" text="Új">
+                    <fx:include fx:id="assignmentCreate" source="assignmentCreate.fxml" />
+                </Tab>
+                <Tab closable="false" text="Szerkesztés">
+                    <fx:include fx:id="assignmentEdit" source="assignmentEdit.fxml" />
+                </Tab>
+            </tabs>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </TabPane>
+    </right>
+</BorderPane>
