@@ -118,6 +118,7 @@ public class MainController implements Initializable {
         Pane previousActiveBorderPane = (Pane) getMainScene().lookup(buttonMap.get(selected));
         previousActiveBorderPane.setVisible(false);
         selected = button;
+        log.info("selected menu: {}", buttonMap.get(selected));
         Pane nextActiveBorderPane = (Pane) getMainScene().lookup(buttonMap.get(selected));
         nextActiveBorderPane.setVisible(true);
         toggleGroup.selectToggle(button);
