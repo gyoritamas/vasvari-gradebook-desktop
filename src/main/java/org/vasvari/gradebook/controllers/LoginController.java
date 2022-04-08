@@ -63,8 +63,10 @@ public class LoginController implements Initializable {
         } catch (RuntimeException ex) {
             if (ex.getMessage().contains("Connection refused"))
                 errorLabel.setText("Sikertelen kapcsolódás.");
+            ex.printStackTrace();
         } catch (Exception ex) {
             errorHandler.printErrorToLabel(ex, errorLabel);
+            ex.printStackTrace();
         }
     }
 }

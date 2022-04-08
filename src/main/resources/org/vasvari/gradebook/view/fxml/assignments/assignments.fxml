@@ -25,7 +25,7 @@
                 <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#"/>
                 <TableColumn fx:id="titleColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="cím"/>
                 <TableColumn fx:id="subjectColumn" maxWidth="250.0" minWidth="150.0" prefWidth="-1.0" text="tantárgy"/>
-                <TableColumn fx:id="typeColumn" maxWidth="85.0" minWidth="85.0" prefWidth="-1.0" text="típus"/>
+                <TableColumn fx:id="typeColumn" maxWidth="150.0" minWidth="120.0" prefWidth="-1.0" text="típus"/>
                 <TableColumn fx:id="descriptionColumn" maxWidth="500.0" minWidth="250.0" prefWidth="-1.0"
                              text="leírás"/>
                 <TableColumn fx:id="deadlineColumn" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="határidő"/>

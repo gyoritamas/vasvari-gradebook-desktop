@@ -45,8 +45,10 @@
                 <Insets left="20.0"/>
             </GridPane.margin>
         </Label>
-        <Label fx:id="entrySubject" prefHeight="25.0" prefWidth="250.0"
-               styleClass="label-as-text-field" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Label fx:id="entrySubject"
+               GridPane.columnIndex="1" GridPane.rowIndex="2"
+               prefHeight="25.0" prefWidth="250.0"
+               styleClass="label-as-text-field" >
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
