@@ -21,6 +21,7 @@ import org.vasvari.gradebook.service.AssignmentService;
 import org.vasvari.gradebook.service.GradebookService;
 import org.vasvari.gradebook.service.StudentService;
 import org.vasvari.gradebook.service.SubjectService;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
 
 import java.net.URL;
@@ -56,6 +57,7 @@ public class EntryCreateController implements Initializable {
     private final AssignmentService assignmentService;
     private final GradebookService gradebookService;
     private final InternalServerErrorHandler errorHandler;
+    private final EventListenerFactory eventListenerFactory;
 
     @FXML
     public ComboBox<SubjectOutput> entrySubject;
@@ -166,10 +168,10 @@ public class EntryCreateController implements Initializable {
     }
 
     private void addEventListenerToComboBoxes() {
-        onSelectionChangeDeleteErrorMessage(entrySubject, errorLabel);
-        onSelectionChangeDeleteErrorMessage(entryAssignment, errorLabel);
-        onSelectionChangeDeleteErrorMessage(entryStudent, errorLabel);
-        onSelectionChangeDeleteErrorMessage(grade, errorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(entrySubject, errorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(entryAssignment, errorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(entryStudent, errorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(grade, errorLabel);
     }
 
     public void saveEntry() {
@@ -228,10 +230,5 @@ public class EntryCreateController implements Initializable {
         grade.setDisable(true);
     }
 
-    private void onSelectionChangeDeleteErrorMessage(ComboBox<?> comboBox, Label errorLabel) {
-        comboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                errorLabel.setText("");
-        });
-    }
+
 }

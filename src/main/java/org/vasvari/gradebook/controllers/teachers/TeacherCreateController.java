@@ -9,6 +9,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.TeacherDto;
 import org.vasvari.gradebook.service.TeacherService;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 public class TeacherCreateController implements Initializable {
     private final TeacherService teacherService;
     private final Validator validator;
+    private final EventListenerFactory eventListenerFactory;
 
     @FXML
     public TextField lastName;
@@ -58,30 +60,12 @@ public class TeacherCreateController implements Initializable {
     }
 
     private void addEventListenersToFields() {
-        lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                lastnameErrorLabel.setText("");
-        });
-        firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                firstnameErrorLabel.setText("");
-        });
-        email.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                emailErrorLabel.setText("");
-        });
-        address.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                addressErrorLabel.setText("");
-        });
-        phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                phoneErrorLabel.setText("");
-        });
-        birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                birthdateErrorLabel.setText("");
-        }));
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(lastName, lastnameErrorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(firstName, firstnameErrorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(email, emailErrorLabel);
+        eventListenerFactory.onTextAreaChangeDeleteErrorMessage(address, addressErrorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(phone, phoneErrorLabel);
+        eventListenerFactory.onDatePickerChangeDeleteErrorMessage(birthdate, birthdateErrorLabel);
     }
 
     public void saveTeacher() {

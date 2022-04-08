@@ -14,6 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.vasvari.gradebook.JavaFxApplication;
 import org.vasvari.gradebook.dto.LoginRequest;
 import org.vasvari.gradebook.service.gateway.LoginGateway;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class LoginController implements Initializable {
     private final LoginGateway loginService;
+    private final EventListenerFactory eventListenerFactory;
     private final InternalServerErrorHandler errorHandler;
 
     @FXML
@@ -40,10 +42,16 @@ public class LoginController implements Initializable {
         JavaFxApplication.getTheStage().setTitle("E-napló bejelentkezés");
         JavaFxApplication.getTheStage().setHeight(250);
         JavaFxApplication.getTheStage().setWidth(325);
+        addEventListenerToFields();
+    }
+
+    private void addEventListenerToFields() {
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(username, errorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(password, errorLabel);
     }
 
     @FXML
-    private void login(ActionEvent actionEvent) {
+    private void login() {
         String usernameInput = username.getText();
         String passwordInput = password.getText();
 
