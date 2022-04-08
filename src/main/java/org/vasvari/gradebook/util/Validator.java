@@ -121,4 +121,14 @@ public class Validator {
         else if (!LocalDate.parse(deadlineText, dateTimeFormatter).isAfter(LocalDate.now()))
             deadlineErrorLabel.setText("csak jövőbeli dátum adható meg");
     }
+
+    public void username(TextField username, Label usernameErrorLabel) {
+        usernameErrorLabel.setText("");
+        if (username.getText() == null || username.getText().isEmpty() || username.getText().isBlank())
+            usernameErrorLabel.setText("a tantárgy neve nem lehet üres");
+        else if (!username.getText().matches("^[a-zA-Z]([0-9a-zA-Z])+"))
+            usernameErrorLabel.setText("a felhasználónév csak betűket és számokat tartalmazhat és betűvel kell kezdődnie");
+        else if (username.getText().length() < 4 || username.getText().length() > 20)
+            usernameErrorLabel.setText("adjon meg 4-20 karaktert");
+    }
 }
