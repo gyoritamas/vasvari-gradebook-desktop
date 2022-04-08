@@ -38,7 +38,7 @@
                     <fx:include fx:id="entrySearch" source="entrySearch.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Új">
-                    <!--                    <fx:include fx:id="entryCreate" source="entryCreate.fxml"/>-->
+                    <fx:include fx:id="entryCreate" source="entryCreate.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Szerkesztés">
                     <!--                    <fx:include fx:id="entryEdit" source="entryEdit.fxml"/>-->

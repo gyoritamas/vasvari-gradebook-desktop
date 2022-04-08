@@ -67,12 +67,12 @@ public class StudentCreateController implements Initializable {
     }
 
     private void initializeGradeLevelComboBox() {
-        List<String> gradeOptions = IntStream
+        List<String> gradeLevelOptions = IntStream
                 .iterate(1, i -> i + 1)
                 .limit(12)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.toList());
-        gradeLevel.getItems().addAll(gradeOptions);
+        gradeLevel.getItems().addAll(gradeLevelOptions);
     }
 
     private void addEventListenersToFields() {

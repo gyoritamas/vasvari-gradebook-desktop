@@ -44,6 +44,8 @@ public class EntryController implements Initializable {
 
     @FXML
     public EntrySearchController entrySearchController;
+    @FXML
+    public EntryCreateController entryCreateController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,6 +55,7 @@ public class EntryController implements Initializable {
         addEventListenerToTable();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
+        addEventListenerToSaveButton();
     }
 
     private void initializeTableColumns() {
@@ -81,6 +84,13 @@ public class EntryController implements Initializable {
     private void addEventListenerToResetFiltersButton() {
         entrySearchController.resetFiltersButton.setOnAction(actionEvent -> {
             entrySearchController.resetFilters();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToSaveButton() {
+        entryCreateController.saveButton.setOnAction(actionEvent -> {
+            entryCreateController.saveEntry();
             refreshTableView();
         });
     }
