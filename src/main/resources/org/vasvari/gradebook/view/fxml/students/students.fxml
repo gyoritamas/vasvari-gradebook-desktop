@@ -46,6 +46,9 @@
                 <Tab closable="false" text="Szerkesztés">
                     <fx:include fx:id="studentEdit" source="studentEdit.fxml"/>
                 </Tab>
+                <Tab closable="false" text="Felhasználói fiók">
+                    <fx:include fx:id="studentUser" source="studentUser.fxml"/>
+                </Tab>
             </tabs>
             <opaqueInsets>
                 <Insets/>

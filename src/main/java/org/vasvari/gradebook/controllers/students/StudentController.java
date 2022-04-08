@@ -50,11 +50,14 @@ public class StudentController implements Initializable {
     public StudentSearchController studentSearchController;
     @FXML
     public StudentCreateController studentCreateController;
+    @FXML
+    public StudentUserController studentUserController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize StudentController");
         studentEditController.studentEditTab.setDisable(true);
+        studentUserController.studentUserTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
@@ -88,8 +91,10 @@ public class StudentController implements Initializable {
                     StudentDto selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
                     if (selectedStudent == null) {
                         studentEditController.emptyEditForm();
+                        studentUserController.emptyForm();
                     } else {
                         studentEditController.populateEditForm(selectedStudent);
+                        studentUserController.populateForm(selectedStudent);
                     }
                 });
     }
