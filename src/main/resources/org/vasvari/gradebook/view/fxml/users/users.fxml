@@ -43,7 +43,7 @@
                     <fx:include fx:id="userSearch" source="userSearch.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Új">
-<!--                    <fx:include fx:id="userCreate" source="userCreate.fxml"/>-->
+                    <fx:include fx:id="userCreate" source="userCreate.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Szerkesztés">
 <!--                    <fx:include fx:id="userEdit" source="userEdit.fxml"/>-->

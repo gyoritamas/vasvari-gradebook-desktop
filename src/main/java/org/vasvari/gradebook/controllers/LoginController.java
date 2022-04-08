@@ -14,6 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.vasvari.gradebook.JavaFxApplication;
 import org.vasvari.gradebook.dto.LoginRequest;
 import org.vasvari.gradebook.service.gateway.LoginGateway;
+import org.vasvari.gradebook.util.InternalServerErrorHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class LoginController implements Initializable {
     private final LoginGateway loginService;
+    private final InternalServerErrorHandler errorHandler;
 
     @FXML
     private TextField username;
@@ -51,16 +53,12 @@ public class LoginController implements Initializable {
             loginService.login(loginRequest);
             JavaFxApplication.setRoot(MainController.class);
         } catch (HttpClientErrorException ex) {
-            if (ex.getResponseBodyAsString().contains("Bad credentials"))
-                errorLabel.setText("Hibás felhasználónév vagy jelszó.");
-            ex.printStackTrace();
+            errorHandler.printErrorToLabel(ex, errorLabel);
         } catch (RuntimeException ex) {
             if (ex.getMessage().contains("Connection refused"))
                 errorLabel.setText("Sikertelen kapcsolódás.");
-            ex.printStackTrace();
         } catch (Exception ex) {
-            errorLabel.setText(ex.getMessage());
-            ex.printStackTrace();
+            errorHandler.printErrorToLabel(ex, errorLabel);
         }
     }
 }

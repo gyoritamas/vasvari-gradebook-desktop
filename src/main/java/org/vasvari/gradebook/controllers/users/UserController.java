@@ -55,6 +55,9 @@ public class UserController implements Initializable {
         addEventListenerToTable();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
+        addEventListenerToSaveButton();
+        addEventListenerToUpdateButton();
+        addEventListenerToDeleteButton();
     }
 
     private void initializeTableColumns() {
@@ -86,11 +89,26 @@ public class UserController implements Initializable {
         userSearchController.searchButton.setOnAction(event -> searchUsers());
     }
 
-    private void addEventListenerToResetFiltersButton(){
+    private void addEventListenerToResetFiltersButton() {
         userSearchController.resetFiltersButton.setOnAction(actionEvent -> {
             userSearchController.resetFilters();
             refreshTable();
         });
+    }
+
+    private void addEventListenerToSaveButton() {
+        userCreateController.saveButton.setOnAction(actionEvent -> {
+            userCreateController.saveUser();
+            refreshTable();
+        });
+    }
+
+    private void addEventListenerToUpdateButton(){
+        // TODO
+    }
+
+    private void addEventListenerToDeleteButton(){
+        // TODO
     }
 
     private ObservableList<UserViewModel> findAllUsers() {
