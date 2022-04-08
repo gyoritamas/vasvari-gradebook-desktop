@@ -49,6 +49,9 @@
                 <Tab closable="false" text="Szerkesztés">
                     <fx:include fx:id="subjectEdit" source="subjectEdit.fxml"/>
                 </Tab>
+                <Tab closable="false" text="Tanulók">
+                    <fx:include fx:id="subjectStudents" source="subjectStudents.fxml"/>
+                </Tab>
             </tabs>
             <opaqueInsets>
                 <Insets/>

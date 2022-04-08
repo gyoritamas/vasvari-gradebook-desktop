@@ -49,11 +49,14 @@ public class SubjectController implements Initializable {
     public SubjectSearchController subjectSearchController;
     @FXML
     public SubjectCreateController subjectCreateController;
+    @FXML
+    public SubjectStudentsController subjectStudentsController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize SubjectController");
         subjectEditController.subjectEditTab.setDisable(true);
+        subjectStudentsController.subjectStudentsTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
@@ -84,8 +87,10 @@ public class SubjectController implements Initializable {
                     SubjectViewModel selectedSubject = subjectsTableView.getSelectionModel().getSelectedItem();
                     if (selectedSubject == null) {
                         subjectEditController.emptyEditForm();
+                        subjectStudentsController.emptyEditForm();
                     } else {
                         subjectEditController.populateEditForm(selectedSubject);
+                        subjectStudentsController.populateEditForm(selectedSubject);
                     }
                 });
     }
