@@ -134,7 +134,7 @@ public class StudentEditController implements Initializable {
     }
 
     public void emptyEditForm() {
-        setSelectedId(null);
+        selectedId = null;
         firstName.setText(null);
         lastName.setText(null);
         gradeLevel.setValue(null);
@@ -147,7 +147,7 @@ public class StudentEditController implements Initializable {
 
     public void populateEditForm(StudentDto selectedStudent) {
         studentEditTab.setDisable(false);
-        setSelectedId(selectedStudent.getId());
+        selectedId = selectedStudent.getId();
         firstName.setText(selectedStudent.getFirstname());
         lastName.setText(selectedStudent.getLastname());
         gradeLevel.setValue(selectedStudent.getGradeLevel().toString());
@@ -162,7 +162,4 @@ public class StudentEditController implements Initializable {
         studentService.deleteStudent(selectedId);
     }
 
-    public void setSelectedId(Long id) {
-        this.selectedId = id;
-    }
 }

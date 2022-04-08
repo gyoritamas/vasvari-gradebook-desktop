@@ -41,7 +41,7 @@
                     <fx:include fx:id="entryCreate" source="entryCreate.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Szerkesztés">
-                    <!--                    <fx:include fx:id="entryEdit" source="entryEdit.fxml"/>-->
+                    <fx:include fx:id="entryEdit" source="entryEdit.fxml"/>
                 </Tab>
             </tabs>
             <opaqueInsets>

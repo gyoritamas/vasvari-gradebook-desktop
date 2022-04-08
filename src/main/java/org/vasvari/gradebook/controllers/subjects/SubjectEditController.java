@@ -93,7 +93,7 @@ public class SubjectEditController implements Initializable {
     }
 
     public void emptyEditForm() {
-        setSelectedId(null);
+        selectedId = null;
         subjectName.setText(null);
         subjectTeacher.setValue(null);
         subjectEditTab.setDisable(true);
@@ -101,7 +101,7 @@ public class SubjectEditController implements Initializable {
 
     public void populateEditForm(SubjectViewModel selectedSubject) {
         subjectEditTab.setDisable(false);
-        setSelectedId(selectedSubject.getId());
+        selectedId = selectedSubject.getId();
         subjectName.setText(selectedSubject.getName());
         subjectTeacher.setValue(selectedSubject.getTeacher());
     }
@@ -111,7 +111,4 @@ public class SubjectEditController implements Initializable {
         subjectService.deleteSubject(selectedId);
     }
 
-    public void setSelectedId(Long id) {
-        this.selectedId = id;
-    }
 }

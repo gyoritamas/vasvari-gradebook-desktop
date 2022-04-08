@@ -117,7 +117,7 @@ public class TeacherEditController implements Initializable {
     }
 
     public void emptyEditForm() {
-        setSelectedId(null);
+        selectedId = null;
         firstName.setText(null);
         lastName.setText(null);
         email.setText(null);
@@ -129,7 +129,7 @@ public class TeacherEditController implements Initializable {
 
     public void populateEditForm(TeacherDto selectedTeacher) {
         teacherEditTab.setDisable(false);
-        setSelectedId(selectedTeacher.getId());
+        selectedId = selectedTeacher.getId();
         firstName.setText(selectedTeacher.getFirstname());
         lastName.setText(selectedTeacher.getLastname());
         email.setText(selectedTeacher.getEmail());
@@ -143,7 +143,4 @@ public class TeacherEditController implements Initializable {
         teacherService.deleteTeacher(selectedId);
     }
 
-    public void setSelectedId(Long id) {
-        this.selectedId = id;
-    }
 }

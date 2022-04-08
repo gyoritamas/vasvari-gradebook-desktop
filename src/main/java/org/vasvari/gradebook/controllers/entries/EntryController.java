@@ -46,16 +46,21 @@ public class EntryController implements Initializable {
     public EntrySearchController entrySearchController;
     @FXML
     public EntryCreateController entryCreateController;
+    @FXML
+    public EntryEditController entryEditController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize EntryController");
+        entryEditController.entryEditTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
         addEventListenerToSaveButton();
+        addEventListenerToUpdateButton();
+        addEventListenerToDeleteButton();
     }
 
     private void initializeTableColumns() {
@@ -74,7 +79,15 @@ public class EntryController implements Initializable {
     }
 
     private void addEventListenerToTable() {
-
+        entriesTableView.getSelectionModel().selectedItemProperty()
+                .addListener((observableValue, oldValue, newValue) -> {
+                    GradebookOutput selectedEntry = entriesTableView.getSelectionModel().getSelectedItem();
+                    if (selectedEntry == null) {
+                        entryEditController.emptyEditForm();
+                    } else {
+                        entryEditController.populateEditForm(selectedEntry);
+                    }
+                });
     }
 
     private void addEventListenerToSearchButton() {
@@ -91,6 +104,20 @@ public class EntryController implements Initializable {
     private void addEventListenerToSaveButton() {
         entryCreateController.saveButton.setOnAction(actionEvent -> {
             entryCreateController.saveEntry();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToUpdateButton() {
+        entryEditController.updateButton.setOnAction(actionEvent -> {
+            entryEditController.updateEntry();
+            refreshTableView();
+        });
+    }
+
+    private void addEventListenerToDeleteButton() {
+        entryEditController.deleteButton.setOnAction(actionEvent -> {
+            entryEditController.deleteEntry();
             refreshTableView();
         });
     }

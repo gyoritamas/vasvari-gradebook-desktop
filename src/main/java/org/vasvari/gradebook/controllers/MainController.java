@@ -15,7 +15,6 @@ import org.vasvari.gradebook.JavaFxApplication;
 import org.vasvari.gradebook.service.gateway.LoginGateway;
 import org.vasvari.gradebook.util.UserUtil;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -132,7 +131,8 @@ public class MainController implements Initializable {
         return userUtil.username();
     }
 
-    public void logout(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void logout() {
         loginService.logout();
         JavaFxApplication.setRoot(LoginController.class);
     }

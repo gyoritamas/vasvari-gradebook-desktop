@@ -59,7 +59,7 @@ public class AssignmentEditController implements Initializable {
         log.info("initialize AssignmentEditController");
         initializeSubjectComboBox();
         initializeAssignmentTypeComboBox();
-        addEventFilterToFields();
+        addEventListenerToFields();
     }
 
     private void initializeSubjectComboBox() {
@@ -73,7 +73,7 @@ public class AssignmentEditController implements Initializable {
         assignmentType.getItems().addAll(AssignmentType.values());
     }
 
-    private void addEventFilterToFields() {
+    private void addEventListenerToFields() {
         assignmentTitle.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (selectedId != null && (oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
                 validator.assignmentTitle(assignmentTitle, titleErrorLabel);
@@ -105,7 +105,7 @@ public class AssignmentEditController implements Initializable {
     }
 
     public void emptyEditForm() {
-        setSelectedId(null);
+        selectedId = null;
         assignmentTitle.setText(null);
         assignmentType.setValue(null);
         assignmentSubject.setValue(null);
@@ -116,7 +116,7 @@ public class AssignmentEditController implements Initializable {
 
     public void populateEditForm(AssignmentOutput assignment) {
         assignmentEditTab.setDisable(false);
-        setSelectedId(assignment.getId());
+        selectedId = assignment.getId();
         assignmentTitle.setText(assignment.getName());
         assignmentType.setValue(assignment.getType());
         assignmentSubject.setValue(assignment.getSubject());
@@ -129,7 +129,4 @@ public class AssignmentEditController implements Initializable {
         assignmentService.deleteAssignment(selectedId);
     }
 
-    public void setSelectedId(Long selectedId) {
-        this.selectedId = selectedId;
-    }
 }

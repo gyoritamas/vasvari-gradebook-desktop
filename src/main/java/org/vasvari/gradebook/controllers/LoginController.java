@@ -1,6 +1,5 @@
 package org.vasvari.gradebook.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -17,7 +16,6 @@ import org.vasvari.gradebook.service.gateway.LoginGateway;
 import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
