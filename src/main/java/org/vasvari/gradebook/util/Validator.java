@@ -11,6 +11,18 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class Validator {
+    private static final int FIRSTNAME_MIN_LENGTH = 2;
+    private static final int FIRSTNAME_MAX_LENGTH = 255;
+    private static final int LASTNAME_MIN_LENGTH = 2;
+    private static final int LASTNAME_MAX_LENGTH = 255;
+    private static final int SUBJECT_NAME_MIN_LENGTH = 4;
+    private static final int SUBJECT_NAME_MAX_LENGTH = 255;
+    private static final int ASSIGNMENT_TITLE_MIN_LENGTH = 4;
+    private static final int ASSIGNMENT_TITLE_MAX_LENGTH = 255;
+    private static final int USERNAME_MIN_LENGTH = 4;
+    private static final int USERNAME_MAX_LENGTH = 20;
+
+
     public void lastname(TextField lastname, Label lastnameErrorLabel) {
         lastnameErrorLabel.setText("");
         if (lastname.getText() == null || lastname.getText().isBlank() || lastname.getText().isEmpty())
@@ -19,8 +31,8 @@ public class Validator {
             lastnameErrorLabel.setText("érvénytelen karakter");
         else if (!lastname.getText().matches("(\\p{L}){2}([\\p{L}\\s.-])*"))
             lastnameErrorLabel.setText("a vezetéknév formátuma hibás");
-        else if (lastname.getText().length() < 2 || lastname.getText().length() > 255)
-            lastnameErrorLabel.setText("adjon meg 2-255 karaktert");
+        else if (lastname.getText().length() < LASTNAME_MIN_LENGTH || lastname.getText().length() > LASTNAME_MAX_LENGTH)
+            lastnameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", LASTNAME_MIN_LENGTH, LASTNAME_MAX_LENGTH));
     }
 
     public void firstname(TextField firstname, Label firstnameErrorLabel) {
@@ -31,8 +43,8 @@ public class Validator {
             firstnameErrorLabel.setText("érvénytelen karakter");
         else if (!firstname.getText().matches("(\\p{L}){2}([\\p{L}\\s.-])*"))
             firstnameErrorLabel.setText("a keresztnév formátuma hibás");
-        else if (firstname.getText().length() < 2 || firstname.getText().length() > 255)
-            firstnameErrorLabel.setText("adjon meg 2-255 karaktert");
+        else if (firstname.getText().length() < FIRSTNAME_MIN_LENGTH || firstname.getText().length() > FIRSTNAME_MAX_LENGTH)
+            firstnameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", FIRSTNAME_MIN_LENGTH, FIRSTNAME_MAX_LENGTH));
     }
 
     public void gradeLevel(ComboBox<String> gradeLevel, Label gradeLevelErrorLabel) {
@@ -79,8 +91,8 @@ public class Validator {
         subjectNameErrorLabel.setText("");
         if (subjectName.getText() == null || subjectName.getText().isEmpty() || subjectName.getText().isBlank())
             subjectNameErrorLabel.setText("a tantárgy neve nem lehet üres");
-        else if (subjectName.getText().length() < 2 || subjectName.getText().length() > 255)
-            subjectNameErrorLabel.setText("adjon meg 2-255 karaktert");
+        else if (subjectName.getText().length() < SUBJECT_NAME_MIN_LENGTH || subjectName.getText().length() > SUBJECT_NAME_MAX_LENGTH)
+            subjectNameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", SUBJECT_NAME_MIN_LENGTH, SUBJECT_NAME_MAX_LENGTH));
     }
 
     public void subjectTeacher(ComboBox<SimpleTeacher> subjectTeacher, Label subjectTeacherErrorLabel) {
@@ -99,8 +111,8 @@ public class Validator {
         titleErrorLabel.setText("");
         if (assignmentTitle.getText() == null || assignmentTitle.getText().isEmpty() || assignmentTitle.getText().isBlank())
             titleErrorLabel.setText("a feladat címe nem lehet üres");
-        else if (assignmentTitle.getText().length() < 2 || assignmentTitle.getText().length() > 255)
-            titleErrorLabel.setText("adjon meg 2-255 karaktert");
+        else if (assignmentTitle.getText().length() < ASSIGNMENT_TITLE_MIN_LENGTH || assignmentTitle.getText().length() > ASSIGNMENT_TITLE_MAX_LENGTH)
+            titleErrorLabel.setText(String.format("adjon meg %d-%d karaktert", ASSIGNMENT_TITLE_MIN_LENGTH, ASSIGNMENT_TITLE_MAX_LENGTH));
     }
 
     public void assignmentType(ComboBox<AssignmentType> assignmentType, Label assignmentTypeErrorLabel) {
@@ -128,7 +140,7 @@ public class Validator {
             usernameErrorLabel.setText("a tantárgy neve nem lehet üres");
         else if (!username.getText().matches("^[a-zA-Z]([0-9a-zA-Z])+"))
             usernameErrorLabel.setText("a felhasználónév csak betűket és számokat tartalmazhat és betűvel kell kezdődnie");
-        else if (username.getText().length() < 4 || username.getText().length() > 20)
-            usernameErrorLabel.setText("adjon meg 4-20 karaktert");
+        else if (username.getText().length() < USERNAME_MIN_LENGTH || username.getText().length() > USERNAME_MAX_LENGTH)
+            usernameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", USERNAME_MIN_LENGTH, USERNAME_MIN_LENGTH));
     }
 }
