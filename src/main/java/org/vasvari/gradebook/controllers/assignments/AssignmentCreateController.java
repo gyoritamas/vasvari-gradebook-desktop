@@ -12,6 +12,7 @@ import org.vasvari.gradebook.dto.AssignmentType;
 import org.vasvari.gradebook.dto.dataTypes.SimpleData;
 import org.vasvari.gradebook.service.AssignmentService;
 import org.vasvari.gradebook.service.SubjectService;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -31,6 +32,7 @@ public class AssignmentCreateController implements Initializable {
     private final AssignmentService assignmentService;
     private final SubjectService subjectService;
     private final Validator validator;
+    private final EventListenerFactory eventListenerFactory;
 
     @FXML
     public TextField assignmentTitle;
@@ -80,22 +82,10 @@ public class AssignmentCreateController implements Initializable {
     }
 
     private void addEventListenerToFields() {
-        assignmentTitle.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                titleErrorLabel.setText("");
-        });
-        assignmentSubject.selectionModelProperty().getValue().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                subjectErrorLabel.setText("");
-        });
-        assignmentType.selectionModelProperty().getValue().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                typeErrorLabel.setText("");
-        });
-        deadline.getEditor().textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                deadlineErrorLabel.setText("");
-        });
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(assignmentTitle, titleErrorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(assignmentSubject, subjectErrorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(assignmentType, typeErrorLabel);
+        eventListenerFactory.onDatePickerChangeDeleteErrorMessage(deadline, deadlineErrorLabel);
     }
 
     public void saveAssignment() {

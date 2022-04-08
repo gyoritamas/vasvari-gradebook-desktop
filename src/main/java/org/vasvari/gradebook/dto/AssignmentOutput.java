@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode
 public class AssignmentOutput {
 
@@ -26,8 +27,12 @@ public class AssignmentOutput {
 
     private SimpleData subject;
 
-    public Boolean isExpired(){
+    public Boolean isExpired() {
         return LocalDate.now().isAfter(deadline);
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

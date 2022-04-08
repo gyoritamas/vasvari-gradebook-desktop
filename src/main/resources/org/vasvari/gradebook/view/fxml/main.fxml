@@ -172,6 +172,7 @@
                                 <fx:include source="subjects/subjects.fxml"/>
                                 <fx:include source="teachers/teachers.fxml"/>
                                 <fx:include source="assignments/assignments.fxml"/>
+                                <fx:include source="entries/entries.fxml"/>
                                 <fx:include source="users/users.fxml"/>
                             </children>
                         </AnchorPane>

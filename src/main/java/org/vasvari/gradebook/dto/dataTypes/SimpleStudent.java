@@ -16,5 +16,10 @@ public class SimpleStudent {
     public String getName(){
         return lastname + " " + firstname;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
 

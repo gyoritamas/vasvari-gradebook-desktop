@@ -14,6 +14,7 @@ import org.vasvari.gradebook.dto.SubjectInput;
 import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 import org.vasvari.gradebook.service.SubjectService;
 import org.vasvari.gradebook.service.TeacherService;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -30,6 +31,7 @@ public class SubjectCreateController implements Initializable {
     private final TeacherService teacherService;
     private final SubjectService subjectService;
     private final Validator validator;
+    private final EventListenerFactory eventListenerFactory;
 
     @FXML
     public TextField subjectName;
@@ -59,14 +61,8 @@ public class SubjectCreateController implements Initializable {
     }
 
     private void addEventListenerToFields() {
-        subjectName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                subjectNameErrorLabel.setText("");
-        });
-        subjectTeacher.selectionModelProperty().getValue().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                subjectTeacherErrorLabel.setText("");
-        });
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(subjectName, subjectNameErrorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(subjectTeacher, subjectTeacherErrorLabel);
     }
 
     public void saveSubject() {

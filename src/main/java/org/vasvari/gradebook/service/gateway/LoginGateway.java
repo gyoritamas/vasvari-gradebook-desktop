@@ -9,8 +9,6 @@ import org.vasvari.gradebook.dto.LoginRequest;
 import org.vasvari.gradebook.dto.LoginResponse;
 import org.vasvari.gradebook.jwt.TokenRepository;
 
-import java.io.IOException;
-
 @Service
 public class LoginGateway {
     @Value("${api.url}")

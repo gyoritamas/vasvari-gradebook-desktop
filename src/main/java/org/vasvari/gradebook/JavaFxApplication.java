@@ -9,8 +9,6 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.vasvari.gradebook.controllers.LoginController;
-import org.vasvari.gradebook.controllers.MainController;
-import org.vasvari.gradebook.service.gateway.LoginGateway;
 
 public class JavaFxApplication extends Application {
 
@@ -32,13 +30,9 @@ public class JavaFxApplication extends Application {
     @Override
     public void start(Stage stage) {
         theStage = stage;
-        //FxWeaver fxWeaver = appContext.getBean(FxWeaver.class);
         fxWeaver = appContext.getBean(FxWeaver.class);
         root = fxWeaver.loadView(LoginController.class);
-//        root = fxWeaver.loadView(MainController.class);
-        //Scene scene = new Scene(root);
         scene = new Scene(root);
-        //stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
     }

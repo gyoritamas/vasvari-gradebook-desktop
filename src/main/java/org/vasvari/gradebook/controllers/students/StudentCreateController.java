@@ -9,6 +9,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.service.StudentService;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ public class StudentCreateController implements Initializable {
 
     private final StudentService studentService;
     private final Validator validator;
+    private final EventListenerFactory eventListenerFactory;
 
     @FXML
     public TextField lastName;
@@ -67,42 +69,22 @@ public class StudentCreateController implements Initializable {
     }
 
     private void initializeGradeLevelComboBox() {
-        List<String> gradeOptions = IntStream
+        List<String> gradeLevelOptions = IntStream
                 .iterate(1, i -> i + 1)
                 .limit(12)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.toList());
-        gradeLevel.getItems().addAll(gradeOptions);
+        gradeLevel.getItems().addAll(gradeLevelOptions);
     }
 
     private void addEventListenersToFields() {
-        lastName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                lastnameErrorLabel.setText("");
-        });
-        firstName.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                firstnameErrorLabel.setText("");
-        });
-        gradeLevel.selectionModelProperty().getValue().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!newValue.equals(oldValue)) gradeLevelErrorLabel.setText("");
-        });
-        email.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                emailErrorLabel.setText("");
-        });
-        address.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                addressErrorLabel.setText("");
-        });
-        phone.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                phoneErrorLabel.setText("");
-        });
-        birthdate.getEditor().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                birthdateErrorLabel.setText("");
-        }));
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(lastName, lastnameErrorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(firstName, firstnameErrorLabel);
+        eventListenerFactory.onComboBoxChangeDeleteErrorMessage(gradeLevel, gradeLevelErrorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(email, emailErrorLabel);
+        eventListenerFactory.onTextAreaChangeDeleteErrorMessage(address, addressErrorLabel);
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(phone, phoneErrorLabel);
+        eventListenerFactory.onDatePickerChangeDeleteErrorMessage(birthdate, birthdateErrorLabel);
     }
 
     public void saveStudent() {

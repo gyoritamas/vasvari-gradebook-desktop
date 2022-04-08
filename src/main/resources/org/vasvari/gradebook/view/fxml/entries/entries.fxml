@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="entries" prefHeight="768.0" prefWidth="1107.0" visible="false" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.vasvari.gradebook.controllers.entries.EntryController">
+    <top>
+        <Label prefHeight="106.0" prefWidth="1131.0" text="Naplóbejegyzések" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets left="30.0"/>
+            </padding>
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+    </top>
+    <center>
+        <TableView fx:id="entriesTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#"/>
+                <TableColumn fx:id="studentColumn" maxWidth="300.0" minWidth="200.0" prefWidth="-1.0" text="tanuló"/>
+                <TableColumn fx:id="subjectColumn" maxWidth="250.0" minWidth="200.0" prefWidth="-1.0" text="tantárgy"/>
+                <TableColumn fx:id="assignmentColumn" maxWidth="500.0" minWidth="300.0" prefWidth="-1.0"
+                             text="feladat"/>
+                <TableColumn fx:id="gradeColumn" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0" text="osztályzat"/>
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <TabPane prefHeight="662.0" prefWidth="300.0">
+            <tabs>
+                <Tab closable="false" text="Keresés">
+                    <fx:include fx:id="entrySearch" source="entrySearch.fxml"/>
+                </Tab>
+                <Tab closable="false" text="Új">
+                    <fx:include fx:id="entryCreate" source="entryCreate.fxml"/>
+                </Tab>
+                <Tab closable="false" text="Szerkesztés">
+                    <fx:include fx:id="entryEdit" source="entryEdit.fxml"/>
+                </Tab>
+            </tabs>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </TabPane>
+    </right>
+</BorderPane>

@@ -11,6 +11,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.dataTypes.UsernameInput;
 import org.vasvari.gradebook.service.UserService;
+import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
 import org.vasvari.gradebook.util.Validator;
 
@@ -25,6 +26,7 @@ public class UserCreateController implements Initializable {
 
     private final UserService userService;
     private final Validator validator;
+    private final EventListenerFactory eventListenerFactory;
     private final InternalServerErrorHandler errorHandler;
 
     @FXML
@@ -44,10 +46,7 @@ public class UserCreateController implements Initializable {
     }
 
     private void addEventListenerToFields() {
-        username.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null))
-                usernameErrorLabel.setText("");
-        });
+        eventListenerFactory.onTextFieldChangeDeleteErrorMessage(username, usernameErrorLabel);
     }
 
     public void saveUser() {

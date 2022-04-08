@@ -54,7 +54,7 @@ public class UserEditController implements Initializable {
 
     public void emptyEditForm() {
         changeEnableButton.setText("Módosítás");
-        setSelectedId(null);
+        selectedId = null;
         username.setText(null);
         userRole.setText(null);
         enabled.setText(null);
@@ -64,7 +64,7 @@ public class UserEditController implements Initializable {
     public void populateEditForm(UserDto selectedUser) {
         userEditTab.setDisable(false);
         changeEnableButton.setText(selectedUser.isEnabled() ? "Fiók kikapcsolása" : "Fiók bekapcsolása");
-        setSelectedId(selectedUser.getId());
+        selectedId = selectedUser.getId();
         username.setText(selectedUser.getUsername());
         userRole.setText(selectedUser.getRole().getLocalizedName());
         enabled.setText(selectedUser.isEnabled() ? "igen" : "nem");
@@ -73,10 +73,6 @@ public class UserEditController implements Initializable {
     public void deleteUser() {
         if (selectedId == null) return;
         userService.deleteUser(selectedId);
-    }
-
-    public void setSelectedId(Long selectedId) {
-        this.selectedId = selectedId;
     }
 
 }
