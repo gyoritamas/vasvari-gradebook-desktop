@@ -2,6 +2,7 @@ package org.vasvari.gradebook.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.dto.SubjectInput;
 import org.vasvari.gradebook.dto.SubjectOutput;
 import org.vasvari.gradebook.model.request.SubjectRequest;
@@ -72,7 +73,7 @@ public class SubjectService {
         return new ArrayList<>(gateway.findSubjectsOfCurrentUserAsStudent(request));
     }
 
-    public Object findStudentsOfSubject(Long subjectId) {
+    public List<StudentDto> findStudentsOfSubject(Long subjectId) {
         return new ArrayList<>(gateway.findStudentsOfSubject(subjectId));
     }
 
