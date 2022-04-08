@@ -74,7 +74,7 @@ public class MainController implements Initializable {
         buttonMap.put(subjectsButton, "#subjects");
         buttonMap.put(teachersButton, "#teachers");
         buttonMap.put(assignmentsButton, "#assignments");
-        buttonMap.put(entriesButton, "#gradebookEntries");
+        buttonMap.put(entriesButton, "#entries");
         buttonMap.put(usersButton, "#users");
         buttonMap.put(profileButton, "#profile");
     }

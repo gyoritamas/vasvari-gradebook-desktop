@@ -29,4 +29,9 @@ public class StudentDto {
     public String getName() {
         return lastname + " " + firstname;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
