@@ -45,8 +45,8 @@
                 <Tab closable="false" text="Új">
                     <fx:include fx:id="userCreate" source="userCreate.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Szerkesztés">
-<!--                    <fx:include fx:id="userEdit" source="userEdit.fxml"/>-->
+                <Tab closable="false" text="Módosítás">
+                    <fx:include fx:id="userEdit" source="userEdit.fxml"/>
                 </Tab>
             </tabs>
             <opaqueInsets>

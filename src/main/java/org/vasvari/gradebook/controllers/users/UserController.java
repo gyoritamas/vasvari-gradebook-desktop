@@ -1,5 +1,6 @@
 package org.vasvari.gradebook.controllers.users;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import org.vasvari.gradebook.dto.UserDto;
 import org.vasvari.gradebook.model.request.UserRequest;
 import org.vasvari.gradebook.service.UserService;
-import org.vasvari.gradebook.viewmodel.UserViewModel;
-import org.vasvari.gradebook.viewmodel.mapper.UserViewModelMapper;
 
 import java.net.URL;
 import java.util.List;
@@ -27,18 +27,17 @@ import java.util.ResourceBundle;
 public class UserController implements Initializable {
 
     private final UserService userService;
-    private final UserViewModelMapper mapper;
 
     @FXML
-    public TableView<UserViewModel> usersTableView;
+    public TableView<UserDto> usersTableView;
     @FXML
-    public TableColumn<UserViewModel, Long> idColumn;
+    public TableColumn<UserDto, Long> idColumn;
     @FXML
-    public TableColumn<UserViewModel, String> nameColumn;
+    public TableColumn<UserDto, String> nameColumn;
     @FXML
-    public TableColumn<UserViewModel, String> roleColumn;
+    public TableColumn<UserDto, String> roleColumn;
     @FXML
-    public TableColumn<UserViewModel, String> activeColumn;
+    public TableColumn<UserDto, String> activeColumn;
 
     @FXML
     public UserSearchController userSearchController;
@@ -50,6 +49,7 @@ public class UserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize UserController");
+        userEditController.userEditTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
@@ -64,8 +64,11 @@ public class UserController implements Initializable {
         log.info("initialize users table columns");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
-        activeColumn.setCellValueFactory(new PropertyValueFactory<>("enabled"));
+        roleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole().getLocalizedName()));
+        activeColumn.setCellValueFactory(cellData -> {
+            boolean enabled = cellData.getValue().isEnabled();
+            return new SimpleStringProperty(enabled ? "igen" : "nem");
+        });
     }
 
     private void initializeTable() {
@@ -74,15 +77,15 @@ public class UserController implements Initializable {
     }
 
     private void addEventListenerToTable() {
-//        usersTableView.getSelectionModel().selectedItemProperty()
-//                .addListener((observable, oldValue, newValue) -> {
-//                    UserViewModel selectedUser = usersTableView.getSelectionModel().getSelectedItem();
-//                    if (selectedUser == null) {
-//                        userEditController.emptyEditForm();
-//                    } else {
-//                        userEditController.populateEditForm(selectedUser);
-//                    }
-//                });
+        usersTableView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    UserDto selectedUser = usersTableView.getSelectionModel().getSelectedItem();
+                    if (selectedUser == null) {
+                        userEditController.emptyEditForm();
+                    } else {
+                        userEditController.populateEditForm(selectedUser);
+                    }
+                });
     }
 
     private void addEventListenerToSearchButton() {
@@ -103,22 +106,28 @@ public class UserController implements Initializable {
         });
     }
 
-    private void addEventListenerToUpdateButton(){
-        // TODO
+    private void addEventListenerToUpdateButton() {
+        userEditController.changeEnableButton.setOnAction(actionEvent -> {
+            userEditController.changeEnabled();
+            refreshTable();
+        });
     }
 
-    private void addEventListenerToDeleteButton(){
-        // TODO
+    private void addEventListenerToDeleteButton() {
+        userEditController.deleteButton.setOnAction(actionEvent -> {
+            userEditController.deleteUser();
+            refreshTable();
+        });
     }
 
-    private ObservableList<UserViewModel> findAllUsers() {
-        List<UserViewModel> userList = mapper.mapAll(userService.findAllUsers());
+    private ObservableList<UserDto> findAllUsers() {
+        List<UserDto> userList = userService.findAllUsers();
         return FXCollections.observableArrayList(userList);
     }
 
     private void searchUsers() {
         UserRequest request = userSearchController.getFilters();
-        List<UserViewModel> users = mapper.mapAll(userService.searchUsers(request));
+        List<UserDto> users = userService.searchUsers(request);
         usersTableView.setItems(FXCollections.observableArrayList(users));
     }
 
