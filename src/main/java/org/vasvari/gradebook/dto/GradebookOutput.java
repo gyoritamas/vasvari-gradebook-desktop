@@ -15,5 +15,4 @@ public class GradebookOutput {
     private SimpleData subject;
     private SimpleData assignment;
     private Integer grade;
-
 }

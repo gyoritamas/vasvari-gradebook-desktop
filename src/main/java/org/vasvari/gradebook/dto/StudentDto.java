@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 public class StudentDto {
-
     private Long id;
     private String firstname;
     private String lastname;

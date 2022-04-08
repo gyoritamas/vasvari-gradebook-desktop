@@ -15,20 +15,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class AssignmentInput {
 
-    @NotBlank(message = "Name field cannot be empty")
     private String name;
-
-    @NotNull
     private AssignmentType type;
-
     private String description;
 
-    @NotNull(message = "Deadline field cannot be empty")
-    @Future(message = "Deadline must be a date in the future")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline = LocalDate.now().plusDays(1);
 
-    @NotNull(message = "Subject ID cannot be empty")
     private Long subjectId;
 
 }
