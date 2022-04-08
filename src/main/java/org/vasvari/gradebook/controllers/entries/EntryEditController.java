@@ -117,8 +117,8 @@ public class EntryEditController implements Initializable {
         });
     }
 
-    public void updateEntry() {
-        if (selectedEntryId == null) return;
+    public boolean updateEntry() {
+        if (selectedEntryId == null) return false;
 
         GradebookInput entry = GradebookInput.builder()
                 .subjectId(selectedSubjectId)
@@ -131,7 +131,10 @@ public class EntryEditController implements Initializable {
             gradebookService.updateEntry(selectedEntryId, entry);
         } catch (Exception ex) {
             errorHandler.printErrorToLabel(ex, errorLabel);
+            return false;
         }
+
+        return true;
     }
 
     public void emptyEditForm() {

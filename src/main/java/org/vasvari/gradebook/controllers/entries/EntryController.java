@@ -110,8 +110,7 @@ public class EntryController implements Initializable {
 
     private void addEventListenerToUpdateButton() {
         entryEditController.updateButton.setOnAction(actionEvent -> {
-            entryEditController.updateEntry();
-            refreshTableView();
+            if (entryEditController.updateEntry()) refreshTableView();
         });
     }
 
