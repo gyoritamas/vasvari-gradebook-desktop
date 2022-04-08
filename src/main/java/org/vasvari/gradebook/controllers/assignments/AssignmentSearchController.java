@@ -59,7 +59,9 @@ public class AssignmentSearchController implements Initializable {
     private void initializeTypeFilter() {
         List<String> listOfOptions = new ArrayList<>();
         listOfOptions.add(ASSIGNMENT_TYPE_DEFAULT_VALUE);
-        listOfOptions.addAll(Arrays.stream(AssignmentType.values()).map(Enum::name).collect(Collectors.toList()));
+        listOfOptions.addAll(Arrays.stream(AssignmentType.values())
+                .map(AssignmentType::getLocalizedName)
+                .collect(Collectors.toList()));
         ObservableList<String> typeOptions = FXCollections.observableArrayList(listOfOptions);
         typeFilter.getItems().addAll(typeOptions);
         typeFilter.setValue(ASSIGNMENT_TYPE_DEFAULT_VALUE);
