@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="teacherUserTab" prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER"
+          xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../../css/label-style.css"
+          fx:controller="org.vasvari.gradebook.controllers.teachers.TeacherUserController">
+    <columnConstraints>
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="130.0"/>
+        <ColumnConstraints halignment="LEFT" maxWidth="250.0" prefWidth="250.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0"/>
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER" prefHeight="37.0" prefWidth="440.0" text="Tanár felhasználó"
+               GridPane.columnSpan="2147483647">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <!--    name/username   -->
+        <Label fx:id="nameLabel" text="név" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label fx:id="nameValueLabel" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1"
+               GridPane.rowIndex="2" styleClass="label-as-text-field">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+            <padding>
+                <Insets left="7.0"/>
+            </padding>
+        </Label>
+
+        <!-- user role -->
+        <Label text="szerepkör" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label prefHeight="25.0" prefWidth="250.0" text="tanár" GridPane.columnIndex="1"
+               GridPane.rowIndex="4" styleClass="label-as-text-field">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+            <padding>
+                <Insets left="7.0"/>
+            </padding>
+        </Label>
+
+        <Button fx:id="createUserButton" mnemonicParsing="false" onAction="#createUser" prefHeight="25.0"
+                prefWidth="150.0" text="Létrehozás" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
+                GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </Button>
+
+        <Label fx:id="credentialsLabel" alignment="CENTER" prefHeight="35.0" prefWidth="440.0"
+               text="Bejelentkezési adatok" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="usernameLabel" text="felh. név" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextField fx:id="usernameField" editable="false" prefWidth="250.0" promptText="felhasználónév"
+                   GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </TextField>
+
+        <Label fx:id="passwordLabel" text="jelszó" GridPane.rowIndex="10">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextField fx:id="passwordField" editable="false" prefWidth="250.0" promptText="jelszó" GridPane.columnIndex="1"
+                   GridPane.halignment="LEFT" GridPane.rowIndex="10">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </TextField>
+
+    </children>
+    <BorderPane.margin>
+        <Insets left="20.0" right="20.0"/>
+    </BorderPane.margin>
+</GridPane>

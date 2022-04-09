@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import org.vasvari.gradebook.controllers.students.StudentUserController;
 import org.vasvari.gradebook.dto.TeacherDto;
 import org.vasvari.gradebook.model.request.TeacherRequest;
 import org.vasvari.gradebook.service.TeacherService;
@@ -48,11 +49,14 @@ public class TeacherController implements Initializable {
     public TeacherSearchController teacherSearchController;
     @FXML
     public TeacherCreateController teacherCreateController;
+    @FXML
+    public TeacherUserController teacherUserController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize TeacherController");
         teacherEditController.teacherEditTab.setDisable(true);
+        teacherUserController.teacherUserTab.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
@@ -84,8 +88,10 @@ public class TeacherController implements Initializable {
                     TeacherDto selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
                     if (selectedTeacher == null) {
                         teacherEditController.emptyEditForm();
+                        teacherUserController.emptyForm();
                     } else {
                         teacherEditController.populateEditForm(selectedTeacher);
+                        teacherUserController.populateForm(selectedTeacher);
                     }
                 });
     }
