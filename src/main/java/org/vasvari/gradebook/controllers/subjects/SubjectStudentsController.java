@@ -21,6 +21,8 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @FxmlView("view/fxml/subjects/subjectStudents.fxml")
 @Component
@@ -47,12 +49,17 @@ public class SubjectStudentsController implements Initializable {
     public ComboBox<StudentDto> studentComboBox;
     @FXML
     public Button addStudentButton;
+    @FXML
+    public ComboBox<Integer> gradeLevelComboBox;
+    @FXML
+    public Button addAllStudentsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize SubjectStudentsController");
         initializeStudentsListView();
         initializeStudentComboBox();
+        initializeGradeLevelComboBox();
     }
 
     private void initializeStudentsListView() {
@@ -70,6 +77,15 @@ public class SubjectStudentsController implements Initializable {
             students.sort(Comparator.comparing(StudentDto::getName));
         }
         studentComboBox.setItems(FXCollections.observableArrayList(students));
+    }
+
+    private void initializeGradeLevelComboBox() {
+        List<Integer> gradeLevelOptions = IntStream.iterate(12, i -> i - 1)
+                .limit(12)
+                .boxed()
+                .collect(Collectors.toList());
+        gradeLevelComboBox.getItems().addAll(gradeLevelOptions);
+        gradeLevelComboBox.setValue(12);
     }
 
     public void emptyEditForm() {
@@ -108,4 +124,15 @@ public class SubjectStudentsController implements Initializable {
         initializeStudentComboBox();
     }
 
+    @FXML
+    public void addAllStudents() {
+        Integer selectedGradeLevel = gradeLevelComboBox.getSelectionModel().getSelectedItem();
+        List<StudentDto> studentsOfSelectedGradeLevel = studentService.findAllStudents().stream()
+                .filter(student -> student.getGradeLevel().equals(selectedGradeLevel))
+                .collect(Collectors.toList());
+        studentsOfSelectedGradeLevel
+                .forEach(student -> subjectService.addStudentToSubject(selectedSubjectId, student.getId()));
+        initializeStudentsListView();
+        initializeStudentComboBox();
+    }
 }
