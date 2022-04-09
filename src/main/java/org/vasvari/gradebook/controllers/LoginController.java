@@ -15,6 +15,7 @@ import org.vasvari.gradebook.dto.LoginRequest;
 import org.vasvari.gradebook.service.gateway.LoginGateway;
 import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class LoginController implements Initializable {
     private final LoginGateway loginService;
+    private final UserUtil userUtil;
     private final EventListenerFactory eventListenerFactory;
     private final InternalServerErrorHandler errorHandler;
 
@@ -37,9 +39,11 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        JavaFxApplication.getTheStage().setTitle("E-napló bejelentkezés");
+        log.info("initialize LoginController");
+        JavaFxApplication.getTheStage().setTitle("E-napló");
         JavaFxApplication.getTheStage().setHeight(250);
-        JavaFxApplication.getTheStage().setWidth(325);
+        JavaFxApplication.getTheStage().setWidth(375);
+        JavaFxApplication.getTheStage().setResizable(false);
         addEventListenerToFields();
     }
 
@@ -57,15 +61,21 @@ public class LoginController implements Initializable {
 
         try {
             loginService.login(loginRequest);
-            JavaFxApplication.setRoot(MainController.class);
+            if (userUtil.hasAnyRole("ADMIN", "TEACHER")) {
+                JavaFxApplication.setRoot(MainController.class);
+            } else {
+                errorLabel.setText("Nincs jogosultsága a program használatához.");
+            }
         } catch (HttpClientErrorException ex) {
             errorHandler.printErrorToLabel(ex, errorLabel);
         } catch (RuntimeException ex) {
             if (ex.getMessage().contains("Connection refused"))
                 errorLabel.setText("Sikertelen kapcsolódás.");
+            // TODO remove
             ex.printStackTrace();
         } catch (Exception ex) {
             errorHandler.printErrorToLabel(ex, errorLabel);
+            // TODO remove
             ex.printStackTrace();
         }
     }

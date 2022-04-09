@@ -39,8 +39,10 @@ public class JavaFxApplication extends Application {
 
     // switching views
     public static <T> void setRoot(Class<T> clazz) {
+        theStage.hide();
         root = fxWeaver.loadView(clazz);
         scene.setRoot(root);
+        theStage.show();
     }
 
     @Override
