@@ -37,16 +37,16 @@
     <right>
         <TabPane prefHeight="662.0" prefWidth="300.0">
             <tabs>
-                <Tab closable="false" text="Keresés">
+                <Tab closable="false" text="Keresés" fx:id="studentSearchTab">
                     <fx:include fx:id="studentSearch" source="studentSearch.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Új">
+                <Tab closable="false" text="Új" fx:id="studentCreateTab">
                     <fx:include fx:id="studentCreate" source="studentCreate.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Szerkesztés">
+                <Tab closable="false" text="Szerkesztés" fx:id="studentEditTab">
                     <fx:include fx:id="studentEdit" source="studentEdit.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Felhasználói fiók">
+                <Tab closable="false" text="Felhasználói fiók" fx:id="studentUserTab">
                     <fx:include fx:id="studentUser" source="studentUser.fxml"/>
                 </Tab>
             </tabs>

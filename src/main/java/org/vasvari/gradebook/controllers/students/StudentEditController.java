@@ -10,6 +10,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.service.StudentService;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ import java.util.stream.IntStream;
 public class StudentEditController implements Initializable {
 
     private final StudentService studentService;
+    private final UserUtil userUtil;
     private final Validator validator;
 
     private Long selectedId;
@@ -64,6 +66,7 @@ public class StudentEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize StudentEditController");
         initializeGradeLevelComboBox();
         addEventFilterToFields();

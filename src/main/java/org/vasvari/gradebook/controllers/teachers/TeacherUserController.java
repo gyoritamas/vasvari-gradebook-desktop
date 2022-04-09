@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.TeacherDto;
 import org.vasvari.gradebook.dto.dataTypes.InitialCredentials;
 import org.vasvari.gradebook.service.UserService;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 public class TeacherUserController implements Initializable {
 
     private final UserService userService;
+    private final UserUtil userUtil;
 
     private Long selectedTeacherId;
 
@@ -50,6 +52,7 @@ public class TeacherUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize TeacherUserController");
         hideCredentials();
         createUserButton.setVisible(false);

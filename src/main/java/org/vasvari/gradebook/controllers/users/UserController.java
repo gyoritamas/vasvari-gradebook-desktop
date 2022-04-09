@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.UserDto;
 import org.vasvari.gradebook.model.request.UserRequest;
 import org.vasvari.gradebook.service.UserService;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.ResourceBundle;
 public class UserController implements Initializable {
 
     private final UserService userService;
+    private final UserUtil userUtil;
 
     @FXML
     public TabPane userTabPane;
@@ -51,6 +53,7 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize UserController");
         userEditController.userEditPane.setDisable(true);
         initializeTableColumns();

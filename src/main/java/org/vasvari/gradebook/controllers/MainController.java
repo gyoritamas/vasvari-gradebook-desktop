@@ -1,6 +1,5 @@
 package org.vasvari.gradebook.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -71,45 +70,58 @@ public class MainController implements Initializable {
         buttonMap = new HashMap<>();
         buttonMap.put(studentsButton, "#students");
         buttonMap.put(subjectsButton, "#subjects");
-        buttonMap.put(teachersButton, "#teachers");
         buttonMap.put(assignmentsButton, "#assignments");
         buttonMap.put(entriesButton, "#entries");
-        buttonMap.put(usersButton, "#users");
         buttonMap.put(profileButton, "#profile");
+        if (userUtil.hasAnyRole("ADMIN")) {
+            buttonMap.put(teachersButton, "#teachers");
+            buttonMap.put(usersButton, "#users");
+        }
     }
 
     private void initializeToggleButtons() {
+        if (userUtil.hasAnyRole("ADMIN")) {
+            teachersButton.setVisible(true);
+            usersButton.setVisible(true);
+        }
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(buttonMap.keySet());
         toggleGroup.selectToggle(studentsButton);
         selected = studentsButton;
     }
 
-    public void studentsButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void studentsButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(studentsButton);
     }
 
-    public void subjectsButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void subjectsButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(subjectsButton);
     }
 
-    public void teachersButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void teachersButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(teachersButton);
     }
 
-    public void assignmentsButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void assignmentsButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(assignmentsButton);
     }
 
-    public void entriesButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void entriesButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(entriesButton);
     }
 
-    public void usersButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void usersButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(usersButton);
     }
 
-    public void profileButtonClicked(ActionEvent actionEvent) {
+    @FXML
+    public void profileButtonClicked() {
         hidePreviousActivePaneAndShowSelectedPane(profileButton);
     }
 
@@ -124,11 +136,9 @@ public class MainController implements Initializable {
     }
 
     private void setUserLabel() {
-        userLabel.setText(getUserName());
-    }
-
-    private String getUserName() {
-        return userUtil.username();
+        String username = userUtil.username();
+        String userRole = userUtil.userRole().getLocalizedName();
+        userLabel.setText(String.format("%s (%s)", username, userRole));
     }
 
     @FXML

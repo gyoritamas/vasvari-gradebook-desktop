@@ -15,6 +15,7 @@ import org.vasvari.gradebook.controllers.students.StudentUserController;
 import org.vasvari.gradebook.dto.TeacherDto;
 import org.vasvari.gradebook.model.request.TeacherRequest;
 import org.vasvari.gradebook.service.TeacherService;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.ResourceBundle;
 public class TeacherController implements Initializable {
 
     private final TeacherService teacherService;
+    private final UserUtil userUtil;
 
     @FXML
     private TableView<TeacherDto> teachersTableView;
@@ -54,6 +56,7 @@ public class TeacherController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize TeacherController");
         teacherEditController.teacherEditPane.setDisable(true);
         teacherUserController.teacherUserPane.setDisable(true);

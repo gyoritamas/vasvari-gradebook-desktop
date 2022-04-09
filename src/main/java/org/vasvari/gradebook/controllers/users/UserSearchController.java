@@ -13,6 +13,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.UserRole;
 import org.vasvari.gradebook.model.request.UserRequest;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.viewmodel.UserEnabledFilterValue;
 
 import java.net.URL;
@@ -31,6 +32,8 @@ import static org.vasvari.gradebook.viewmodel.UserEnabledFilterValue.ENABLED;
 @RequiredArgsConstructor
 public class UserSearchController implements Initializable {
 
+    private final UserUtil userUtil;
+
     private static final String USER_ROLE_DEFAULT_VALUE = "minden szerepkör";
 
     @FXML
@@ -47,6 +50,7 @@ public class UserSearchController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize UserSearchController");
         initializeRoleFilter();
         initializeEnabledFilter();

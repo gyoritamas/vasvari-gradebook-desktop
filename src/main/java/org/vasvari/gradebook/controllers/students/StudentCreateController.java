@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.service.StudentService;
 import org.vasvari.gradebook.util.EventListenerFactory;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ import java.util.stream.IntStream;
 public class StudentCreateController implements Initializable {
 
     private final StudentService studentService;
+    private final UserUtil userUtil;
     private final Validator validator;
     private final EventListenerFactory eventListenerFactory;
 
@@ -63,6 +65,7 @@ public class StudentCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize StudentCreateController");
         initializeGradeLevelComboBox();
         addEventListenersToFields();

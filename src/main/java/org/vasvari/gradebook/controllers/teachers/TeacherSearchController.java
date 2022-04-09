@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.model.request.TeacherRequest;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class TeacherSearchController implements Initializable {
 
+    private final UserUtil userUtil;
+
     @FXML
     public TextField teacherName;
     @FXML
@@ -28,6 +31,8 @@ public class TeacherSearchController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
+        log.info("initialize TeacherSearchController");
     }
 
     public TeacherRequest getFilters() {

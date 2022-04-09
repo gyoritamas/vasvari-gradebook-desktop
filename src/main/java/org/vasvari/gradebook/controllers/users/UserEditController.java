@@ -11,6 +11,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.UserDto;
 import org.vasvari.gradebook.service.UserService;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
 public class UserEditController implements Initializable {
 
     private final UserService userService;
+    private final UserUtil userUtil;
 
     private Long selectedId;
 
@@ -40,6 +42,7 @@ public class UserEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize UserEditController");
     }
 

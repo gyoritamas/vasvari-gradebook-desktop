@@ -15,6 +15,7 @@ import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 import org.vasvari.gradebook.service.SubjectService;
 import org.vasvari.gradebook.service.TeacherService;
 import org.vasvari.gradebook.util.EventListenerFactory;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -31,6 +32,7 @@ public class SubjectCreateController implements Initializable {
     private final TeacherService teacherService;
     private final SubjectService subjectService;
     private final Validator validator;
+    private final UserUtil userUtil;
     private final EventListenerFactory eventListenerFactory;
 
     @FXML
@@ -48,6 +50,7 @@ public class SubjectCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize SubjectCreateController");
         initializeTeacherComboBox();
         addEventListenerToFields();

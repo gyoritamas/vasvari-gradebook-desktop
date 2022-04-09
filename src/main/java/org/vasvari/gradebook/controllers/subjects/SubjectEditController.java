@@ -15,6 +15,7 @@ import org.vasvari.gradebook.dto.SubjectInput;
 import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 import org.vasvari.gradebook.service.SubjectService;
 import org.vasvari.gradebook.service.TeacherService;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 import org.vasvari.gradebook.viewmodel.SubjectViewModel;
 
@@ -32,6 +33,7 @@ public class SubjectEditController implements Initializable {
     private final SubjectService subjectService;
     private final TeacherService teacherService;
     private final Validator validator;
+    private final UserUtil userUtil;
 
     private Long selectedId;
 
@@ -52,6 +54,7 @@ public class SubjectEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize SubjectEditController");
         initializeTeacherComboBox();
         addEventFilterToFields();

@@ -40,13 +40,13 @@
     <right>
         <TabPane prefHeight="662.0" prefWidth="300.0">
             <tabs>
-                <Tab closable="false" text="Keresés">
+                <Tab closable="false" text="Keresés" fx:id="subjectSearchTab">
                     <fx:include fx:id="subjectSearch" source="subjectSearch.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Új">
+                <Tab closable="false" text="Új" fx:id="subjectCreateTab">
                     <fx:include fx:id="subjectCreate" source="subjectCreate.fxml"/>
                 </Tab>
-                <Tab closable="false" text="Szerkesztés">
+                <Tab closable="false" text="Szerkesztés" fx:id="subjectEditTab">
                     <fx:include fx:id="subjectEdit" source="subjectEdit.fxml"/>
                 </Tab>
                 <Tab closable="false" text="Tanulók">

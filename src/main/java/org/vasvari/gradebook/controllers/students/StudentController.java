@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.StudentDto;
 import org.vasvari.gradebook.model.request.StudentRequest;
 import org.vasvari.gradebook.service.StudentService;
+import org.vasvari.gradebook.util.UserUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -26,7 +28,14 @@ import java.util.ResourceBundle;
 public class StudentController implements Initializable {
 
     private final StudentService studentService;
+    private final UserUtil userUtil;
 
+    @FXML
+    public Tab studentCreateTab;
+    @FXML
+    public Tab studentEditTab;
+    @FXML
+    public Tab studentUserTab;
     @FXML
     private TableView<StudentDto> studentsTableView;
     @FXML
@@ -56,6 +65,11 @@ public class StudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize StudentController");
+        if (!userUtil.hasAnyRole("ADMIN")) {
+            studentCreateTab.setDisable(true);
+            studentEditTab.setDisable(true);
+            studentUserTab.setDisable(true);
+        }
         studentEditController.studentEditPane.setDisable(true);
         studentUserController.studentUserPane.setDisable(true);
         initializeTableColumns();

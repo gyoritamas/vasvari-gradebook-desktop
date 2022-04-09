@@ -10,6 +10,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.vasvari.gradebook.dto.TeacherDto;
 import org.vasvari.gradebook.service.TeacherService;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class TeacherEditController implements Initializable {
     private final TeacherService teacherService;
+    private final UserUtil userUtil;
     private final Validator validator;
 
     private Long selectedId;
@@ -58,6 +60,7 @@ public class TeacherEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize TeacherEditController");
         addEventFilterToFields();
     }

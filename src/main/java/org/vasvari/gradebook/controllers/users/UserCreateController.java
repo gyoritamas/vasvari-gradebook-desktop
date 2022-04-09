@@ -16,6 +16,7 @@ import org.vasvari.gradebook.dto.dataTypes.UsernameInput;
 import org.vasvari.gradebook.service.UserService;
 import org.vasvari.gradebook.util.EventListenerFactory;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
+import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
@@ -28,6 +29,7 @@ import java.util.ResourceBundle;
 public class UserCreateController implements Initializable {
 
     private final UserService userService;
+    private final UserUtil userUtil;
     private final Validator validator;
     private final EventListenerFactory eventListenerFactory;
     private final InternalServerErrorHandler errorHandler;
@@ -52,6 +54,7 @@ public class UserCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize UserCreateController");
         addEventListenerToFields();
         hideCredentials();
