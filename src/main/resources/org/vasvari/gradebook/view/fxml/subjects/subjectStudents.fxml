@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="subjectStudentsTab" prefHeight="662.0" prefWidth="232.0" stylesheets="@../../css/label-style.css"
+<GridPane fx:id="subjectStudentsPane" prefHeight="662.0" prefWidth="232.0" stylesheets="@../../css/label-style.css"
           BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="org.vasvari.gradebook.controllers.subjects.SubjectStudentsController">
     <columnConstraints>

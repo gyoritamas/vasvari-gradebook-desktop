@@ -52,7 +52,7 @@ public class EntryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize EntryController");
-        entryEditController.entryEditTab.setDisable(true);
+        entryEditController.entryEditPane.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();

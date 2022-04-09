@@ -44,7 +44,7 @@ public class EntryEditController implements Initializable {
     private final InternalServerErrorHandler errorHandler;
 
     @FXML
-    public GridPane entryEditTab;
+    public GridPane entryEditPane;
     @FXML
     public Label entrySubject;
     @FXML
@@ -141,11 +141,11 @@ public class EntryEditController implements Initializable {
         selectedEntryId = null;
         deleteFormFields();
         deleteErrorMessages();
-        entryEditTab.setDisable(true);
+        entryEditPane.setDisable(true);
     }
 
     public void populateEditForm(GradebookOutput entry) {
-        entryEditTab.setDisable(false);
+        entryEditPane.setDisable(false);
         selectedEntryId = entry.getId();
         selectedSubjectId = entry.getSubject().getId();
         entrySubject.setText(entry.getSubject().getName());

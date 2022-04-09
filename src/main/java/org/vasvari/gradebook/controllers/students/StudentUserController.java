@@ -28,7 +28,7 @@ public class StudentUserController implements Initializable {
     private Long selectedStudentId;
 
     @FXML
-    public GridPane studentUserTab;
+    public GridPane studentUserPane;
     @FXML
     public Label nameLabel;
     @FXML
@@ -69,11 +69,11 @@ public class StudentUserController implements Initializable {
         nameLabel.setText("név");
         nameValueLabel.setText(null);
         hideCredentials();
-        studentUserTab.setDisable(true);
+        studentUserPane.setDisable(true);
     }
 
     public void populateForm(StudentDto selectedStudent) {
-        studentUserTab.setDisable(false);
+        studentUserPane.setDisable(false);
         hideCredentials();
         selectedStudentId = selectedStudent.getId();
 

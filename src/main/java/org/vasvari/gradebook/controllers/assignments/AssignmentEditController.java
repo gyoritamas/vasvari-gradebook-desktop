@@ -34,7 +34,7 @@ public class AssignmentEditController implements Initializable {
     private Long selectedId;
 
     @FXML
-    public GridPane assignmentEditTab;
+    public GridPane assignmentEditPane;
     @FXML
     public TextField assignmentTitle;
     @FXML
@@ -111,11 +111,11 @@ public class AssignmentEditController implements Initializable {
         assignmentSubject.setValue(null);
         description.setText(null);
         deadline.setValue(null);
-        assignmentEditTab.setDisable(true);
+        assignmentEditPane.setDisable(true);
     }
 
     public void populateEditForm(AssignmentOutput assignment) {
-        assignmentEditTab.setDisable(false);
+        assignmentEditPane.setDisable(false);
         selectedId = assignment.getId();
         assignmentTitle.setText(assignment.getName());
         assignmentType.setValue(assignment.getType());

@@ -55,8 +55,8 @@ public class TeacherController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize TeacherController");
-        teacherEditController.teacherEditTab.setDisable(true);
-        teacherUserController.teacherUserTab.setDisable(true);
+        teacherEditController.teacherEditPane.setDisable(true);
+        teacherUserController.teacherUserPane.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();

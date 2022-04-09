@@ -54,7 +54,7 @@ public class AssignmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize AssignmentController");
-        assignmentEditController.assignmentEditTab.setDisable(true);
+        assignmentEditController.assignmentEditPane.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();

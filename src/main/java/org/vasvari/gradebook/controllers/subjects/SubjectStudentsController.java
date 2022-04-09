@@ -34,7 +34,7 @@ public class SubjectStudentsController implements Initializable {
     private Long selectedSubjectId;
 
     @FXML
-    public GridPane subjectStudentsTab;
+    public GridPane subjectStudentsPane;
     @FXML
     public Label subjectName;
     @FXML
@@ -78,11 +78,11 @@ public class SubjectStudentsController implements Initializable {
         subjectTeacher.setText(null);
         studentsListView.getItems().clear();
         studentComboBox.setValue(null);
-        subjectStudentsTab.setDisable(true);
+        subjectStudentsPane.setDisable(true);
     }
 
     public void populateEditForm(SubjectViewModel selectedSubject) {
-        subjectStudentsTab.setDisable(false);
+        subjectStudentsPane.setDisable(false);
         selectedSubjectId = selectedSubject.getId();
         subjectName.setText(selectedSubject.getName());
         subjectTeacher.setText(selectedSubject.getTeacher().getName());

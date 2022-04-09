@@ -30,7 +30,7 @@ public class StudentEditController implements Initializable {
     private Long selectedId;
 
     @FXML
-    public GridPane studentEditTab;
+    public GridPane studentEditPane;
     @FXML
     public TextField lastName;
     @FXML
@@ -142,11 +142,11 @@ public class StudentEditController implements Initializable {
         address.setText(null);
         phone.setText(null);
         birthdate.setValue(null);
-        studentEditTab.setDisable(true);
+        studentEditPane.setDisable(true);
     }
 
     public void populateEditForm(StudentDto selectedStudent) {
-        studentEditTab.setDisable(false);
+        studentEditPane.setDisable(false);
         selectedId = selectedStudent.getId();
         firstName.setText(selectedStudent.getFirstname());
         lastName.setText(selectedStudent.getLastname());

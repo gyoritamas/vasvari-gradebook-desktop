@@ -36,7 +36,7 @@ public class SubjectEditController implements Initializable {
     private Long selectedId;
 
     @FXML
-    public GridPane subjectEditTab;
+    public GridPane subjectEditPane;
     @FXML
     public TextField subjectName;
     @FXML
@@ -96,11 +96,11 @@ public class SubjectEditController implements Initializable {
         selectedId = null;
         subjectName.setText(null);
         subjectTeacher.setValue(null);
-        subjectEditTab.setDisable(true);
+        subjectEditPane.setDisable(true);
     }
 
     public void populateEditForm(SubjectViewModel selectedSubject) {
-        subjectEditTab.setDisable(false);
+        subjectEditPane.setDisable(false);
         selectedId = selectedSubject.getId();
         subjectName.setText(selectedSubject.getName());
         subjectTeacher.setValue(selectedSubject.getTeacher());

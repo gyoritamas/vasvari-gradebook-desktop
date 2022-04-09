@@ -55,8 +55,8 @@ public class SubjectController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize SubjectController");
-        subjectEditController.subjectEditTab.setDisable(true);
-        subjectStudentsController.subjectStudentsTab.setDisable(true);
+        subjectEditController.subjectEditPane.setDisable(true);
+        subjectStudentsController.subjectStudentsPane.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
