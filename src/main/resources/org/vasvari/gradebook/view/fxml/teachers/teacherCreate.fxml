@@ -84,7 +84,7 @@
             </GridPane.margin>
         </Label>
         <TextArea fx:id="address" prefHeight="200.0" prefWidth="250.0" GridPane.columnIndex="1"
-                  GridPane.halignment="LEFT" GridPane.rowIndex="8">
+                  GridPane.halignment="LEFT" GridPane.rowIndex="8" wrapText="true">
             <GridPane.margin>
                 <Insets right="20.0"/>
             </GridPane.margin>
