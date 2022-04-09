@@ -17,6 +17,7 @@ import org.vasvari.gradebook.service.SubjectService;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -53,7 +54,10 @@ public class StudentSearchController implements Initializable {
     private void initializeSubjectFilter() {
         List<SubjectOutput> listOfOptions = new ArrayList<>();
         listOfOptions.add(SUBJECT_FILTER_DEFAULT_VALUE);
-        listOfOptions.addAll(subjectService.findSubjectsForUser());
+        List<SubjectOutput> subjectsSorted = subjectService.findSubjectsForUser().stream()
+                .sorted(Comparator.comparing(SubjectOutput::getName))
+                .collect(Collectors.toList());
+        listOfOptions.addAll(subjectsSorted);
         ObservableList<SubjectOutput> subjectOptions = FXCollections.observableArrayList(listOfOptions);
         subjectFilter.getItems().addAll(subjectOptions);
         subjectFilter.setValue(SUBJECT_FILTER_DEFAULT_VALUE);

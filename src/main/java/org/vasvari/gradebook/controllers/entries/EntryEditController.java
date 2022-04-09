@@ -24,6 +24,7 @@ import org.vasvari.gradebook.service.StudentService;
 import org.vasvari.gradebook.util.InternalServerErrorHandler;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -75,7 +76,9 @@ public class EntryEditController implements Initializable {
         // search assignments with selected subject
         AssignmentRequest assignmentRequest = new AssignmentRequest();
         assignmentRequest.setSubjectId(selectedSubjectId);
-        List<AssignmentOutput> assignmentsOfSubject = assignmentService.findAssignmentsForUser(assignmentRequest);
+        List<AssignmentOutput> assignmentsOfSubject = assignmentService.findAssignmentsForUser(assignmentRequest).stream()
+                .sorted(Comparator.comparing(AssignmentOutput::getName))
+                .collect(Collectors.toList());
 
         ObservableList<AssignmentOutput> assignmentOptions = FXCollections.observableArrayList(assignmentsOfSubject);
         entryAssignment.setItems(assignmentOptions);
@@ -87,7 +90,9 @@ public class EntryEditController implements Initializable {
         // search students enrolled to selected subject
         StudentRequest studentRequest = new StudentRequest();
         studentRequest.setSubjectId(selectedSubjectId);
-        List<StudentDto> studentsOfSubject = studentService.findStudentsForUser(studentRequest);
+        List<StudentDto> studentsOfSubject = studentService.findStudentsForUser(studentRequest).stream()
+                .sorted(Comparator.comparing(StudentDto::getName))
+                .collect(Collectors.toList());
 
         ObservableList<StudentDto> studentOptions = FXCollections.observableArrayList(studentsOfSubject);
         entryStudent.setItems(studentOptions);

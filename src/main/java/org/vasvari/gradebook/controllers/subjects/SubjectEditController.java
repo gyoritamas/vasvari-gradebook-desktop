@@ -20,6 +20,7 @@ import org.vasvari.gradebook.util.Validator;
 import org.vasvari.gradebook.viewmodel.SubjectViewModel;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -54,7 +55,7 @@ public class SubjectEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(!userUtil.hasAnyRole("ADMIN")) return;
+        if (!userUtil.hasAnyRole("ADMIN")) return;
         log.info("initialize SubjectEditController");
         initializeTeacherComboBox();
         addEventFilterToFields();
@@ -63,6 +64,7 @@ public class SubjectEditController implements Initializable {
     private void initializeTeacherComboBox() {
         List<SimpleTeacher> teachers = teacherService.findAllTeachers().stream()
                 .map(teacher -> new SimpleTeacher(teacher.getId(), teacher.getFirstname(), teacher.getLastname()))
+                .sorted(Comparator.comparing(SimpleTeacher::getName))
                 .collect(Collectors.toList());
         subjectTeacher.getItems().addAll(teachers);
     }

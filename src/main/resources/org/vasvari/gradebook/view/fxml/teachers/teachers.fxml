@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="teachers" prefHeight="768.0" prefWidth="1107.0" AnchorPane.bottomAnchor="0.0"
+<BorderPane fx:id="teachers" prefHeight="768.0" prefWidth="1107.0" visible="false" AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.vasvari.gradebook.controllers.teachers.TeacherController"
-            visible="false">
+            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.vasvari.gradebook.controllers.teachers.TeacherController">
     <top>
         <Label prefHeight="106.0" prefWidth="1131.0" text="Tanárok" BorderPane.alignment="TOP_LEFT">
             <padding>
@@ -23,12 +27,13 @@
     <center>
         <TableView fx:id="teachersTableView" prefHeight="662.0" prefWidth="673.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#" />
-                <TableColumn fx:id="nameColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="név" />
-                <TableColumn fx:id="emailColumn" maxWidth="200.0" minWidth="150.0" prefWidth="-1.0" text="email" />
-                <TableColumn fx:id="addressColumn" maxWidth="500.0" minWidth="250.0" prefWidth="-1.0" text="cím" />
-                <TableColumn fx:id="phoneColumn" maxWidth="200.0" minWidth="100.0" prefWidth="-1.0" text="telefon" />
-                <TableColumn fx:id="dateOfBirthColumn" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0" resizable="false" text="szül.dátum" />
+                <TableColumn fx:id="idColumn" maxWidth="40.0" minWidth="20.0" prefWidth="-1.0" text="#"/>
+                <TableColumn fx:id="nameColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="név"/>
+                <TableColumn fx:id="emailColumn" maxWidth="250.0" minWidth="180.0" prefWidth="188.0" text="email"/>
+                <TableColumn fx:id="addressColumn" maxWidth="500.0" minWidth="230.0" prefWidth="300.0" text="cím"/>
+                <TableColumn fx:id="phoneColumn" maxWidth="200.0" minWidth="43.0" prefWidth="100.0" text="telefon"/>
+                <TableColumn fx:id="dateOfBirthColumn" maxWidth="87.0" minWidth="37.0" prefWidth="87.0"
+                             resizable="false" text="szül.dátum"/>
             </columns>
         </TableView>
     </center>

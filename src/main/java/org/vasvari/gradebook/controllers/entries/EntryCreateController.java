@@ -26,6 +26,7 @@ import org.vasvari.gradebook.util.InternalServerErrorHandler;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -88,7 +89,9 @@ public class EntryCreateController implements Initializable {
 
     private void initializeSubjectComboBox() {
         List<SubjectOutput> listOfOptions = new ArrayList<>();
-        List<SubjectOutput> subjectsFound = subjectService.findSubjectsForUser();
+        List<SubjectOutput> subjectsFound = subjectService.findSubjectsForUser().stream()
+                .sorted(Comparator.comparing(SubjectOutput::getName))
+                .collect(Collectors.toList());
 
         if (subjectsFound.isEmpty()) {
             listOfOptions.add(NO_SUBJECT_FOUND);
@@ -110,7 +113,9 @@ public class EntryCreateController implements Initializable {
         // search assignments with selected subject
         AssignmentRequest assignmentRequest = new AssignmentRequest();
         assignmentRequest.setSubjectId(selectedSubjectId);
-        List<AssignmentOutput> assignmentsFound = assignmentService.findAssignmentsForUser(assignmentRequest);
+        List<AssignmentOutput> assignmentsFound = assignmentService.findAssignmentsForUser(assignmentRequest).stream()
+                .sorted(Comparator.comparing(AssignmentOutput::getName))
+                .collect(Collectors.toList());
 
         if (assignmentsFound.isEmpty()) {
             listOfOptions.add(NO_ASSIGNMENT_FOUND);
@@ -131,7 +136,9 @@ public class EntryCreateController implements Initializable {
         // search students enrolled to selected subject
         StudentRequest studentRequest = new StudentRequest();
         studentRequest.setSubjectId(selectedSubjectId);
-        List<StudentDto> studentsFound = studentService.findStudentsForUser(studentRequest);
+        List<StudentDto> studentsFound = studentService.findStudentsForUser(studentRequest).stream()
+                .sorted(Comparator.comparing(StudentDto::getName))
+                .collect(Collectors.toList());
 
         if (studentsFound.isEmpty()) {
             listOfOptions.add(NO_STUDENT_FOUND);

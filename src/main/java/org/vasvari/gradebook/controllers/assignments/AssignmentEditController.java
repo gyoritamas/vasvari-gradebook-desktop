@@ -17,6 +17,7 @@ import org.vasvari.gradebook.service.SubjectService;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -65,6 +66,7 @@ public class AssignmentEditController implements Initializable {
     private void initializeSubjectComboBox() {
         List<SimpleData> subjects = subjectService.findSubjectsForUser().stream()
                 .map(subject -> new SimpleData(subject.getId(), subject.getName()))
+                .sorted(Comparator.comparing(SimpleData::getName))
                 .collect(Collectors.toList());
         assignmentSubject.getItems().addAll(subjects);
     }

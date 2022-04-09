@@ -26,7 +26,7 @@
                 <TableColumn fx:id="nameColumn" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" text="név"/>
                 <TableColumn fx:id="gradeLevelColumn" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" resizable="false"
                              text="évfolyam"/>
-                <TableColumn fx:id="emailColumn" maxWidth="200.0" minWidth="150.0" prefWidth="-1.0" text="email"/>
+                <TableColumn fx:id="emailColumn" maxWidth="250.0" minWidth="180.0" prefWidth="-1.0" text="email"/>
                 <TableColumn fx:id="addressColumn" maxWidth="500.0" minWidth="250.0" prefWidth="-1.0" text="cím"/>
                 <TableColumn fx:id="phoneColumn" maxWidth="200.0" minWidth="100.0" prefWidth="-1.0" text="telefon"/>
                 <TableColumn fx:id="dateOfBirthColumn" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0"

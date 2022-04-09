@@ -19,6 +19,7 @@ import org.vasvari.gradebook.util.UserUtil;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -59,6 +60,7 @@ public class SubjectCreateController implements Initializable {
     private void initializeTeacherComboBox() {
         List<SimpleTeacher> teachers = teacherService.findAllTeachers().stream()
                 .map(teacher -> new SimpleTeacher(teacher.getId(), teacher.getFirstname(), teacher.getLastname()))
+                .sorted(Comparator.comparing(SimpleTeacher::getName))
                 .collect(Collectors.toList());
         subjectTeacher.getItems().addAll(teachers);
     }

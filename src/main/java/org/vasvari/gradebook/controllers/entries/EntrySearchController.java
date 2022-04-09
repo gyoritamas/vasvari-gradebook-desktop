@@ -20,8 +20,10 @@ import org.vasvari.gradebook.service.SubjectService;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @FxmlView("view/fxml/entries/entrySearch.fxml")
 @Component
@@ -62,7 +64,10 @@ public class EntrySearchController implements Initializable {
     private void initializeStudentFilter() {
         List<StudentDto> listOfOptions = new ArrayList<>();
         listOfOptions.add(STUDENT_FILTER_DEFAULT_VALUE);
-        listOfOptions.addAll(studentService.findStudentsForUser());
+        List<StudentDto> studentsSorted = studentService.findStudentsForUser().stream()
+                .sorted(Comparator.comparing(StudentDto::getName))
+                .collect(Collectors.toList());
+        listOfOptions.addAll(studentsSorted);
         ObservableList<StudentDto> studentOptions = FXCollections.observableArrayList(listOfOptions);
         studentFilter.getItems().addAll(studentOptions);
         studentFilter.setValue(STUDENT_FILTER_DEFAULT_VALUE);
@@ -71,7 +76,10 @@ public class EntrySearchController implements Initializable {
     private void initializeSubjectFilter() {
         List<SubjectOutput> listOfOptions = new ArrayList<>();
         listOfOptions.add(SUBJECT_FILTER_DEFAULT_VALUE);
-        listOfOptions.addAll(subjectService.findSubjectsForUser());
+        List<SubjectOutput> subjectsSorted = subjectService.findSubjectsForUser().stream()
+                .sorted(Comparator.comparing(SubjectOutput::getName))
+                .collect(Collectors.toList());
+        listOfOptions.addAll(subjectsSorted);
         ObservableList<SubjectOutput> subjectOptions = FXCollections.observableArrayList(listOfOptions);
         subjectFilter.getItems().addAll(subjectOptions);
         subjectFilter.setValue(SUBJECT_FILTER_DEFAULT_VALUE);
@@ -80,7 +88,10 @@ public class EntrySearchController implements Initializable {
     private void initializeAssignmentFilter() {
         List<AssignmentOutput> listOfOptions = new ArrayList<>();
         listOfOptions.add(ASSIGNMENT_FILTER_DEFAULT_VALUE);
-        listOfOptions.addAll(assignmentService.findAssignmentsForUserIncludeExpired());
+        List<AssignmentOutput> assignmentsSorted = assignmentService.findAssignmentsForUserIncludeExpired().stream()
+                .sorted(Comparator.comparing(AssignmentOutput::getName))
+                .collect(Collectors.toList());
+        listOfOptions.addAll(assignmentsSorted);
         ObservableList<AssignmentOutput> assignmentOptions = FXCollections.observableArrayList(listOfOptions);
         assignmentFilter.getItems().addAll(assignmentOptions);
         assignmentFilter.setValue(ASSIGNMENT_FILTER_DEFAULT_VALUE);
