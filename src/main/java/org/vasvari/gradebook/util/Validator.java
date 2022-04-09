@@ -137,10 +137,12 @@ public class Validator {
     public void username(TextField username, Label usernameErrorLabel) {
         usernameErrorLabel.setText("");
         if (username.getText() == null || username.getText().isEmpty() || username.getText().isBlank())
-            usernameErrorLabel.setText("a tantárgy neve nem lehet üres");
+            usernameErrorLabel.setText("a felhasználónév nem lehet üres");
+        else if (!username.getText().matches("^[a-zA-Z](.)+"))
+            usernameErrorLabel.setText("az első karakter csak betű lehet");
         else if (!username.getText().matches("^[a-zA-Z]([0-9a-zA-Z])+"))
-            usernameErrorLabel.setText("a felhasználónév csak betűket és számokat tartalmazhat és betűvel kell kezdődnie");
+            usernameErrorLabel.setText("csak betűket és számokat tartalmazhat");
         else if (username.getText().length() < USERNAME_MIN_LENGTH || username.getText().length() > USERNAME_MAX_LENGTH)
-            usernameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", USERNAME_MIN_LENGTH, USERNAME_MIN_LENGTH));
+            usernameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH));
     }
 }

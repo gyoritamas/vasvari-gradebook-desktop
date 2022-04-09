@@ -26,7 +26,7 @@ public class UserEditController implements Initializable {
     private Long selectedId;
 
     @FXML
-    public GridPane userEditTab;
+    public GridPane userEditPane;
     @FXML
     public Label username;
     @FXML
@@ -58,11 +58,11 @@ public class UserEditController implements Initializable {
         username.setText(null);
         userRole.setText(null);
         enabled.setText(null);
-        userEditTab.setDisable(true);
+        userEditPane.setDisable(true);
     }
 
     public void populateEditForm(UserDto selectedUser) {
-        userEditTab.setDisable(false);
+        userEditPane.setDisable(false);
         changeEnableButton.setText(selectedUser.isEnabled() ? "Fiók kikapcsolása" : "Fiók bekapcsolása");
         selectedId = selectedUser.getId();
         username.setText(selectedUser.getUsername());

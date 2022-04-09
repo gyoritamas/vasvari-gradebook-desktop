@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +30,8 @@ public class UserController implements Initializable {
     private final UserService userService;
 
     @FXML
+    public TabPane userTabPane;
+    @FXML
     public TableView<UserDto> usersTableView;
     @FXML
     public TableColumn<UserDto, Long> idColumn;
@@ -49,10 +52,11 @@ public class UserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize UserController");
-        userEditController.userEditTab.setDisable(true);
+        userEditController.userEditPane.setDisable(true);
         initializeTableColumns();
         initializeTable();
         addEventListenerToTable();
+        addEventListenerToTabPane();
         addEventListenerToSearchButton();
         addEventListenerToResetFiltersButton();
         addEventListenerToSaveButton();
@@ -86,6 +90,12 @@ public class UserController implements Initializable {
                         userEditController.populateEditForm(selectedUser);
                     }
                 });
+    }
+
+    private void addEventListenerToTabPane() {
+        userTabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.getId().equals("#userCreateTab")) userCreateController.emptyForm();
+        });
     }
 
     private void addEventListenerToSearchButton() {

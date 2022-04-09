@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="userEditTab" prefHeight="662.0" prefWidth="232.0" stylesheets="@../../css/label-style.css"
+<GridPane fx:id="userEditPane" prefHeight="662.0" prefWidth="232.0" stylesheets="@../../css/label-style.css"
           BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="org.vasvari.gradebook.controllers.users.UserEditController">
     <columnConstraints>

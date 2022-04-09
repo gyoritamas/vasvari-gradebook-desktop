@@ -4,11 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import org.vasvari.gradebook.dto.dataTypes.InitialCredentials;
 import org.vasvari.gradebook.dto.dataTypes.UsernameInput;
 import org.vasvari.gradebook.service.UserService;
 import org.vasvari.gradebook.util.EventListenerFactory;
@@ -34,15 +37,24 @@ public class UserCreateController implements Initializable {
     @FXML
     public Label usernameErrorLabel;
     @FXML
-    public Button emptyFormButton;
-    @FXML
     public Button saveButton;
 
+    @FXML
+    public Label credentialsLabel;
+    @FXML
+    public Label usernameLabel;
+    @FXML
+    public TextField usernameField;
+    @FXML
+    public Label passwordLabel;
+    @FXML
+    public TextField passwordField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("initialize UserCreateController");
         addEventListenerToFields();
+        hideCredentials();
     }
 
     private void addEventListenerToFields() {
@@ -56,8 +68,8 @@ public class UserCreateController implements Initializable {
         UsernameInput usernameInput = new UsernameInput(username.getText());
 
         try {
-            userService.createAdminUser(usernameInput);
-            deleteFormFields();
+            InitialCredentials credentials = userService.createAdminUser(usernameInput);
+            showCredentials(credentials);
         } catch (Exception e) {
             errorHandler.printErrorToLabel(e, usernameErrorLabel);
         }
@@ -67,21 +79,41 @@ public class UserCreateController implements Initializable {
         validator.username(username, usernameErrorLabel);
     }
 
-    @FXML
-    public void emptyForm() {
+    private boolean isAnyFieldInvalid() {
+        return !usernameErrorLabel.getText().isEmpty();
+    }
+
+    public void emptyForm(){
         deleteFormFields();
         deleteErrorMessages();
+        hideCredentials();
     }
 
     private void deleteFormFields() {
         username.setText(null);
+        usernameField.setText(null);
+        passwordField.setText(null);
     }
 
     private void deleteErrorMessages() {
         usernameErrorLabel.setText(null);
     }
 
-    private boolean isAnyFieldInvalid() {
-        return !usernameErrorLabel.getText().isEmpty();
+    private void hideCredentials() {
+        credentialsLabel.setVisible(false);
+        usernameLabel.setVisible(false);
+        usernameField.setVisible(false);
+        passwordLabel.setVisible(false);
+        passwordField.setVisible(false);
+    }
+
+    private void showCredentials(InitialCredentials credentials) {
+        credentialsLabel.setVisible(true);
+        usernameLabel.setVisible(true);
+        usernameField.setVisible(true);
+        passwordLabel.setVisible(true);
+        passwordField.setVisible(true);
+        usernameField.setText(credentials.getUsername());
+        passwordField.setText(credentials.getPassword());
     }
 }
