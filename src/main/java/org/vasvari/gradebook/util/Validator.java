@@ -21,7 +21,8 @@ public class Validator {
     private static final int ASSIGNMENT_TITLE_MAX_LENGTH = 255;
     private static final int USERNAME_MIN_LENGTH = 4;
     private static final int USERNAME_MAX_LENGTH = 20;
-
+    private static final int PASSWORD_MIN_LENGTH = 8;
+    private static final int PASSWORD_MAX_LENGTH = 20;
 
     public void lastname(TextField lastname, Label lastnameErrorLabel) {
         lastnameErrorLabel.setText("");
@@ -144,5 +145,21 @@ public class Validator {
             usernameErrorLabel.setText("csak betűket és számokat tartalmazhat");
         else if (username.getText().length() < USERNAME_MIN_LENGTH || username.getText().length() > USERNAME_MAX_LENGTH)
             usernameErrorLabel.setText(String.format("adjon meg %d-%d karaktert", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH));
+    }
+
+    public void password(TextField password, Label passwordErrorLabel) {
+        passwordErrorLabel.setText("");
+        if (password.getText() == null || password.getText().isEmpty() || password.getText().isBlank())
+            passwordErrorLabel.setText("a jelszó mező nem lehet üres");
+        else if (password.getText().length() < PASSWORD_MIN_LENGTH || password.getText().length() > PASSWORD_MAX_LENGTH)
+            passwordErrorLabel.setText(String.format("adjon meg %d-%d karaktert", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH));
+        else if (!password.getText().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$"))
+            passwordErrorLabel.setText("a jelszónak kisbetűt, nagybetűt és számot is kell tartalmaznia");
+    }
+
+    public void passwordsMatch(TextField password, TextField passwordRepeat, Label passwordErrorLabel) {
+        passwordErrorLabel.setText("");
+        if (!password.getText().equals(passwordRepeat.getText()))
+            passwordErrorLabel.setText("a jelszavak nem egyeznek");
     }
 }

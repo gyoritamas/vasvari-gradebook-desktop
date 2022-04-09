@@ -12,11 +12,5 @@ import javax.validation.constraints.Size;
 @Setter
 public class PasswordChangeRequest {
     private String oldPassword;
-
-    @Size(min = 8, max = 20, message = "a méretnek 8 és 20 közötti értéknek kell lennie")
-    @Pattern(regexp = "^(?=.*[0-9])"
-            + "(?=.*[a-z])(?=.*[A-Z])"
-            + "(?=\\S+$).{8,20}$",
-            message = "a jelszónak legalább egy számot, egy kis- és egy nagybetűt kell tartalmaznia")
     private String newPassword;
 }
