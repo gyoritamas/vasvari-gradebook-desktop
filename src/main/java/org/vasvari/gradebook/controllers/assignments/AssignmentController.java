@@ -1,5 +1,6 @@
 package org.vasvari.gradebook.controllers.assignments;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
@@ -70,7 +71,7 @@ public class AssignmentController implements Initializable {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType().getLocalizedName()));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
     }

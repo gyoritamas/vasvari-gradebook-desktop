@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/16"
+<GridPane prefHeight="662.0" prefWidth="232.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18"
           xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="org.vasvari.gradebook.controllers.teachers.TeacherEditController"
           fx:id="teacherEditPane">

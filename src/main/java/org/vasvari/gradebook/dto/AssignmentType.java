@@ -1,5 +1,7 @@
 package org.vasvari.gradebook.dto;
 
+import java.util.Arrays;
+
 public enum AssignmentType {
     TEST("dolgozat"),
     HOMEWORK("házi feladat"),
@@ -16,8 +18,10 @@ public enum AssignmentType {
         return localizedName;
     }
 
-    @Override
-    public String toString() {
-        return localizedName;
+    public static AssignmentType getAssignmentTypeByLocalizedName(String localizedName) {
+        return Arrays.stream(AssignmentType.values())
+                .filter(t -> t.getLocalizedName().equals(localizedName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Could not find AssignmentType with localizedName " + localizedName));
     }
 }

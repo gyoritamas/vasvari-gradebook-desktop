@@ -54,13 +54,12 @@ public class AssignmentSearchController implements Initializable {
     }
 
     private void initializeTypeFilter() {
-        List<String> listOfOptions = new ArrayList<>();
-        listOfOptions.add(ASSIGNMENT_TYPE_DEFAULT_VALUE);
-        listOfOptions.addAll(Arrays.stream(AssignmentType.values())
+        typeFilter.getItems().add(ASSIGNMENT_TYPE_DEFAULT_VALUE);
+        List<String> assignmentTypes = Arrays.stream(AssignmentType.values())
                 .map(AssignmentType::getLocalizedName)
-                .collect(Collectors.toList()));
-        ObservableList<String> typeOptions = FXCollections.observableArrayList(listOfOptions);
-        typeFilter.getItems().addAll(typeOptions);
+                .collect(Collectors.toList());
+
+        typeFilter.getItems().addAll(assignmentTypes);
         typeFilter.setValue(ASSIGNMENT_TYPE_DEFAULT_VALUE);
     }
 
@@ -79,7 +78,7 @@ public class AssignmentSearchController implements Initializable {
     public AssignmentRequest getFilters() {
         String title = assignmentTitle.getText();
         AssignmentType type = typeFilter.getValue().equals(ASSIGNMENT_TYPE_DEFAULT_VALUE) ?
-                null : AssignmentType.valueOf(typeFilter.getValue());
+                null : AssignmentType.getAssignmentTypeByLocalizedName(typeFilter.getValue());
         Long subjectId = subjectFilter == null ?
                 null : subjectFilter.getValue().getId();
 
