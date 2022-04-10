@@ -50,13 +50,13 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="800.0" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0"
-            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.vasvari.gradebook.controllers.MainController">
     <children>
         <VBox minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <SplitPane dividerPositions="0.2" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0"
+                <SplitPane dividerPositions="0.2" focusTraversable="true"
                            VBox.vgrow="ALWAYS">
                     <items>
                         <AnchorPane maxWidth="170.0" minWidth="170.0" prefHeight="561.0" prefWidth="170.0">
@@ -184,7 +184,7 @@
                 </SplitPane>
                 <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0"
+                        <Label maxHeight="1.7976931348623157E308"
                                HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="11.0" fx:id="x3"/>
@@ -193,8 +193,8 @@
                                 <Color red="0.625" green="0.625" blue="0.625" fx:id="x4"/>
                             </textFill>
                         </Label>
-                        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS"/>
-                        <Label font="$x3" maxWidth="-1.0" textFill="$x4" HBox.hgrow="NEVER"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Label font="$x3" textFill="$x4" HBox.hgrow="NEVER"/>
                     </children>
                     <padding>
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>

@@ -7,7 +7,7 @@
 
 <BorderPane fx:id="entries" prefHeight="768.0" prefWidth="1107.0" visible="false" AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.vasvari.gradebook.controllers.entries.EntryController">
     <top>
         <Label prefHeight="106.0" prefWidth="1131.0" text="Naplóbejegyzések" BorderPane.alignment="TOP_LEFT">
