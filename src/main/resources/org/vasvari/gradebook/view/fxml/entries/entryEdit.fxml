@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="entryEditPane" prefHeight="662.0" prefWidth="232.0" stylesheets="@../../css/label-style.css"
+          BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.vasvari.gradebook.controllers.entries.EntryEditController">
+    <columnConstraints>
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="130.0"/>
+        <ColumnConstraints halignment="LEFT" maxWidth="250.0" prefWidth="250.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0"/>
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="20.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="20.0"/>
+        <RowConstraints prefHeight="50.0"/>
+        <RowConstraints prefHeight="50.0"/>
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER" prefHeight="37.0" prefWidth="440.0" text="Naplóbejegyzés módosítása"
+               GridPane.columnSpan="2147483647">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <!--    subject     -->
+        <Label prefHeight="17.0" prefWidth="100.0" text="tantárgy" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label fx:id="entrySubject"
+               GridPane.columnIndex="1" GridPane.rowIndex="2"
+               prefHeight="25.0" prefWidth="250.0"
+               styleClass="label-as-text-field" >
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+            <padding>
+                <Insets left="7.0"/>
+            </padding>
+        </Label>
+
+        <!--    assignment    -->
+        <Label text="feladat" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <ComboBox fx:id="entryAssignment" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1"
+                  GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </ComboBox>
+
+        <!--    student     -->
+        <Label prefHeight="17.0" prefWidth="100.0" text="tanuló" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <ComboBox fx:id="entryStudent" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1"
+                  GridPane.halignment="LEFT" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </ComboBox>
+
+        <!--    grade   -->
+        <Label text="osztályzat" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <ComboBox fx:id="grade" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </ComboBox>
+        <Label fx:id="errorLabel" textFill="#b20b0b" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+
+        <Button fx:id="updateButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Módosítás"
+                GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10"
+                GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0"
+                text="Bejegyzés törlése" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11"
+                GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </Button>
+
+
+    </children>
+    <BorderPane.margin>
+        <Insets left="20.0" right="20.0"/>
+    </BorderPane.margin>
+</GridPane>

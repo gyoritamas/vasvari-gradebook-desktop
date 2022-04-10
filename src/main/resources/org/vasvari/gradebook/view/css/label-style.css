@@ -1,0 +1,6 @@
+.label-as-text-field {
+    -fx-background-color: white;
+    -fx-border-insets: 0, 0 1 1 0;
+    -fx-border-color: lightgrey;
+    -fx-border-radius: 2;
+}
