@@ -116,7 +116,7 @@ public class Validator {
             titleErrorLabel.setText(String.format("adjon meg %d-%d karaktert", ASSIGNMENT_TITLE_MIN_LENGTH, ASSIGNMENT_TITLE_MAX_LENGTH));
     }
 
-    public void assignmentType(ComboBox<AssignmentType> assignmentType, Label assignmentTypeErrorLabel) {
+    public void assignmentType(ComboBox<String> assignmentType, Label assignmentTypeErrorLabel) {
         assignmentTypeErrorLabel.setText("");
         if (assignmentType.selectionModelProperty().getValue().getSelectedItem() == null)
             assignmentTypeErrorLabel.setText("nincs típus kiválasztva");

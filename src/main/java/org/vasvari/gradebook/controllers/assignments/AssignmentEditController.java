@@ -17,6 +17,7 @@ import org.vasvari.gradebook.service.SubjectService;
 import org.vasvari.gradebook.util.Validator;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -41,7 +42,7 @@ public class AssignmentEditController implements Initializable {
     @FXML
     public ComboBox<SimpleData> assignmentSubject;
     @FXML
-    public ComboBox<AssignmentType> assignmentType;
+    public ComboBox<String> assignmentType;
     @FXML
     public TextArea description;
     @FXML
@@ -72,7 +73,11 @@ public class AssignmentEditController implements Initializable {
     }
 
     private void initializeAssignmentTypeComboBox() {
-        assignmentType.getItems().addAll(AssignmentType.values());
+        List<String> assignmentTypes = Arrays.stream(AssignmentType.values())
+                .map(AssignmentType::getLocalizedName)
+                .collect(Collectors.toList());
+
+        assignmentType.getItems().addAll(assignmentTypes);
     }
 
     private void addEventListenerToFields() {
@@ -97,7 +102,7 @@ public class AssignmentEditController implements Initializable {
 
         AssignmentInput assignment = AssignmentInput.builder()
                 .name(assignmentTitle.getText())
-                .type(assignmentType.getValue())
+                .type(AssignmentType.getAssignmentTypeByLocalizedName(assignmentType.getValue()))
                 .subjectId(assignmentSubject.getValue().getId())
                 .description(description.getText())
                 .deadline(deadline.getValue())
@@ -120,7 +125,7 @@ public class AssignmentEditController implements Initializable {
         assignmentEditPane.setDisable(false);
         selectedId = assignment.getId();
         assignmentTitle.setText(assignment.getName());
-        assignmentType.setValue(assignment.getType());
+        assignmentType.setValue(assignment.getType().getLocalizedName());
         assignmentSubject.setValue(assignment.getSubject());
         description.setText(assignment.getDescription());
         deadline.setValue(assignment.getDeadline());
