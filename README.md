@@ -5,13 +5,18 @@ Az alkalmazás a Gradebook API-val együtt biztosítja, hogy a felhasználó egy
 hozzáférjen az elektronikus napló tartalmához.
 
 ## Az alkalmazás indítása
-A gradebook-desktop projekt gyökérkönyvtárából adjuk ki az
+
+A gradebook-desktop projekt gyökérkönyvtárából adjuk ki az 
+```
+mvn install
+```
+majd az
 ```
 mvn exec:java -D exec.mainClass=org.vasvari.gradebook.App
 ```
-vagy futtassuk a *gradebook-desktop.bat* állományt.
+parancsot. Az első futtatást követően elegendő az utóbbi parancsot használni vagy a *gradebook-desktop.bat* állományt futtatni.
 
-A futtatáshoz maven szükséges, a telepítés lépései [itt](https://maven.apache.org/install.html) találhatók.
+A parancs használatához Apache Maven szükséges, a telepítés lépései [itt](https://maven.apache.org/install.html) találhatók.
 
 ## Az alkalmazás használata
 
