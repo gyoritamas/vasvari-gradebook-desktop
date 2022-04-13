@@ -5,7 +5,8 @@ Az alkalmazás a Gradebook API-val együtt biztosítja, hogy a felhasználó egy
 hozzáférjen az elektronikus napló tartalmához.
 
 ## Az alkalmazás indítása
-A gradebook-desktop projekt gyökérkönyvtárából adjuk ki az
+
+A gradebook-desktop projekt gyökérkönyvtárából adjuk ki az 
 ```
 mvn clean install -DskipTests
 ```
