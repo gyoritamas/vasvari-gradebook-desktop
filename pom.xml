@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.vasvari</groupId>
-    <artifactId>gradebook</artifactId>
+    <artifactId>gradebook-desktop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gradebook</name>
+    <name>gradebook-desktop</name>
     <description>Digital gradebook manager application</description>
     <properties>
         <java.version>11</java.version>
