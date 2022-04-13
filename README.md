@@ -8,15 +8,15 @@ hozzáférjen az elektronikus napló tartalmához.
 
 A gradebook-desktop projekt gyökérkönyvtárából adjuk ki az 
 ```
-mvn install
+mvn clean install -DskipTests
 ```
-majd az
+majd a
 ```
-mvn exec:java -D exec.mainClass=org.vasvari.gradebook.App
+java -jar target/gradebook-desktop-0.0.1-SNAPSHOT.jar
 ```
-parancsot. Az első futtatást követően elegendő az utóbbi parancsot használni vagy a *gradebook-desktop.bat* állományt futtatni.
+parancsot.
 
-A parancs használatához Apache Maven szükséges, a telepítés lépései [itt](https://maven.apache.org/install.html) találhatók.
+(A parancs használatához Apache Maven szükséges, a telepítés lépései [itt](https://maven.apache.org/install.html) találhatók.)
 
 ## Az alkalmazás használata
 
