@@ -76,7 +76,7 @@ public class EntryEditController implements Initializable {
         // search assignments with selected subject
         AssignmentRequest assignmentRequest = new AssignmentRequest();
         assignmentRequest.setSubjectId(selectedSubjectId);
-        List<AssignmentOutput> assignmentsOfSubject = assignmentService.findAssignmentsForUser(assignmentRequest).stream()
+        List<AssignmentOutput> assignmentsOfSubject = assignmentService.findAssignmentsForUserIncludeExpired(assignmentRequest).stream()
                 .sorted(Comparator.comparing(AssignmentOutput::getName))
                 .collect(Collectors.toList());
 
