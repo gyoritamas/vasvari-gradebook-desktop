@@ -2,7 +2,6 @@ package org.vasvari.gradebook.util;
 
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
-import org.vasvari.gradebook.dto.AssignmentType;
 import org.vasvari.gradebook.dto.dataTypes.SimpleData;
 import org.vasvari.gradebook.dto.dataTypes.SimpleTeacher;
 
